@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.*;
 
 public class CommunicationSystem {
@@ -9,15 +10,24 @@ public class CommunicationSystem {
 
 
     // IOException because of the DatagramSocket.receive
-    public CommunicationSystem() throws IOException {
+    public CommunicationSystem() {
     	
     	// Launch UDP server listening on specific port
-    	new UDPServerThread(UDP_PORT);
+    	new UDPServerThread(this, UDP_PORT);
     	
     }
     
-    //public message receiveMessage() {
-    //}
+    //TODO: implement this
+    public Message parseMessage(String raw_message) {
+        String[] fields = raw_message.split("/");
+        //int src_id = Integer.parseInt(Array.get(fields, 0));
+        return null;
+    }
+    
+    public void receiveMessage(String raw_message) {
+    	Message m = parseMessage(raw_message);
+    	
+    }
 
 
     //public void sendInsertMessage(message m) {

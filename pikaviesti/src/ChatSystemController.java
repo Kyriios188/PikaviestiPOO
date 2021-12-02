@@ -27,7 +27,7 @@ public class ChatSystemController {
     public boolean checkNameUnique(String name) {
     	
     	this.com_sys = new CommunicationSystem();
-    	this.com_sys.broadcastWhatsYourName();
+    	//this.com_sys.broadcastWhatsYourName();
     	
     	setLocalUser(name);
     	return true;

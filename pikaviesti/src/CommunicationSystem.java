@@ -1,20 +1,21 @@
-
-
+import java.io.IOException;
+import java.net.*;
 
 public class CommunicationSystem {
 
     public String src_address;
+    
+    private int UDP_PORT = 7071;
 
 
-    //public ProtocoleUDP uses;
-
-
-    //public ProtocoleTCP uses;
-
-
-    public ChatSystemController sends;
-
-
+    // IOException because of the DatagramSocket.receive
+    public CommunicationSystem() throws IOException {
+    	
+    	// Launch UDP server listening on specific port
+    	new UDPServerThread(UDP_PORT);
+    	
+    }
+    
     //public message receiveMessage() {
     //}
 
@@ -24,6 +25,7 @@ public class CommunicationSystem {
 
 
     public void broadcastWhatsYourName(String name) {
+    	
     }
 
 

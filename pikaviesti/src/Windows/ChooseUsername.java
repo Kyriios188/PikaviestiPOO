@@ -2,6 +2,7 @@ package Windows;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
@@ -33,12 +34,12 @@ public class ChooseUsername extends JDialog {
 
     private void onOK() {
         System.out.println("Username : " + textField1.getText());
-        System.out.println("Password : " + passwordField1.getPassword());
+        System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        System.out.println("Dead");
         dispose();
     }
 

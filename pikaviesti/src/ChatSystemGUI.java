@@ -75,14 +75,14 @@ public class ChatSystemGUI {
         usernamePanel.add(testUsername);
     }
 
-    public void actionPerformed(ActionEvent event) {
+    private void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
 
         System.out.println("Envoie du nom " + usernameAttempt);
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path,
+    private static ImageIcon createImageIcon(String path,
                                                String description) {
         java.net.URL imgURL = ChatSystemGUI.class.getResource(path);
         if (imgURL != null) {

@@ -1,27 +1,34 @@
-
-
+package src;
 
 
 public class User {
 
-    public String name;
+    private String name;
 
 
-    public user_id id;
+    private int id;
 
 
-    public Chat System Model ;
-
-
-    public user_id getId() {
+    public int getId() {
+    	return this.id;
+    }
+    
+    public void setId(int new_id) {
+    	this.id = new_id;
     }
 
 
     public String getName() {
+    	return this.name;
     }
-
-
-    public void changeName(String name) {
+    
+    public void setName(String new_name) {
+    	this.name = new_name;
+    }
+    
+    public User(String name, int id) {
+    	this.name = name;
+    	this.id = id;
     }
 
 }

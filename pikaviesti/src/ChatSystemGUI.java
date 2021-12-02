@@ -5,15 +5,12 @@ import java.time.*;
 
 public class ChatSystemGUI {
 
-    
     ChatSystemController cs_controller;
 
     //private GUI user_gui_window;
     private String local_message;
 
     public ChatSystemGUI() {
-
-        new ChooseUsername();
 
         // Launches the controller
         this.cs_controller = new ChatSystemController(this);
@@ -29,7 +26,7 @@ public class ChatSystemGUI {
     }
 
     public static void ChooseUsername() {
-        new ChooseUsername();
+        ChooseUsername ChUsrNm = new ChooseUsername();
     }
 
     private void startSession(String name) {

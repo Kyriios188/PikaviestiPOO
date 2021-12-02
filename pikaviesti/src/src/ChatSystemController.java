@@ -1,15 +1,14 @@
+package src;
+
 
 
 
 public class ChatSystemController {
 
-    //public user local_user;
+    public User local_user;
 
 
-    //public user_id local_id;
-
-
-    //public ChatSystemGUI creates and updates;
+    public ChatSystemGUI gui;
 
 
     //public CommunicationSystem receives;

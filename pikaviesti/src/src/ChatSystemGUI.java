@@ -1,3 +1,5 @@
+package src;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -82,7 +84,7 @@ public class ChatSystemGUI {
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createImageIcon(String path,
                                                String description) {
-        java.net.URL imgURL = ChooseUsername.class.getResource(path);
+        java.net.URL imgURL = ChatSystemGUI.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL, description);
         } else {

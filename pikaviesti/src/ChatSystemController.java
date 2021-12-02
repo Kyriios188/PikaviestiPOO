@@ -16,13 +16,16 @@ public class ChatSystemController {
 
     private ChatSystemModel cs_model;
 
-
+    public ChatSystemController(ChatSystemGUI gui) {
+    	this.gui = gui;
+    }
 
     //public chat_history getChatHistory(user target_user) {
     //}
 
 
     //public boolean checkNameUnique(String name) {
+    	
     //}
 
 
@@ -49,6 +52,7 @@ public class ChatSystemController {
     //public void receiveNotification(user user) {
     //}
     
+    // Gives the local user a unique id (unless we're really unlucky)
     public void setLocalUser(String local_name) {
     	int id = new Random().nextInt(1000);
     	System.out.println(local_name + " : " + id);

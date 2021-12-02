@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.*;
+import java.time.LocalTime;
 
 public class CommunicationSystem {
 
@@ -17,11 +18,22 @@ public class CommunicationSystem {
     	
     }
     
-    //TODO: implement this
+    // Takes a String of format "src_user/dest_user/time/code/content"
+    // Returns the Message object associated with it
     public Message parseMessage(String raw_message) {
         String[] fields = raw_message.split("/");
-        //int src_id = Integer.parseInt(Array.get(fields, 0));
-        return null;
+        int src_id = Integer.parseInt(fields[0]);
+        int dest_id = Integer.parseInt(fields[1]);
+        LocalTime t = LocalTime.parse(fields[2]);
+        int m_code = Integer.parseInt(fields[3]);
+        String content = fields[4];
+        return new Message(src_id, dest_id, t, content, m_code);
+    }
+    
+    // Converts Message to String with format "src_user/dest_user/time/content"
+    // So it can be sent via UDP or TCP
+    public String createRawMessage(Message m) {
+    	return m.getSrcId() + "/" + m.getDestId() + "/" + m.getTimeStamp() + "/" + m.getContent();
     }
     
     public void receiveMessage(String raw_message) {

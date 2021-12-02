@@ -24,9 +24,10 @@ public class ChatSystemController {
     //}
 
 
-    //public boolean checkNameUnique(String name) {
-    	
-    //}
+    public boolean checkNameUnique(String name) {
+    	setLocalUser(name);
+    	return true;
+    }
 
 
     //public void notifyNameChange(user new_user) {

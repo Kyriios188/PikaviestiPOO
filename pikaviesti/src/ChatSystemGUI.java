@@ -12,6 +12,8 @@ public class ChatSystemGUI implements ActionListener {
     JTextField usernameAttempt;
     JLabel nameLabel;
     JButton testUsername;
+    
+    ChatSystemController cs_controller;
 
     //private GUI user_gui_window;
     private String local_message;
@@ -27,6 +29,10 @@ public class ChatSystemGUI implements ActionListener {
 
 
     public ChatSystemGUI() {
+    	
+    	// Launches the controller
+    	this.cs_controller = new ChatSystemController(this);
+    	
         //Create and set up the window.
         usernameFrame = new JFrame("Choose your username");
         usernameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,8 +83,12 @@ public class ChatSystemGUI implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
-
-        System.out.println("Username : " + usernameAttempt.getText());
+        
+        String name_attempt = usernameAttempt.getText();
+        System.out.println("Username : " + name_attempt + "\n");
+        this.cs_controller.checkNameUnique(name_attempt);
+        
+        
     }
 
     /**

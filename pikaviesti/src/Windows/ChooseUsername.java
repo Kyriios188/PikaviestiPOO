@@ -12,6 +12,9 @@ public class ChooseUsername extends JDialog {
     private JPasswordField passwordField1;
 
     public ChooseUsername() {
+        this.pack();
+        this.setVisible(true);
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -43,10 +46,7 @@ public class ChooseUsername extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        ChooseUsername dialog = new ChooseUsername();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
+    //public static void main(String[] args) {
+
+    //}
 }

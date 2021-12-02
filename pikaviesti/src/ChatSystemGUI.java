@@ -25,7 +25,7 @@ public class ChatSystemGUI {
     return "";
     }
 
-    public static void ChooseUsername() {
+    public void openUsernameWindow() {
         ChooseUsername ChUsrNm = new ChooseUsername();
     }
 

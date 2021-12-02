@@ -5,14 +5,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.time.*;
 
-public class ChatSystemGUI {
+public class ChatSystemGUI implements ActionListener {
 
     JFrame usernameFrame;
     JPanel usernamePanel;
     JTextField usernameAttempt;
     JLabel nameLabel;
     JButton testUsername;
-    String name;
 
     //private GUI user_gui_window;
     private String local_message;
@@ -27,7 +26,7 @@ public class ChatSystemGUI {
     }
 
 
-    private boolean chooseUsername() {
+    public ChatSystemGUI() {
         //Create and set up the window.
         usernameFrame = new JFrame("Choose your username");
         usernameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +48,6 @@ public class ChatSystemGUI {
         usernameFrame.pack();
         usernameFrame.setVisible(true);
 
-        return true;
     }
 
     /**
@@ -70,7 +68,6 @@ public class ChatSystemGUI {
         testUsername.addActionListener((ActionListener) this);
         usernameAttempt.addActionListener((ActionListener) this);
 
-        name = usernameAttempt.getText();
 
         //Add the widgets to the container.
         usernamePanel.add(usernameAttempt);
@@ -78,10 +75,10 @@ public class ChatSystemGUI {
         usernamePanel.add(testUsername);
     }
 
-    private void actionPerformed(ActionEvent event) {
+    public void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
 
-        System.out.println("Username : " + name);
+        System.out.println("Username : " + usernameAttempt.getText());
     }
 
     /**
@@ -89,11 +86,11 @@ public class ChatSystemGUI {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI() {
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
 
-        new ChooseUsername();
+        new ChatSystemGUI();
     }
 
 

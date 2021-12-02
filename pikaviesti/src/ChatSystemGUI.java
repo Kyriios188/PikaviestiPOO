@@ -1,6 +1,6 @@
 
 
-import windows.ChooseUsername;
+import windows.InputLogin;
 import java.time.*;
 
 public class ChatSystemGUI {
@@ -25,8 +25,8 @@ public class ChatSystemGUI {
     return "";
     }
 
-    public void openUsernameWindow() {
-        ChooseUsername ChUsrNm = new ChooseUsername();
+    public void openLoginWindow() {
+        InputLogin ChUsrNm = new InputLogin();
     }
 
     private void startSession(String name) {

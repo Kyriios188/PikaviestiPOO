@@ -5,9 +5,13 @@ import java.time.*;
 
 public class ChatSystemGUI {
 
-    private GUI user_gui_window;
+    JFrame usernameFrame;
+    JPanel usernamePanel;
+    JTextField usernameAttempt;
+    JLabel nameLabel;
+    JButton testUsername;
 
-
+    //private GUI user_gui_window;
     private String local_message;
 
 
@@ -16,10 +20,31 @@ public class ChatSystemGUI {
 
 
     private String getUserMessage() {
+    return "";
     }
 
 
-    private boolean chooseUserName(String name) {
+    private chooseUsername() {
+        //Create and set up the window.
+        usernameFrame = new JFrame("Choix du nom d'utilisateur");
+        usernameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        usernameFrame.setPreferredSize(new Dimension(600, 400));
+
+        //Create and set up the panel.
+        usernamePanel = new JPanel(new GridLayout(1, 1));
+
+        //Add the widgets.
+        addWidgets();
+
+        //Set the default button.
+        usernameFrame.getRootPane().setDefaultButton(testUsername);
+
+        //Add the panel to the window.
+        usernameFrame.getContentPane().add(usernamePanel, BorderLayout.EAST);
+
+        //Display the window.
+        usernameFrame.pack();
+        usernameFrame.setVisible(true);
     }
 
 

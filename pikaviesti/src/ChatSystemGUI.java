@@ -1,5 +1,7 @@
 
 
+import Windows.ChooseUsername;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -89,6 +91,10 @@ public class ChatSystemGUI implements ActionListener {
         this.cs_controller.checkNameUnique(name_attempt);
         
         
+    }
+
+    public static void ChooseUsername() {
+        new ChooseUsername();
     }
 
     /**

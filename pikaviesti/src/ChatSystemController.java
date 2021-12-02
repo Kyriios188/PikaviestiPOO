@@ -5,22 +5,17 @@
 
 public class ChatSystemController {
 
-    public User local_user;
+    private User local_user;
 
 
-    public ChatSystemGUI gui;
+    private ChatSystemGUI gui;
 
 
-    //public CommunicationSystem receives;
+    private CommunicationSystem com_sys;
 
 
-    //public ChatSystemModel creates and uses;
+    private ChatSystemModel cs_model;
 
-
-    //public Clock uses;
-
-
-    //public Database updates and queries;
 
 
     //public chat_history getChatHistory(user target_user) {
@@ -53,6 +48,10 @@ public class ChatSystemController {
 
     //public void receiveNotification(user user) {
     //}
+    
+    public void setLocalUser(String local_name, int local_id) {
+    	this.local_user = new User(local_name, local_id);
+    }
 
 
     public void showUserList() {

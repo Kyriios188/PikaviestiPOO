@@ -124,5 +124,5 @@ public class ChatSystemGUI implements ActionListener {
 
     private void showUserList(String name_array) {
     }
-    
+
 }

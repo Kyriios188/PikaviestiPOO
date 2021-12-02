@@ -12,6 +12,7 @@ public class ChatSystemGUI {
     JTextField usernameAttempt;
     JLabel nameLabel;
     JButton testUsername;
+    String name;
 
     //private GUI user_gui_window;
     private String local_message;
@@ -28,7 +29,7 @@ public class ChatSystemGUI {
 
     private boolean chooseUsername() {
         //Create and set up the window.
-        usernameFrame = new JFrame("Choix du nom d'utilisateur");
+        usernameFrame = new JFrame("Choose your username");
         usernameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         usernameFrame.setPreferredSize(new Dimension(600, 400));
 
@@ -58,8 +59,8 @@ public class ChatSystemGUI {
 
         usernameAttempt = new JTextField("");
 
-        nameLabel = new JLabel("Nom d'utilisateur", SwingConstants.LEFT);
-        testUsername = new JButton("Choisir ce pseudo");
+        nameLabel = new JLabel("Username", SwingConstants.LEFT);
+        testUsername = new JButton("Choose this username");
 
 
         nameLabel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
@@ -68,6 +69,8 @@ public class ChatSystemGUI {
         //the usernameAttempt text field.
         testUsername.addActionListener((ActionListener) this);
         usernameAttempt.addActionListener((ActionListener) this);
+
+        name = usernameAttempt.getText();
 
         //Add the widgets to the container.
         usernamePanel.add(usernameAttempt);
@@ -78,19 +81,7 @@ public class ChatSystemGUI {
     private void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
 
-        System.out.println("Envoie du nom " + usernameAttempt);
-    }
-
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    private static ImageIcon createImageIcon(String path,
-                                               String description) {
-        java.net.URL imgURL = ChatSystemGUI.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
+        System.out.println("Username : " + name);
     }
 
     /**

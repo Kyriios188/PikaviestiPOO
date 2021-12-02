@@ -2,19 +2,14 @@ package windows;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Arrays;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField textField1;
-    private JPasswordField passwordField1;
 
     public ChooseUsername() {
-        this.pack();
-        this.setVisible(true);
-
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -37,7 +32,6 @@ public class ChooseUsername extends JDialog {
 
     private void onOK() {
         System.out.println("Username : " + textField1.getText());
-        System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
         dispose();
     }
 
@@ -46,7 +40,10 @@ public class ChooseUsername extends JDialog {
         dispose();
     }
 
-    //public static void main(String[] args) {
-
-    //}
+    public static void main(String[] args) {
+        ChooseUsername dialog = new ChooseUsername();
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
+    }
 }

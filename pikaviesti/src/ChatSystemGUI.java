@@ -1,54 +1,57 @@
-
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.time.*;
 
 public class ChatSystemGUI {
 
-    public GUI user_gui_window;
+    private GUI user_gui_window;
 
 
-    public String local_message;
+    private String local_message;
 
 
-    public void showChatHistory(String target_name) {
+    private void showChatHistory(String target_name) {
     }
 
 
-    public String getUserMessage() {
+    private String getUserMessage() {
     }
 
 
-    public boolean chooseUserName(String name) {
+    private boolean chooseUserName(String name) {
     }
 
 
-    public void startSession(String name) {
+    private void startSession(String name) {
     }
 
 
-    public void endSession(String name) {
+    private void endSession(String name) {
     }
 
 
-    public void changeDistantUsername(String old_name, String new_name) {
+    private void changeDistantUsername(String old_name, String new_name) {
     }
 
 
-    public void updateGUImessageReceived(String message_content, String sender_name, datetime time) {
+    private void updateGUImessageReceived(String message_content, String sender_name, LocalTime time) {
     }
 
 
-    public void updateGUImessageSent(String message_content, String dest_user, datetime time) {
+    private void updateGUImessageSent(String message_content, String dest_user, LocalTime time) {
     }
 
 
-    public void showFailureToast() {
+    private void showFailureToast() {
     }
 
 
-    public void showSuccessToast() {
+    private void showSuccessToast() {
     }
 
 
-    public void showUserList(String name_array) {
+    private void showUserList(String name_array) {
     }
 
 }

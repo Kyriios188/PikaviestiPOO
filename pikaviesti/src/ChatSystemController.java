@@ -1,5 +1,5 @@
-
-
+// attributes random id to user
+import java.util.Random; //TODO: remove once login is implemented
 
 
 
@@ -49,8 +49,10 @@ public class ChatSystemController {
     //public void receiveNotification(user user) {
     //}
     
-    public void setLocalUser(String local_name, int local_id) {
-    	this.local_user = new User(local_name, local_id);
+    public void setLocalUser(String local_name) {
+    	int id = new Random().nextInt(1000);
+    	System.out.println(local_name + " : " + id);
+    	this.local_user = new User(local_name, id);
     }
 
 

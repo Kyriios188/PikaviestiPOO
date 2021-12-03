@@ -17,11 +17,16 @@ public class CommunicationSystem {
     
     
     private ChatSystemController controller;
+    
+    private int local_id;
+    private String local_name;
 
 
     public CommunicationSystem(ChatSystemController controller) {
     	
     	this.controller = controller;
+    	this.local_id = this.controller.getLocalUser().getId();
+    	this.local_name = this.controller.getLocalUser().getName();
     	// Launch UDP server listening on specific port
     	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
     	this.udp_rcv_server.start();
@@ -45,7 +50,7 @@ public class CommunicationSystem {
     	return m.getSrcId() + "/" + m.getDestId() + "/" + m.getTimeStamp() + "/" + m.getContent();
     }
     
-    public void receiveMessage(String raw_message) {
+    public void receiveMessage(String raw_message, InetAddress src_addr, int src_id) {
     	Message m = parseMessage(raw_message);
     	//TODO: finish this
     	
@@ -56,11 +61,12 @@ public class CommunicationSystem {
     	
     	case 1:
     		// We received "whatsYourName?"
-    		// Need to answer
-    		//UDPMessage()
+    		Message answer = new Message(this.local_name, this.local_id, m.getSrcId(), 2);
+    		UDPMessage(createRawMessage(answer), src_addr);
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
+    		
     	
     	case 3:
     		// We received notification that distant user changed their name
@@ -89,6 +95,7 @@ public class CommunicationSystem {
      */
     
     // For broadcast, dest_addr = InetAddress.getByName("255.255.255.255")
+    // TODO: simply it, enter string instead
     public void UDPMessage(String raw_message, InetAddress dest_addr) {
 
     	try {

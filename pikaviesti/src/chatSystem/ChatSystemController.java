@@ -21,6 +21,7 @@ public class ChatSystemController {
 
     public ChatSystemController(ChatSystemGUI gui) {
     	this.gui = gui;
+    	this.cs_model = new ChatSystemModel();
     }
 
     //public chat_history getChatHistory(user target_user) {
@@ -57,9 +58,19 @@ public class ChatSystemController {
     //public user findUser(String name) {
     //}
 
-
-    //public void receiveNotification(user user) {
-    //}
+    // Updates the CSModel
+    public void updateCSModel(User user) {
+    	if (this.cs_model.checkUserExistence(user)) {
+    		// Update his name
+    	}
+    	else {
+    		this.cs_model.addUser(user);
+    	}
+    }
+    
+    public User getLocalUser() {
+    	return this.local_user;
+    }
     
     // Gives the local user a unique id (unless we're really unlucky)
     public void setLocalUser(String local_name) {

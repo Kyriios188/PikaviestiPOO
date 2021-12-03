@@ -6,6 +6,11 @@ public class CommunicationSystem {
     
     private int UDP_RCV_PORT = 7071;
     private int UDP_SND_PORT = 7070;
+    
+    // We keep the object around to be able to close it cleanly
+    UDPServerThread udp_rcv_server;
+    
+    
     private ChatSystemController controller;
 
 
@@ -13,7 +18,8 @@ public class CommunicationSystem {
     	
     	this.controller = controller;
     	// Launch UDP server listening on specific port
-    	new UDPServerThread(this, UDP_RCV_PORT);
+    	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
+    	this.udp_rcv_server.start();
     }
     
     // Takes a String of format "src_user/dest_user/time/code/content"
@@ -54,18 +60,35 @@ public class CommunicationSystem {
     	}
     	
     }
-
+    //TODO: Closing window has to call this method (and the TCP equivalent)
+    public void closePorts() {
+    	this.udp_rcv_server.stop_server();
+    	//TODO: Add TCP to that
+    	//TODO: Verify they are open before closing them
+    }
 
     //public void sendInsertMessage(message m) {
     //}
 
 
-    public void UDPBroadcast(String raw_message) {
+    /*
+     *  Broadcast use cases:
+     *  _local host changes their name
+     *  _local host asks names of connected hosts
+     *  
+     *  Non-broadcast use cases:
+     *  _answer to "whatsYourName?"
+     *  _send to the Database ?
+     */
+    
+    // For broadcast, dest_addr = InetAddress.getByName("255.255.255.255")
+    public void UDPMessage(String raw_message, InetAddress dest_addr) {
+
     	try {
 			
 			DatagramSocket dgramSocket = new DatagramSocket(UDP_SND_PORT);
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
-	    			InetAddress.getByName("255.255.255.255"), UDP_RCV_PORT);
+	    			dest_addr, UDP_RCV_PORT);
 	    	dgramSocket.send(outPacket);
 	    	dgramSocket.close();
 			
@@ -75,6 +98,7 @@ public class CommunicationSystem {
 			e.printStackTrace();
 		}
     }
+
 
 
     //public void sendQueryChatHistory(user_id u1, user_id u2) {

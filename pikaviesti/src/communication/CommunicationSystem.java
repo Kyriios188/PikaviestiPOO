@@ -11,7 +11,7 @@ public class CommunicationSystem {
     
     private int UDP_RCV_PORT = 7071;
     private int UDP_SND_PORT = 7070;
-    private String delimiter = "‡";
+    public static String delimiter = "‡";
     
     // We keep the object around to be able to close it cleanly
     UDPServerThread udp_rcv_server;

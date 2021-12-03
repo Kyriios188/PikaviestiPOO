@@ -1,21 +1,19 @@
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.time.LocalTime;
 
 public class CommunicationSystem {
-
-    public String src_address;
     
-    private int UDP_PORT = 7071;
+    private int UDP_RCV_PORT = 7071;
+    private int UDP_SND_PORT = 7070;
+    private ChatSystemController controller;
 
 
-    // IOException because of the DatagramSocket.receive
-    public CommunicationSystem() {
+    public CommunicationSystem(ChatSystemController controller) {
     	
+    	this.controller = controller;
     	// Launch UDP server listening on specific port
-    	new UDPServerThread(this, UDP_PORT);
-    	
+    	new UDPServerThread(this, UDP_RCV_PORT);
     }
     
     // Takes a String of format "src_user/dest_user/time/code/content"
@@ -38,6 +36,22 @@ public class CommunicationSystem {
     
     public void receiveMessage(String raw_message) {
     	Message m = parseMessage(raw_message);
+    	//TODO: finish this
+    	
+    	switch (m.getMessageCode()) {
+    	
+    	case 0:
+    		// We received a chat message
+    	
+    	case 1:
+    		// We received "whatsYourName?"
+    	
+    	case 2:
+    		// We received an answer to the question "whatsYourName?"
+    	
+    	case 3:
+    		// We received notification that distant user changed their name
+    	}
     	
     }
 
@@ -46,20 +60,24 @@ public class CommunicationSystem {
     //}
 
 
-    public void broadcastWhatsYourName(String name) {
-    	
-    }
-
-
-    public void broadcastNotification(String new_name) {
+    public void UDPBroadcast(String raw_message) {
+    	try {
+			
+			DatagramSocket dgramSocket = new DatagramSocket(UDP_SND_PORT);
+	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
+	    			InetAddress.getByName("255.255.255.255"), UDP_RCV_PORT);
+	    	dgramSocket.send(outPacket);
+	    	dgramSocket.close();
+			
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 
     //public void sendQueryChatHistory(user_id u1, user_id u2) {
-    //}
-
-
-    //public user receiveNotification() {
     //}
 
 

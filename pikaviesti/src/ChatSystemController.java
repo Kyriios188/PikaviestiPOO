@@ -26,8 +26,9 @@ public class ChatSystemController {
 
     public boolean checkNameUnique(String name) {
 
-    	this.com_sys = new CommunicationSystem();
-    	//this.com_sys.broadcastWhatsYourName();
+    	this.com_sys = new CommunicationSystem(this);
+    	//TODO: create message -> constructor or custom method?
+    	this.com_sys.UDPBroadcast("TODO");
     	
     	setLocalUser(name);
     	return true;
@@ -68,8 +69,8 @@ public class ChatSystemController {
     public void showUserList() {
     }
 
-
-    public void createMessage(String input, String username) {
-    }
+    // If it exists, it uses message_code too
+    //public void createMessage(String input, String username) {
+    //}
 
 }

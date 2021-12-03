@@ -1,4 +1,7 @@
-// attributes random id to user
+package chatSystem;// attributes random id to user
+import communication.CommunicationSystem;
+import objects.User;
+
 import java.util.Random; //TODO: remove once login is implemented
 
 

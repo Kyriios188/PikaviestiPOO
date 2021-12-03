@@ -11,6 +11,7 @@ public class CommunicationSystem {
     
     private int UDP_RCV_PORT = 7071;
     private int UDP_SND_PORT = 7070;
+    private String delimiter = "£";
     
     // We keep the object around to be able to close it cleanly
     UDPServerThread udp_rcv_server;
@@ -35,7 +36,7 @@ public class CommunicationSystem {
     // Takes a String of format "src_user/dest_user/time/code/content"
     // Returns the objects.Message object associated with it
     public Message parseMessage(String raw_message) {
-        String[] fields = raw_message.split("/");
+        String[] fields = raw_message.split(this.delimiter);
         int src_id = Integer.parseInt(fields[0]);
         int dest_id = Integer.parseInt(fields[1]);
         LocalTime t = LocalTime.parse(fields[2]);
@@ -47,7 +48,7 @@ public class CommunicationSystem {
     // Converts objects.Message to String with format "src_user/dest_user/time/content"
     // So it can be sent via UDP or TCP
     public String createRawMessage(Message m) {
-    	return m.getSrcId() + "/" + m.getDestId() + "/" + m.getTimeStamp() + "/" + m.getContent();
+    	return m.getSrcId() + this.delimiter + m.getDestId() + this.delimiter + m.getTimeStamp() + this.delimiter + m.getContent();
     }
     
     public void receiveMessage(String raw_message, InetAddress src_addr, int src_id) {

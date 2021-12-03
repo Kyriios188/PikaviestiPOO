@@ -28,7 +28,7 @@ public class ChatSystemController {
 
     	this.com_sys = new CommunicationSystem(this);
     	//TODO: create message -> constructor or custom method?
-    	this.com_sys.UDPBroadcast("TODO");
+    	this.com_sys.UDPMessage("TODO", null);
     	
     	setLocalUser(name);
     	return true;

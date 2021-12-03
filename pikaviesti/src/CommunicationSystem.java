@@ -51,6 +51,8 @@ public class CommunicationSystem {
     	
     	case 1:
     		// We received "whatsYourName?"
+    		// Need to answer
+    		//UDPMessage()
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"

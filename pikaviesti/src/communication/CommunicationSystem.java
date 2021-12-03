@@ -33,7 +33,7 @@ public class CommunicationSystem {
     	this.udp_rcv_server.start();
     }
     
-    // Takes a String of format "src_user/dest_user/time/code/content"
+    // Takes a String of format "src_user‡dest_user‡time‡code‡content"
     // Returns the objects.Message object associated with it
     public Message parseMessage(String raw_message) {
         String[] fields = raw_message.split(this.delimiter);

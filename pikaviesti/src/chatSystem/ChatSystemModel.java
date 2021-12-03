@@ -31,7 +31,7 @@ public class ChatSystemModel {
     }
 
 
-    public void changeUserName(User u, String new_name) throws Exception {
+    public void changeUserName(User u) throws Exception {
     	if (this.user_list.contains(u)) {
     		int user_index = this.user_list.indexOf(u);
         	this.user_list.set(user_index, u);

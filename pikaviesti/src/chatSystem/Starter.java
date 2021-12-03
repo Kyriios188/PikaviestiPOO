@@ -15,7 +15,7 @@ public class Starter {
 		ChatSystemController controller = new ChatSystemController(GUI);
 		int rand = new Random().nextInt(1000);
 		String random_name = Integer.toString(rand);
-		controller.setLocalUser(random_name);
+		controller.setLocalUser("jean");
 		controller.checkNameUnique(random_name);
 
 	}

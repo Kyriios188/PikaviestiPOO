@@ -29,6 +29,16 @@ public class ChatSystemModel {
     public boolean checkUserExistence(User u) {
     	return this.user_list.contains(u);
     }
+    
+    public boolean checkNameExistence(String name) {
+    	for (int i = 0; i < this.user_list.size(); i++) {
+    		User u = this.user_list.get(i);
+    		if (u.getName() == name) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
 
     public void changeUserName(User u) throws Exception {

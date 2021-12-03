@@ -43,9 +43,7 @@ public class UDPServerThread extends Thread {
 		    	this.socket.receive(inPacket); // Blocks thread
 		    	
 		    	// Have the communication.CommunicationSystem handle the message
-		    	System.out.println("Data: " + inPacket.getData());
 				String raw_message = new String(inPacket.getData(), inPacket.getOffset(), inPacket.getLength());
-				System.out.println("UDP Server received : "+ raw_message);
 				this.com_sys.receiveMessage(raw_message, inPacket.getAddress()); //inPacket.getPort()
 				
 				

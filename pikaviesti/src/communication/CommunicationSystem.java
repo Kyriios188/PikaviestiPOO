@@ -12,7 +12,7 @@ public class CommunicationSystem {
     
     private int UDP_RCV_PORT = 7071;
     private int UDP_SND_PORT = 7070;
-    public static String delimiter = "/";
+    public static String delimiter = "!";
     
     // We keep the object around to be able to close it cleanly
     UDPServerThread udp_rcv_server;
@@ -37,7 +37,6 @@ public class CommunicationSystem {
     // Takes a String of format "src_user‡dest_user‡time‡code‡content"
     // Returns the objects.Message object associated with it
     public Message parseMessage(String raw_message) {
-    	System.out.println(raw_message);
         String[] fields = raw_message.split(CommunicationSystem.delimiter);
         int src_id = Integer.parseInt(fields[0]);
         int dest_id = Integer.parseInt(fields[1]);
@@ -47,7 +46,7 @@ public class CommunicationSystem {
         return new Message(src_id, dest_id, t, m_code, content);
     }
     
-    public void whatsYourNameBroadcast(String name) {
+    public void whatsYourNameBroadcast() {
     	// It's broadcast so we put 0 in the dest_user field
     	Message whatsyourname = new Message(this.local_id, 0, 1, "fill");
     	String m = createRawMessage(whatsyourname);
@@ -65,7 +64,6 @@ public class CommunicationSystem {
     }
     
     public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
-    	System.out.println("Received " + raw_message);
     	Message m = parseMessage(raw_message);
     	
     	
@@ -76,10 +74,11 @@ public class CommunicationSystem {
     	
     	case 1:
     		// We received "whatsYourName?"
-    		System.out.println("Receives 'whatsYourName?' question");
+    		System.out.println("Received 'whatsYourName?' question");
     		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.local_name);
     		System.out.println("Answered :\n"+answer);
-    		UDPMessage(createRawMessage(answer), src_addr.toString());
+    		// src_addr.toSting() returns /10.10.40.246 -> substring(1) gives a string with the /
+    		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1));
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
@@ -128,8 +127,6 @@ public class CommunicationSystem {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	System.out.println("Successfully sent " + raw_message);
     }
 
 

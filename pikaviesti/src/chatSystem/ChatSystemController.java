@@ -33,10 +33,25 @@ public class ChatSystemController {
     public boolean checkNameUnique(String name) {
 
     	this.com_sys = new CommunicationSystem(this);
-    	this.com_sys.whatsYourNameBroadcast(name);
+    	this.com_sys.whatsYourNameBroadcast();
     	
-    	//setLocalUser(name);
-    	return true;
+    	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	
+    	System.out.println("Model : " + this.cs_model.getUserList());
+    	
+    	if (this.cs_model.checkNameExistence(name)) {
+    		return false;
+    	}
+    	
+    	else {
+    		//setLocalUser(name);
+        	return true;
+    	}
+    	
     }
 
 

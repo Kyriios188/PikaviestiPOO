@@ -47,7 +47,7 @@ public class Message {
 	}
 	
 	public String toString() {
-		return "From : " + this.src_user + "\nTo : " + this.dest_user + "\nAt : " + this.timestamp + "\nType : "+this.message_code + "\nReceived : " + this.content;
+		return "From : " + this.src_user + "\nTo : " + this.dest_user + "\nAt : " + this.timestamp + "\nType : "+this.message_code + "\nContent : " + this.content;
 	}
 	
 	//**************  GETTERS  **************

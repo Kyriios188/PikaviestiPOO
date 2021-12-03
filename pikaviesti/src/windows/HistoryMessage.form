@@ -57,7 +57,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="User List"/>
+                  <text value="objects.User List"/>
                 </properties>
               </component>
             </children>

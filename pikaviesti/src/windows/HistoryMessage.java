@@ -2,7 +2,6 @@ package windows;
 
 import javax.swing.*;
 import chatSystem.ChatSystemGUI;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,7 +10,7 @@ public class HistoryMessage extends JDialog {
     private JPanel contentPane;
     private JButton buttonSEND;
     private JTextField textField1;
-    private final DefaultListModel<String> listModel = new DefaultListModel<>();
+    //private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private JList<String> listMessage;
     private JButton userListButton;
     private String messageText;
@@ -23,11 +22,11 @@ public class HistoryMessage extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonSEND);
+        //listMessage = new JList<>(listModel);
 
 
         buttonSEND.addActionListener(e -> onSEND());
         userListButton.addActionListener(e -> onUserList());
-        listMessage = new JList<>(listModel);
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -45,9 +44,9 @@ public class HistoryMessage extends JDialog {
     }
 
     private void onSEND() {
-        messageText = textField1.getText();
-        System.out.println("Message : " + messageText);
-        listModel.addElement(messageText);
+        this.messageText = textField1.getText();
+        System.out.println("Message : " + this.messageText);
+        //listModel.addElement(this.messageText);
         textField1.setText("");
     }
 

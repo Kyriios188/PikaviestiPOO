@@ -40,31 +40,16 @@ public class ChooseUsername extends JDialog {
     }
 
     private void onOK() {
-
-
         this.username = textField1.getText();
-
-
-        verifName();
-
-
-        System.out.println("Username : " + this.username);
-        //dispose();
-
-        this.GUI.openHistoryMessage();
-
-        ChatSystemController cs_controller = new ChatSystemController(GUI);
-        cs_controller.setLocalUser(this.username);
-
-    }
-
-    private void verifName() {
-        if (this.username.indexOf(CommunicationSystem.delimiter) == -1) {
+        if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("Username : " + this.username);
             dispose();
             this.GUI.openHistoryMessage();
+            ChatSystemController cs_controller = new ChatSystemController(GUI);
+            cs_controller.setLocalUser(this.username);
         } else {
-            onOK();
+            dispose();
+            this.GUI.openUsernameWindow();
         }
     }
 

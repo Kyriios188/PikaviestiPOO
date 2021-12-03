@@ -29,7 +29,7 @@ public class ChatSystemGUI {
     }
 
     public void openUsernameWindow() {
-        ChooseUsername ChUsrNm = new ChooseUsername();
+        ChooseUsername ChUsrnm = new ChooseUsername();
     }
 
     public void openHistoryMessage() {

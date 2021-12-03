@@ -36,7 +36,7 @@ public class CommunicationSystem {
     // Takes a String of format "src_user‡dest_user‡time‡code‡content"
     // Returns the objects.Message object associated with it
     public Message parseMessage(String raw_message) {
-        String[] fields = raw_message.split(this.delimiter);
+        String[] fields = raw_message.split(CommunicationSystem.delimiter);
         int src_id = Integer.parseInt(fields[0]);
         int dest_id = Integer.parseInt(fields[1]);
         LocalTime t = LocalTime.parse(fields[2]);
@@ -45,13 +45,19 @@ public class CommunicationSystem {
         return new Message(src_id, dest_id, t, content, m_code);
     }
     
+    public void whatsYourNameBroadcast(String name) {
+    	Message whatsyourname = new Message("", this.local_id, 0, 1);
+    	String raw_message = createRawMessage(whatsyourname);
+    	UDPMessage(raw_message, "255.255.255.255");
+    }
+    
     // Converts objects.Message to String with format "src_user/dest_user/time/content"
     // So it can be sent via UDP or TCP
     public String createRawMessage(Message m) {
-    	return m.getSrcId() + this.delimiter + m.getDestId() + this.delimiter + m.getTimeStamp() + this.delimiter + m.getContent();
+    	return m.getSrcId() + CommunicationSystem.delimiter + m.getDestId() + CommunicationSystem.delimiter + m.getTimeStamp() + CommunicationSystem.delimiter + m.getContent();
     }
     
-    public void receiveMessage(String raw_message, InetAddress src_addr, int src_id) {
+    public void receiveMessage(String raw_message, InetAddress src_addr, int src_id) throws UnknownHostException {
     	Message m = parseMessage(raw_message);
     	//TODO: finish this
     	
@@ -63,11 +69,11 @@ public class CommunicationSystem {
     	case 1:
     		// We received "whatsYourName?"
     		Message answer = new Message(this.local_name, this.local_id, m.getSrcId(), 2);
-    		UDPMessage(createRawMessage(answer), src_addr);
+    		UDPMessage(createRawMessage(answer), src_addr.toString());
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
-    		
+    		//TODO: update ChatSystemModel with the user name sent
     	
     	case 3:
     		// We received notification that distant user changed their name
@@ -95,12 +101,12 @@ public class CommunicationSystem {
      *  _send to the Database ?
      */
     
-    // For broadcast, dest_addr = InetAddress.getByName("255.255.255.255")
-    // TODO: simply it, enter string instead
-    public void UDPMessage(String raw_message, InetAddress dest_addr) {
-
+    
+    public void UDPMessage(String raw_message, String dest_str) {
+    	
     	try {
-			
+    		InetAddress dest_addr = InetAddress.getByName(dest_str);
+    		
 			DatagramSocket dgramSocket = new DatagramSocket(UDP_SND_PORT);
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
 	    			dest_addr, UDP_RCV_PORT);

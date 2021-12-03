@@ -26,14 +26,15 @@ public class ChatSystemController {
 
     //public chat_history getChatHistory(user target_user) {
     //}
-
+    
+    
+    // We instantiate the CommunicationSystem when we check if the name is unique
     public boolean checkNameUnique(String name) {
 
     	this.com_sys = new CommunicationSystem(this);
-    	//TODO: create message -> constructor or custom method?
-    	this.com_sys.UDPMessage("TODO", null);
+    	this.com_sys.whatsYourNameBroadcast(name);
     	
-    	setLocalUser(name);
+    	//setLocalUser(name);
     	return true;
     }
 

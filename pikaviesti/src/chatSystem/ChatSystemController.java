@@ -27,7 +27,6 @@ public class ChatSystemController {
     //public chat_history getChatHistory(user target_user) {
     //}
 
-
     public boolean checkNameUnique(String name) {
 
     	this.com_sys = new CommunicationSystem(this);
@@ -54,9 +53,6 @@ public class ChatSystemController {
     //public void updateChatHistory(message new_message) {
     //}
 
-
-    //public user findUser(String name) {
-    //}
 
     // Updates the CSModel
     // We test if the user exists, literally cannot throw an exception :)

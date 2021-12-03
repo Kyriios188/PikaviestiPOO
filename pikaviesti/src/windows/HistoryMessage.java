@@ -24,13 +24,13 @@ public class HistoryMessage extends JDialog {
 
     private void onSEND() {
         messageText = textField1.getText();
-        System.out.println("Message : " + messageText);
+        System.out.println("objects.Message : " + messageText);
         listModel.addElement(messageText);
         textField1.setText("");
     }
 
     private void onUserList() {
-        System.out.println("Show User List");
+        System.out.println("Show objects.User List");
     }
 
     public static void main(String[] args) {

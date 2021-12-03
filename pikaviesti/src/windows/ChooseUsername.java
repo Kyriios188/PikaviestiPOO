@@ -3,6 +3,7 @@ package windows;
 import javax.swing.*;
 import java.awt.event.*;
 import chatSystem.ChatSystemGUI;
+import communication.CommunicationSystem;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
@@ -36,7 +37,14 @@ public class ChooseUsername extends JDialog {
     }
 
     private void onOK() {
-        System.out.println("Username : " + textField1.getText());
+        boolean bien = false;
+        this.username = textField1.getText();
+        while(!(bien)) {
+            if (this.username.indexOf(CommunicationSystem.delimiter) == -1) {
+                bien = true;
+            }
+        }
+        System.out.println("Username : " + this.username);
         dispose();
         ChatSystemGUI GUI = new ChatSystemGUI();
         GUI.openHistoryMessage();

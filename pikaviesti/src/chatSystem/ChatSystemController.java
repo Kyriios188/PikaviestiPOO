@@ -43,6 +43,7 @@ public class ChatSystemController {
     	
     	System.out.println("Model : " + this.cs_model.getUserList());
     	
+    	this.com_sys.closePorts();
     	if (this.cs_model.checkNameExistence(name)) {
     		return false;
     	}

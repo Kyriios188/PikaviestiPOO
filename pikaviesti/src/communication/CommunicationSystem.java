@@ -10,8 +10,8 @@ import java.time.LocalTime;
 
 public class CommunicationSystem {
     
-    private int UDP_RCV_PORT = 7071;
-    private int UDP_SND_PORT = 7070;
+    private int UDP_RCV_PORT = 6071;
+    private int UDP_SND_PORT = 6070;
     public static String delimiter = "!";
     
     // We keep the object around to be able to close it cleanly
@@ -66,27 +66,31 @@ public class CommunicationSystem {
     public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
     	Message m = parseMessage(raw_message);
     	
-    	
+    	System.out.println("Message code : " + m.getMessageCode());
     	switch (m.getMessageCode()) {
     	
     	case 0:
     		// We received a chat message
+    		break;
     	
     	case 1:
     		// We received "whatsYourName?"
     		System.out.println("Received 'whatsYourName?' question");
     		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.local_name);
     		System.out.println("Answered :\n"+answer);
-    		// src_addr.toSting() returns /10.10.40.246 -> substring(1) gives a string with the /
+    		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string with the /
     		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1));
+    		break;
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
     		User u = new User(m.getContent(), m.getSrcId());
     		this.controller.updateCSModel(u);
+    		break;
     	
     	case 3:
     		// We received notification that distant user changed their name
+    		break;
     	}
     	
     }

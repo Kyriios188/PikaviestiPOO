@@ -15,8 +15,11 @@ public class HistoryMessage extends JDialog {
     private JList<String> listMessage;
     private JButton userListButton;
     private String messageText;
+    private ChatSystemGUI GUI;
 
-    public HistoryMessage() {
+    public HistoryMessage(ChatSystemGUI GUI) {
+        this.GUI = GUI;
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonSEND);
@@ -50,8 +53,8 @@ public class HistoryMessage extends JDialog {
 
     private void onUserList() {
         System.out.println("Show User List");
-        ChatSystemGUI GUI = new ChatSystemGUI();
-        GUI.openUserList(null);
+
+        this.GUI.openUserList(null);
     }
 
     private void onCancel() {

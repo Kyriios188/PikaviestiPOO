@@ -25,15 +25,15 @@ public class ChatSystemGUI {
     //************** Windows **************
 
     public void openLoginWindow() {
-        InputLogin NptLgn = new InputLogin();
+        InputLogin NptLgn = new InputLogin(this);
     }
 
     public void openUsernameWindow() {
-        ChooseUsername ChUsrnm = new ChooseUsername();
+        ChooseUsername ChUsrnm = new ChooseUsername(this);
     }
 
     public void openHistoryMessage() {
-        HistoryMessage HstrMssg = new HistoryMessage();
+        HistoryMessage HstrMssg = new HistoryMessage(this);
     }
 
     public void openUserList(String name_array) {

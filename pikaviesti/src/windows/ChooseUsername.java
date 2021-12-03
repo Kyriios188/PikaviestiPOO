@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import chatSystem.ChatSystemGUI;
 import communication.CommunicationSystem;
+import chatSystem.ChatSystemController;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
@@ -11,8 +12,10 @@ public class ChooseUsername extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
     private String username = null;
+    private ChatSystemGUI GUI;
 
-    public ChooseUsername() {
+    public ChooseUsername(ChatSystemGUI GUI) {
+        this.GUI = GUI;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -37,17 +40,32 @@ public class ChooseUsername extends JDialog {
     }
 
     private void onOK() {
-        boolean bien = false;
+
+
         this.username = textField1.getText();
-        while(!(bien)) {
-            if (this.username.indexOf(CommunicationSystem.delimiter) == -1) {
-                bien = true;
-            }
-        }
+
+
+        verifName();
+
+
         System.out.println("Username : " + this.username);
-        dispose();
-        ChatSystemGUI GUI = new ChatSystemGUI();
-        GUI.openHistoryMessage();
+        //dispose();
+
+        this.GUI.openHistoryMessage();
+
+        ChatSystemController cs_controller = new ChatSystemController(GUI);
+        cs_controller.setLocalUser(this.username);
+
+    }
+
+    private void verifName() {
+        if (this.username.indexOf(CommunicationSystem.delimiter) == -1) {
+            System.out.println("Username : " + this.username);
+            dispose();
+            this.GUI.openHistoryMessage();
+        } else {
+            onOK();
+        }
     }
 
     private void onCancel() {

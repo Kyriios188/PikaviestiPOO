@@ -13,8 +13,10 @@ public class InputLogin extends JDialog {
     private JPasswordField passwordField1;
     private String login = null;
     private String psswrd = null;
+    private ChatSystemGUI GUI;
 
-    public InputLogin() {
+    public InputLogin(ChatSystemGUI GUI) {
+        this.GUI = GUI;
 
         setContentPane(contentPane);
         setModal(true);
@@ -45,8 +47,8 @@ public class InputLogin extends JDialog {
         System.out.println("Login : " + this.login);
         System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
         dispose();
-        ChatSystemGUI GUI = new ChatSystemGUI();
-        GUI.openUsernameWindow();
+
+        this.GUI.openUsernameWindow();
     }
 
     private void onCancel() {

@@ -11,6 +11,7 @@ public class UserList extends JDialog {
     private JList userList;
 
     public UserList() {
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);

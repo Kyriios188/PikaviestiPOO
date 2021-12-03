@@ -3,6 +3,7 @@ package windows;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Arrays;
+import chatSystem.ChatSystemGUI;
 
 public class InputLogin extends JDialog {
     private JPanel contentPane;
@@ -10,10 +11,10 @@ public class InputLogin extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
     private JPasswordField passwordField1;
+    private String login = null;
+    private String psswrd = null;
 
     public InputLogin() {
-        this.pack();
-        this.setVisible(true);
 
         setContentPane(contentPane);
         setModal(true);
@@ -33,17 +34,41 @@ public class InputLogin extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        this.pack();
+        this.setVisible(true);
     }
 
     private void onOK() {
-        System.out.println("Login : " + textField1.getText());
+        this.login = textField1.getText();
+        this.psswrd = Arrays.toString(passwordField1.getPassword());
+        System.out.println("Login : " + this.login);
         System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
         dispose();
+        ChatSystemGUI GUI = new ChatSystemGUI();
+        GUI.openUsernameWindow();
     }
 
     private void onCancel() {
         System.out.println("Dead");
         dispose();
+    }
+
+    //************** GETTERS **************
+
+    public String getLogin () {
+        return this.login;
+    }
+
+    public String getPassword () {
+        return this.psswrd;
+    }
+
+
+    //************** SETTERS **************
+
+    public void setLogin (String login) {
+        this.login = login;
     }
 
 }

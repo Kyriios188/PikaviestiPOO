@@ -2,12 +2,14 @@ package windows;
 
 import javax.swing.*;
 import java.awt.event.*;
+import chatSystem.ChatSystemGUI;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField textField1;
+    private String username = null;
 
     public ChooseUsername() {
         setContentPane(contentPane);
@@ -28,11 +30,16 @@ public class ChooseUsername extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        this.pack();
+        this.setVisible(true);
     }
 
     private void onOK() {
         System.out.println("Username : " + textField1.getText());
         dispose();
+        ChatSystemGUI GUI = new ChatSystemGUI();
+        GUI.openHistoryMessage();
     }
 
     private void onCancel() {
@@ -40,10 +47,16 @@ public class ChooseUsername extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        ChooseUsername dialog = new ChooseUsername();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+    //************** GETTERS **************
+
+    public String getUsername () {
+        return this.username;
+    }
+
+
+    //************** SETTERS **************
+
+    public void setUsername (String username) {
+        this.username = username;
     }
 }

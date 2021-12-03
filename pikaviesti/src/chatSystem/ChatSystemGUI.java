@@ -2,6 +2,9 @@ package chatSystem;
 
 import chatSystem.ChatSystemController;
 import windows.InputLogin;
+import windows.ChooseUsername;
+import windows.HistoryMessage;
+import windows.UserList;
 import java.time.*;
 
 public class ChatSystemGUI {
@@ -18,16 +21,28 @@ public class ChatSystemGUI {
 
     }
 
-    private void showChatHistory(String target_name) {
+
+    //************** Windows **************
+
+    public void openLoginWindow() {
+        InputLogin NptLgn = new InputLogin();
+    }
+
+    public void openUsernameWindow() {
+        ChooseUsername ChUsrNm = new ChooseUsername();
+    }
+
+    public void openHistoryMessage() {
+        HistoryMessage HstrMssg = new HistoryMessage();
+    }
+
+    public void openUserList(String name_array) {
+        UserList SrLst = new UserList();
     }
 
 
     private String getUserMessage() {
-    return "";
-    }
-
-    public void openLoginWindow() {
-        InputLogin ChUsrNm = new InputLogin();
+        return "";
     }
 
     private void startSession(String name) {
@@ -57,8 +72,5 @@ public class ChatSystemGUI {
     private void showSuccessToast() {
     }
 
-
-    private void showUserList(String name_array) {
-    }
 
 }

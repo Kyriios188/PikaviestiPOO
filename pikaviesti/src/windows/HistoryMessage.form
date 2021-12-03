@@ -57,20 +57,24 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="objects.User List"/>
+                  <text value="User List"/>
                 </properties>
               </component>
             </children>
           </grid>
         </children>
       </grid>
-      <component id="44085" class="javax.swing.JList" binding="list2" default-binding="true">
+      <component id="44085" class="javax.swing.JList" binding="listMessage">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <model>
+            <item value="Messages"/>
+          </model>
+        </properties>
       </component>
     </children>
   </grid>

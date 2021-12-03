@@ -59,9 +59,10 @@ public class ChatSystemController {
     //}
 
     // Updates the CSModel
-    public void updateCSModel(User user) {
+    // We test if the user exists, literally cannot throw an exception :)
+    public void updateCSModel(User user) throws Exception {
     	if (this.cs_model.checkUserExistence(user)) {
-    		// Update his name
+    		this.cs_model.changeUserName(user);
     	}
     	else {
     		this.cs_model.addUser(user);

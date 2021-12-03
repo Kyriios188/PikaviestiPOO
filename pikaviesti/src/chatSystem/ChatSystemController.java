@@ -18,7 +18,8 @@ public class ChatSystemController {
 
 
     private ChatSystemModel cs_model;
-
+    
+    //TODO: Remove the ChatSystemGUI?
     public ChatSystemController(ChatSystemGUI gui) {
     	this.gui = gui;
     	this.cs_model = new ChatSystemModel();
@@ -55,11 +56,14 @@ public class ChatSystemController {
     //}
 
 
-    // Updates the CSModel
-    // We test if the user exists, literally cannot throw an exception :)
-    public void updateCSModel(User user) throws Exception {
+    // Updates the CSModel by either changing the name or adding a user
+    public void updateCSModel(User user) {
     	if (this.cs_model.checkUserExistence(user)) {
-    		this.cs_model.changeUserName(user);
+    		try {
+				this.cs_model.changeUserName(user);
+			} catch (Exception e) {
+				e.printStackTrace(); // Cannot happen
+			}
     	}
     	else {
     		this.cs_model.addUser(user);

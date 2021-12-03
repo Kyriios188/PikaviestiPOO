@@ -2,6 +2,7 @@ package communication;
 
 import chatSystem.ChatSystemController;
 import objects.Message;
+import objects.User;
 
 import java.io.IOException;
 import java.net.*;
@@ -11,7 +12,7 @@ public class CommunicationSystem {
     
     private int UDP_RCV_PORT = 7071;
     private int UDP_SND_PORT = 7070;
-    public static String delimiter = "‡";
+    public static String delimiter = "/";
     
     // We keep the object around to be able to close it cleanly
     UDPServerThread udp_rcv_server;
@@ -36,30 +37,37 @@ public class CommunicationSystem {
     // Takes a String of format "src_user‡dest_user‡time‡code‡content"
     // Returns the objects.Message object associated with it
     public Message parseMessage(String raw_message) {
+    	System.out.println(raw_message);
         String[] fields = raw_message.split(CommunicationSystem.delimiter);
         int src_id = Integer.parseInt(fields[0]);
         int dest_id = Integer.parseInt(fields[1]);
         LocalTime t = LocalTime.parse(fields[2]);
         int m_code = Integer.parseInt(fields[3]);
         String content = fields[4];
-        return new Message(src_id, dest_id, t, content, m_code);
+        return new Message(src_id, dest_id, t, m_code, content);
     }
     
     public void whatsYourNameBroadcast(String name) {
-    	Message whatsyourname = new Message("", this.local_id, 0, 1);
-    	String raw_message = createRawMessage(whatsyourname);
-    	UDPMessage(raw_message, "255.255.255.255");
+    	// It's broadcast so we put 0 in the dest_user field
+    	Message whatsyourname = new Message(this.local_id, 0, 1, "fill");
+    	String m = createRawMessage(whatsyourname);
+    	UDPMessage(m, "255.255.255.255");
     }
     
     // Converts objects.Message to String with format "src_user/dest_user/time/content"
     // So it can be sent via UDP or TCP
     public String createRawMessage(Message m) {
-    	return m.getSrcId() + CommunicationSystem.delimiter + m.getDestId() + CommunicationSystem.delimiter + m.getTimeStamp() + CommunicationSystem.delimiter + m.getContent();
+    	return m.getSrcId() + CommunicationSystem.delimiter + 
+    			m.getDestId() + CommunicationSystem.delimiter + 
+    			m.getTimeStamp() + CommunicationSystem.delimiter +
+    			m.getMessageCode() + CommunicationSystem.delimiter +
+    			m.getContent();
     }
     
-    public void receiveMessage(String raw_message, InetAddress src_addr, int src_id) throws UnknownHostException {
+    public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
+    	System.out.println("Received " + raw_message);
     	Message m = parseMessage(raw_message);
-    	//TODO: finish this
+    	
     	
     	switch (m.getMessageCode()) {
     	
@@ -68,12 +76,15 @@ public class CommunicationSystem {
     	
     	case 1:
     		// We received "whatsYourName?"
-    		Message answer = new Message(this.local_name, this.local_id, m.getSrcId(), 2);
+    		System.out.println("Receives 'whatsYourName?' question");
+    		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.local_name);
+    		System.out.println("Answered :\n"+answer);
     		UDPMessage(createRawMessage(answer), src_addr.toString());
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
-    		//TODO: update ChatSystemModel with the user name sent
+    		User u = new User(m.getContent(), m.getSrcId());
+    		this.controller.updateCSModel(u);
     	
     	case 3:
     		// We received notification that distant user changed their name
@@ -83,7 +94,6 @@ public class CommunicationSystem {
     //TODO: Closing window has to call this method (and the TCP equivalent)
     public void closePorts() {
     	this.udp_rcv_server.stop_server();
-    	//TODO: Add TCP to that
     	//TODO: Verify they are open before closing them
     }
 
@@ -118,6 +128,8 @@ public class CommunicationSystem {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	
+    	System.out.println("Successfully sent " + raw_message);
     }
 
 

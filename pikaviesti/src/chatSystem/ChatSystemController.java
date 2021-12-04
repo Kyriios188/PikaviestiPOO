@@ -1,7 +1,11 @@
 package chatSystem;// attributes random id to user
 import communication.CommunicationSystem;
+import objects.Message;
 import objects.User;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +17,6 @@ public class ChatSystemController {
 
 
     private ChatSystemGUI gui;
-
 
     private CommunicationSystem com_sys;
 
@@ -40,6 +43,32 @@ public class ChatSystemController {
     	return str_user_list;
     }
     
+    // Starts a session and gives the corresponding socket
+    public void startSession(String target_username) {
+    	InetAddress host_addr = this.cs_model.getAddressFromName(target_username);
+    	Socket sock = null;
+    	try {
+    		// Connect to foreign host
+			sock = this.com_sys.TCPConnect(host_addr);
+			// Store the socket created to send messages later on
+			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void sendChatMessage(String target_username, String content) {
+    	try {
+			int target_id = this.cs_model.getIdFromName(target_username);
+			Message m = new Message(this.local_user.getId(), target_id, 0, content); //TODO: Parse the content for safety
+			this.com_sys.sendChatMessage(m);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
     
     // We instantiate the CommunicationSystem when we check if the name is unique
     public boolean checkNameUnique(String name) {
@@ -48,7 +77,7 @@ public class ChatSystemController {
     	this.com_sys.whatsYourNameBroadcast();
     	
     	try {
-			Thread.sleep(500);
+			Thread.sleep(500); // Wait for the UDP answers to come
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -66,6 +95,10 @@ public class ChatSystemController {
         	return true;
     	}
     	
+    }
+    
+    public void updateModelAddressTable(int user_id, InetAddress addr) {
+    	this.cs_model.updateAddressTable(user_id, addr);
     }
     
     public void closeApp() {

@@ -5,8 +5,10 @@ import objects.Message;
 import objects.User;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.*;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class CommunicationSystem {
     
@@ -141,14 +143,30 @@ public class CommunicationSystem {
 			e.printStackTrace();
 		}
     }
+    
+    /*
+     * TCP needs 3 methods to send a message:
+     * _startSession(InetAddress distant_host, SND_TCP_PORT) which does "sock = new Socket(distant_host, SND_TCP_PORT)"
+     * _sendMessage(Message m, String user_id) which finds the socket associated with the connection and calls...
+     * _TCPMessage(String raw_message, Socket sock) 
+     */
+    
+    public void TCPMessage(String raw_message, Socket sock) {
+
+		PrintWriter output;
+		try {
+			output = new PrintWriter(sock.getOutputStream());
+			output.println(raw_message);
+			output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+    }
 
 
 
     //public void sendQueryChatHistory(user_id u1, user_id u2) {
-    //}
-
-
-    //public void sendMessage(message m) {
     //}
 
 }

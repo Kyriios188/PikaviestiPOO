@@ -53,6 +53,13 @@ public class CommunicationSystem {
     	UDPMessage(m, "255.255.255.255");
     }
     
+    public void nameChangeNotificationBroadcast(String new_name) {
+    	// It's broadcast so we put 0 in the dest_user field
+    	Message whatsyourname = new Message(this.local_id, 0, 1, new_name);
+    	String m = createRawMessage(whatsyourname);
+    	UDPMessage(m, "255.255.255.255");
+    }
+    
     // Converts objects.Message to String with format "src_user/dest_user/time/content"
     // So it can be sent via UDP or TCP
     public String createRawMessage(Message m) {
@@ -84,17 +91,19 @@ public class CommunicationSystem {
     	
     	case 2:
     		// We received an answer to the question "whatsYourName?"
-    		User u = new User(m.getContent(), m.getSrcId());
-    		this.controller.updateCSModel(u);
+    		User u1 = new User(m.getContent(), m.getSrcId());
+    		this.controller.updateCSModel(u1);
     		break;
     	
     	case 3:
     		// We received notification that distant user changed their name
+    		User u2 = new User(m.getContent(), m.getSrcId());
+    		this.controller.updateCSModel(u2);
     		break;
     	}
     	
     }
-    //TODO: Closing window has to call this method (and the TCP equivalent)
+    
     public void closePorts() {
     	this.udp_rcv_server.stop_server();
     	//TODO: Verify they are open before closing them

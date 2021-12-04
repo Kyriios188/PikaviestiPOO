@@ -26,8 +26,17 @@ public class ChatSystemModel {
     	this.user_list.add(new_user);
     }
     
-    public boolean checkUserExistence(User u) {
-    	return this.user_list.contains(u);
+    // Checks if the user's id is in the list
+    public boolean checkUserExistence(User target_user) {
+    	
+    	int target_id = target_user.getId();
+    	for (int i = 0; i < this.user_list.size(); i++) {
+    		User u = this.user_list.get(i);
+    		if (u.getId() == target_id) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     public boolean checkNameExistence(String name) {
@@ -69,6 +78,16 @@ public class ChatSystemModel {
     		}
     	}
     	throw new Exception("Couldn't find user " + name);
+    }
+    
+    public String getNameFromId(int id) throws Exception {
+    	for (int i = 0; i < this.user_list.size(); i++) {
+    		User u = this.user_list.get(i);
+    		if (u.getId() == id) {
+    			return u.getName();
+    		}
+    	}
+    	throw new Exception("Couldn't find user " + id);
     }
 
 

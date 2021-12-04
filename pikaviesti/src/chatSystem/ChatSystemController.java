@@ -2,7 +2,8 @@ package chatSystem;// attributes random id to user
 import communication.CommunicationSystem;
 import objects.User;
 
-import java.util.Random; //TODO: remove once login is implemented
+import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -19,7 +20,7 @@ public class ChatSystemController {
 
     private ChatSystemModel cs_model;
     
-    //TODO: Remove the ChatSystemGUI?
+    // We need the GUI here so when a distant user changes we can tell the GUI
     public ChatSystemController(ChatSystemGUI gui) {
     	this.gui = gui;
     	this.cs_model = new ChatSystemModel();
@@ -27,6 +28,17 @@ public class ChatSystemController {
 
     //public chat_history getChatHistory(user target_user) {
     //}
+    
+    // Called by GUI to see the active users
+    // GUI only needs the string objects
+    public ArrayList<String> getStrUserList() {
+    	ArrayList<User> user_list = this.cs_model.getUserList();
+    	ArrayList<String> str_user_list = new ArrayList<>();
+    	for (int i=0; i<user_list.size(); i++) {
+    		str_user_list.add(user_list.get(i).getName());
+    	}
+    	return str_user_list;
+    }
     
     
     // We instantiate the CommunicationSystem when we check if the name is unique
@@ -41,27 +53,24 @@ public class ChatSystemController {
 			e.printStackTrace();
 		}
     	
-    	System.out.println("Model : " + this.cs_model.getUserList());
-    	
     	this.com_sys.closePorts();
+    	// If you find the name in this list, your name isn't unique
     	if (this.cs_model.checkNameExistence(name)) {
     		return false;
     	}
     	
+    	// Your name is unique, notify users of name change
     	else {
     		//setLocalUser(name);
+    		this.com_sys.nameChangeNotificationBroadcast(name);
         	return true;
     	}
     	
     }
-
-
-    //public void notifyNameChange(user new_user) {
-    //}
-
-
-    //public void stampMessage(message message) {
-    //}
+    
+    public void closeApp() {
+    	this.com_sys.closePorts();
+    }
 
 
     //public void updateGUI(message new_message) {
@@ -73,17 +82,26 @@ public class ChatSystemController {
 
 
     // Updates the CSModel by either changing the name or adding a user
-    public void updateCSModel(User user) {
-    	if (this.cs_model.checkUserExistence(user)) {
+    public void updateCSModel(User new_user) {
+    	if (this.cs_model.checkUserExistence(new_user)) {
+    		
+        	String new_name = new_user.getName();
+    		
     		try {
-				this.cs_model.changeUserName(user);
+    			// the new_user kept their id when changing their name
+    			String old_name = this.cs_model.getNameFromId(new_user.getId());
+				this.cs_model.changeUserName(new_user);
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen
 			}
+    		//TODO: uncomment
+    		//this.gui.changeDistantUsername(old_name, new_name);
     	}
     	else {
-    		this.cs_model.addUser(user);
+    		this.cs_model.addUser(new_user);
+    		//TODO: call GUI method to add user to user list
     	}
+    	
     }
     
     public User getLocalUser() {

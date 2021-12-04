@@ -1,7 +1,5 @@
 package communication;
 
-import communication.CommunicationSystem;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

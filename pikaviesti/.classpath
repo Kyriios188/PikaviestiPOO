@@ -3,4 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
-</classpath>
+	<classpathentry path="IDEA_HOME\redist\forms_rt.jar"/>
+</classpath>a

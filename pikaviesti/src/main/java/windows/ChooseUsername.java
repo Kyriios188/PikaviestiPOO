@@ -9,6 +9,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import communication.CommunicationSystem;
 import chatSystem.ChatSystemController;
+import static javax.swing.JOptionPane.*;
 
 public class ChooseUsername extends JDialog {
     private JPanel contentPane;
@@ -18,15 +19,23 @@ public class ChooseUsername extends JDialog {
     private String username = null;
     private final ChatSystemGUI GUI;
     private ChatSystemController controller;
+    private boolean state;
 
-    public ChooseUsername(ChatSystemGUI GUI, ChatSystemController controller) {
+    public ChooseUsername(ChatSystemGUI GUI, ChatSystemController controller, boolean state) {
         this.GUI = GUI;
         this.controller = controller;
+        this.state = state;
+
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(e -> onOK());
+        if (state) {
+            buttonOK.addActionListener(e -> onOK());
+        } else {
+            buttonOK.addActionListener(e -> onOKNew());
+        }
 
         buttonCancel.addActionListener(e -> onCancel());
 
@@ -50,14 +59,25 @@ public class ChooseUsername extends JDialog {
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("Username : " + this.username);
             dispose();
-
-
-
             this.controller.checkNameUnique(this.username);
             this.GUI.openHistoryMessage(); // dans un thread
         } else {
             dispose();
+            showMessageDialog(null, "Your username must not contains any character from this list: !", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(true);
+        }
+    }
+
+    private void onOKNew() {
+        this.username = textField1.getText();
+        if (!this.username.contains(CommunicationSystem.delimiter)) {
+            System.out.println("New Username : " + this.username);
+            dispose();
+            this.controller.checkNameUnique(this.username);
+        } else {
+            dispose();
+            showMessageDialog(null, "The username must not contains any character from this list : !", "Error", JOptionPane.ERROR_MESSAGE);
+            this.GUI.openUsernameWindow(false);
         }
     }
 
@@ -126,4 +146,5 @@ public class ChooseUsername extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }

@@ -1,6 +1,8 @@
 package windows;
 
 import javax.swing.*;
+
+import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -20,9 +22,11 @@ public class HistoryMessage extends JDialog {
     private JButton changeUsernameButton;
     private String messageText;
     private ChatSystemGUI GUI;
+    private ChatSystemController controller;
 
-    public HistoryMessage(ChatSystemGUI GUI) {
+    public HistoryMessage(ChatSystemGUI GUI, ChatSystemController cs_controller) {
         this.GUI = GUI;
+        this.controller = cs_controller;
 
         setContentPane(contentPane);
         setModal(true);
@@ -67,7 +71,7 @@ public class HistoryMessage extends JDialog {
 
     private void onChangeUsername() {
         System.out.println("Change Username");
-        this.GUI.openUsernameWindow(true);
+        this.GUI.openUsernameWindow(false);
     }
 
     private void onCancel() {

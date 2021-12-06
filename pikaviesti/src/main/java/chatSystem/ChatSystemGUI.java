@@ -28,16 +28,19 @@ public class ChatSystemGUI {
     }
 
     public void openUsernameWindow(boolean state) {
-        ChooseUsername ChUsrnm = new ChooseUsername(this, this.cs_controller);
+        ChooseUsername ChUsrnm = new ChooseUsername(this, this.cs_controller, state);
     }
 
     public void openHistoryMessage() {
-        HistoryMessage HstrMssg = new HistoryMessage(this);
+        HistoryMessage HstrMssg = new HistoryMessage(this, this.cs_controller);
     }
 
     public void openUserList(String name_array) {
-        UserList SrLst = new UserList();
+        UserList SrLst = new UserList(this.cs_controller);
     }
+
+
+    //**************         **************
 
 
     private String getUserMessage() {
@@ -52,7 +55,7 @@ public class ChatSystemGUI {
     }
 
 
-    private void changeDistantUsername(String old_name, String new_name) {
+    public void changeDistantUsername(String old_name, String new_name) {
     }
 
 

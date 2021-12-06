@@ -3,7 +3,8 @@ package windows;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import chatSystem.ChatSystemGUI;
+
+import chatSystem.ChatSystemController;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -13,8 +14,11 @@ public class UserList extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JList userList;
+    private String selected;
+    private ChatSystemController controller;
 
-    public UserList() {
+    public UserList(ChatSystemController cs_controller) {
+        this.controller = cs_controller;
 
         setContentPane(contentPane);
         setModal(true);
@@ -35,12 +39,20 @@ public class UserList extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
+
+        userList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                selected = userList.getSelectedValue().toString();
+                System.out.println("You have selected : " + selected);
+            }
+        });
         this.pack();
         this.setVisible(true);
     }
 
     private void onOK() {
-        System.out.println("Start Session");
+        System.out.println("Start Session with " + selected);
         dispose();
     }
 
@@ -75,7 +87,7 @@ public class UserList extends JDialog {
         panel2.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1, true, false));
         panel1.add(panel2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         buttonOK = new JButton();
-        buttonOK.setText("OK");
+        buttonOK.setText("Start Session");
         panel2.add(buttonOK, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonCancel = new JButton();
         buttonCancel.setText("Cancel");
@@ -98,4 +110,5 @@ public class UserList extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }

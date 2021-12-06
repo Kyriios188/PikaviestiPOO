@@ -1,6 +1,5 @@
 package chatSystem;
 
-import chatSystem.ChatSystemController;
 import windows.InputLogin;
 import windows.ChooseUsername;
 import windows.HistoryMessage;
@@ -28,7 +27,7 @@ public class ChatSystemGUI {
         InputLogin NptLgn = new InputLogin(this);
     }
 
-    public void openUsernameWindow() {
+    public void openUsernameWindow(boolean state) {
         ChooseUsername ChUsrnm = new ChooseUsername(this);
     }
 

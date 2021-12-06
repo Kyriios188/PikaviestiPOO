@@ -44,6 +44,7 @@ public class ChatSystemController {
     }
     
     // Starts a session and gives the corresponding socket
+    // GUI shouldn't call it if the connection is already on
     public void startSession(String target_username) {
     	InetAddress host_addr = this.cs_model.getAddressFromName(target_username);
     	Socket sock = null;

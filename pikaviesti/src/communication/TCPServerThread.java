@@ -13,6 +13,8 @@ public class TCPServerThread extends Thread {
 	private ServerSocket socket;
 	private CommunicationSystem com_sys;
 	
+	// Needed to close sockets only
+	//TODO: Delete it, add socket to sender_socket and close all sockets from com_sys
 	private ArrayList<TCPSessionThread> session_list;
 	
 	

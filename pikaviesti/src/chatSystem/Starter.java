@@ -24,6 +24,5 @@ public class Starter {
 		String random_name = Integer.toString(rand);
 		controller.setLocalUser("jean"); //TODO: remove and uncomment checkNameUnique
 		controller.checkNameUnique(random_name);
-
 	}
 }

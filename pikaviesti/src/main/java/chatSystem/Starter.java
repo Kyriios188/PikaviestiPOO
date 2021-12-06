@@ -11,7 +11,7 @@ import java.util.Random;
 
 
 public class Starter {
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		//TODO: uncomment for production
 		ChatSystemGUI GUI = new ChatSystemGUI();
 		// Launch GUI

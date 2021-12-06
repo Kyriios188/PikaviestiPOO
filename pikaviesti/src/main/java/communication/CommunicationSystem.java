@@ -40,8 +40,9 @@ public class CommunicationSystem {
     public CommunicationSystem(ChatSystemController controller) {
     	
     	this.controller = controller;
-    	this.local_id = this.controller.getLocalUser().getId();
-    	this.local_name = this.controller.getLocalUser().getName();
+		this.local_id = this.controller.getLocalUser().getId();
+		//this.local_name = this.controller.getLocalUser().getName();
+
     	// Launch UDP server listening on specific port
     	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
     	this.udp_rcv_server.start();
@@ -85,7 +86,9 @@ public class CommunicationSystem {
     }
     
     public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
+
     	Message m = parseMessage(raw_message);
+		if (m.getSrcId() == local_id) {System.out.println("Ignore self-messaging");return;}
     	this.controller.updateModelAddressTable(m.getSrcId(), src_addr);
     	
     	System.out.println("Message code : " + m.getMessageCode());

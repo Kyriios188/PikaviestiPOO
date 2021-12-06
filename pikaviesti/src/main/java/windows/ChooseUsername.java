@@ -17,9 +17,11 @@ public class ChooseUsername extends JDialog {
     private JTextField textField1;
     private String username = null;
     private final ChatSystemGUI GUI;
+    private ChatSystemController controller;
 
-    public ChooseUsername(ChatSystemGUI GUI) {
+    public ChooseUsername(ChatSystemGUI GUI, ChatSystemController controller) {
         this.GUI = GUI;
+        this.controller = controller;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -48,9 +50,11 @@ public class ChooseUsername extends JDialog {
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("Username : " + this.username);
             dispose();
-            this.GUI.openHistoryMessage();
-            ChatSystemController cs_controller = new ChatSystemController(GUI);
-            cs_controller.setLocalUser(this.username);
+
+
+
+            this.controller.checkNameUnique(this.username);
+            this.GUI.openHistoryMessage(); // dans un thread
         } else {
             dispose();
             this.GUI.openUsernameWindow(true);

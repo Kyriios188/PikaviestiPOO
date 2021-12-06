@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
+
+import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -18,10 +20,11 @@ public class InputLogin extends JDialog {
     private String login = null;
     private String psswrd = null;
     private ChatSystemGUI GUI;
+    private ChatSystemController controller;
 
-    public InputLogin(ChatSystemGUI GUI) {
+    public InputLogin(ChatSystemGUI GUI, ChatSystemController controller) {
         this.GUI = GUI;
-
+        this.controller = controller;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -52,6 +55,8 @@ public class InputLogin extends JDialog {
         System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
         dispose();
 
+        // if correct
+        this.controller.setLocalUser(this.login);
         this.GUI.openUsernameWindow(true);
     }
 

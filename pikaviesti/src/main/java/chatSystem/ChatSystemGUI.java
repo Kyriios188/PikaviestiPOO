@@ -24,11 +24,11 @@ public class ChatSystemGUI {
     //************** Windows **************
 
     public void openLoginWindow() {
-        InputLogin NptLgn = new InputLogin(this);
+        InputLogin NptLgn = new InputLogin(this, this.cs_controller);
     }
 
     public void openUsernameWindow(boolean state) {
-        ChooseUsername ChUsrnm = new ChooseUsername(this);
+        ChooseUsername ChUsrnm = new ChooseUsername(this, this.cs_controller);
     }
 
     public void openHistoryMessage() {

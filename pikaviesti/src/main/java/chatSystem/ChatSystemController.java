@@ -76,14 +76,13 @@ public class ChatSystemController {
 
     	this.com_sys = new CommunicationSystem(this);
     	this.com_sys.whatsYourNameBroadcast();
-    	
+
     	try {
 			Thread.sleep(500); // Wait for the UDP answers to come
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-    	
-    	this.com_sys.closePorts();
+
     	// If you find the name in this list, your name isn't unique
     	if (this.cs_model.checkNameExistence(name)) {
     		return false;
@@ -91,7 +90,7 @@ public class ChatSystemController {
     	
     	// Your name is unique, notify users of name change
     	else {
-    		//setLocalUser(name);
+    		setLocalUser(name);
     		this.com_sys.nameChangeNotificationBroadcast(name);
         	return true;
     	}
@@ -143,6 +142,10 @@ public class ChatSystemController {
     }
     
     // Gives the local user a unique id (unless we're really unlucky)
+	// First time: call it to give an id to the local user
+	// Second time: call it to give the username to the user
+	// Ignore messages before local_user is set
+
     public void setLocalUser(String local_name) {
     	int id = new Random().nextInt(1000);
     	System.out.println(local_name + " : " + id);

@@ -9,6 +9,10 @@ public class User {
     private int id;
 
 
+    public String toString() {
+    	return "Username : " + this.name + " | id : " + this.id;
+    }
+    
     public int getId() {
     	return this.id;
     }

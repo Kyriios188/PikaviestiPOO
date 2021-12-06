@@ -16,7 +16,7 @@ public class ChatSystemController {
     private User local_user;
 
 
-    private ChatSystemGUI gui;
+    private ChatSystemGUI GUI;
 
     private CommunicationSystem com_sys;
 
@@ -25,7 +25,7 @@ public class ChatSystemController {
     
     // We need the GUI here so when a distant user changes we can tell the GUI
     public ChatSystemController(ChatSystemGUI gui) {
-    	this.gui = gui;
+    	this.GUI = gui;
     	this.cs_model = new ChatSystemModel();
     }
 
@@ -129,7 +129,7 @@ public class ChatSystemController {
 				e.printStackTrace(); // Cannot happen
 			}
     		//TODO: uncomment
-    		//this.gui.changeDistantUsername(old_name, new_name);
+    		//this.GUI.changeDistantUsername(old_name, new_name);
     	}
     	else {
     		this.cs_model.addUser(new_user);

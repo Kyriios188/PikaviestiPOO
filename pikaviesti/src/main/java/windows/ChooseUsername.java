@@ -12,7 +12,7 @@ public class ChooseUsername extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
     private String username = null;
-    private ChatSystemGUI GUI;
+    private final ChatSystemGUI GUI;
 
     public ChooseUsername(ChatSystemGUI GUI) {
         this.GUI = GUI;

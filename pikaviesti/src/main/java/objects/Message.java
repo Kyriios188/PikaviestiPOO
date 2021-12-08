@@ -6,12 +6,12 @@ import java.time.*;
 public class Message {
 	
 	//TODO: For internal testing, add a port number?
-	private String content;
-	private LocalTime timestamp;
-	private int src_user;
-	private int dest_user;
+	private final String content;
+	private final LocalTime timestamp;
+	private final int src_user;
+	private final int dest_user;
 	
-	private int message_code; 
+	private final int message_code;
 	// represents the type of message so it's dealt with appropriately
 	/*
      *  Types of objects.Message :
@@ -70,27 +70,5 @@ public class Message {
 	
 	public int getMessageCode() {
 		return this.message_code;
-	}
-	
-	//**************  SETTERS  **************
-	
-	public void setSrcId(int new_id) {
-		this.src_user = new_id;
-	}
-	
-	public void setDestId(int new_id) {
-		this.dest_user = new_id;
-	}
-	
-	public void setTimeStamp(LocalTime timestamp) {
-		this.timestamp = timestamp;
-	}
-	
-	public void setContent(String new_content) {
-		this.content = new_content;
-	}
-	
-	public void setMessageCode(int new_code) {
-		this.message_code = new_code;
 	}
 }

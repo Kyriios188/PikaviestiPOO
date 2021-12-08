@@ -10,8 +10,8 @@ public class ChatSystemGUI {
 
     ChatSystemController cs_controller;
 
-    //private GUI user_gui_window;
-    private String local_message;
+    private ChooseUsername username_window;
+    private UserList userlist_window;
 
     public ChatSystemGUI() {
 
@@ -28,7 +28,7 @@ public class ChatSystemGUI {
     }
 
     public void openUsernameWindow(boolean state) {
-        ChooseUsername ChUsrnm = new ChooseUsername(this, this.cs_controller, state);
+        this.username_window=  new ChooseUsername(this, this.cs_controller, state);
     }
 
     public void openHistoryMessage() {
@@ -36,7 +36,7 @@ public class ChatSystemGUI {
     }
 
     public void openUserList(String name_array) {
-        UserList SrLst = new UserList(this.cs_controller);
+        this.userlist_window = new UserList(this.cs_controller);
     }
 
 
@@ -48,22 +48,23 @@ public class ChatSystemGUI {
     }
 
     private void startSession(String name) {
+        this.cs_controller.startSession(name);
     }
 
 
     private void endSession(String name) {
+        this.cs_controller.endSession(name);
     }
 
-
+    public void addUserToUserlist(String name) {
+        this.userlist_window.addUser(name);
+    }
+    
     public void changeDistantUsername(String old_name, String new_name) {
     }
 
 
     private void updateGUImessageReceived(String message_content, String sender_name, LocalTime time) {
-    }
-
-
-    private void updateGUImessageSent(String message_content, String dest_user, LocalTime time) {
     }
 
 

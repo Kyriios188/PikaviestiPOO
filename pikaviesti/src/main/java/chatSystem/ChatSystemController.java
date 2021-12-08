@@ -63,6 +63,10 @@ public class ChatSystemController {
 			e.printStackTrace();
 		}
 	}
+
+	public void endSession(String target_username) {
+		// TODO implement endSession
+	}
     
     public void sendChatMessage(String target_username, String content) {
     	try {
@@ -133,15 +137,14 @@ public class ChatSystemController {
     			// the new_user kept their id when changing their name
     			String old_name = this.cs_model.getNameFromId(new_user.getId());
 				this.cs_model.changeUserName(new_user);
+				this.GUI.changeDistantUsername(old_name, new_name);
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen
 			}
-    		//TODO: uncomment
-    		//this.GUI.changeDistantUsername(old_name, new_name);
     	}
     	else {
     		this.cs_model.addUser(new_user);
-    		//TODO: call GUI method to add user to user list
+    		this.GUI.addUserToUserlist(new_user.getName());
     	}
     	
     }

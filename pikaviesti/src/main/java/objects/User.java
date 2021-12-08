@@ -35,7 +35,7 @@ public class User {
     	this.id = id;
     }
 
-    public User() {
-    }
+    // We need this constructor when we create the local user
+    public User() {}
 
 }

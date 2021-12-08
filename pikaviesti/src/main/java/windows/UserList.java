@@ -51,6 +51,10 @@ public class UserList extends JDialog {
         this.setVisible(true);
     }
 
+    // TODO: implement
+    // Adds name to users in the user list
+    public void addUser(String name) {}
+
     private void onOK() {
         System.out.println("Start Session with " + selected);
         dispose();

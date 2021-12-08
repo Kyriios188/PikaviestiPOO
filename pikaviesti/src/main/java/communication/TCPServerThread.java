@@ -16,7 +16,6 @@ public class TCPServerThread extends Thread {
 	private boolean isOpen;
 	
 	// Needed to close sockets only
-	// TODO: update when session ends
 	private ArrayList<TCPSessionThread> session_list;
 	
 	
@@ -86,6 +85,8 @@ public class TCPServerThread extends Thread {
 				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys, this);
 				// Add the session to the list
 				this.session_list.add(new_session);
+				// Add the socket to the sender_sockets list so this host can message first
+				this.com_sys.handleConnection(link);
 
 
 				

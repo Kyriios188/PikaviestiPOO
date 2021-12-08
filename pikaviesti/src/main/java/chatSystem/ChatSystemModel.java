@@ -11,10 +11,15 @@ import objects.User;
 
 public class ChatSystemModel {
 
-	private ArrayList<User> user_list;
-	// We need to keep the address associated with the user to be able to send messages
-	// Is checked and updated whenever we receive a message
-	private Hashtable<Integer, InetAddress> addresses = new Hashtable<>();
+	private final ArrayList<User> user_list;
+	/*
+	We need to keep the address associated with the user to be able to send messages
+	Is checked and updated whenever we receive a message
+	We can access the addresses through the sockets, but we need this to be able to identify
+	to which host a socket belongs.
+	 */
+
+	private final Hashtable<Integer, InetAddress> addresses = new Hashtable<>();
 
 		
 	public ChatSystemModel() {
@@ -64,13 +69,28 @@ public class ChatSystemModel {
     	return matching_addr;
     	
     }
+
+	public int getIdFromAddress(InetAddress address) throws Exception {
+		int user_id;
+		for (int i = 0; i < this.addresses.size(); i++) {
+			user_id = this.user_list.get(i).getId();
+			if( this.addresses.get(user_id) == address) {
+				return user_id;
+			}
+		}
+		throw new Exception("Couldn't find user with address " + address);
+	}
+
+	public boolean checkAddressExistence(InetAddress address) {
+		return this.addresses.containsValue(address);
+	}
     
-    public void updateAddressTable(int user_id, InetAddress addr) {
+    public void updateAddressTable(int user_id, InetAddress address) {
     	// If there is no user_id matching, add the corresponding address
     	// If there is one and the address is the same, does it and returns the value
     	// If there is one and the address is different, does it and returns previous value
     	// Literally does everything at once, why even hire a developer
-    	this.addresses.put(user_id, addr);
+    	this.addresses.put(user_id, address);
     }
 
 
@@ -82,15 +102,6 @@ public class ChatSystemModel {
     	else {
     		throw new Exception("Couldn't find user " + u.getName());
     	}
-    }
-    
-    public String getUserFromName(String name) throws Exception {
-		for (User u : this.user_list) {
-			if (Objects.equals(u.getName(), name)) {
-				return u.getName();
-			}
-		}
-    	throw new Exception("Couldn't find user " + name);
     }
 
     public int getIdFromName(String name) throws Exception {
@@ -110,13 +121,4 @@ public class ChatSystemModel {
 		}
     	throw new Exception("Couldn't find user " + id);
     }
-
-
-    public void deleteUser(User u) throws Exception {
-    	int i = this.user_list.indexOf(u);
-    	if (i == -1) {
-    		throw new Exception("Couldn't find user " + u.getName());
-    	}
-    }
-
 }

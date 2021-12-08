@@ -34,11 +34,14 @@ public class CommunicationSystem {
 	// Socket is created in TCPConnect called by startSession, startSession adds it to sender_sockets
 	// Has a handler to close the socket and TODO stopSession
     private final int TCP_SND_PORT = 5070;
-    public static String delimiter = "!";
+
+	// Each session also has its own socket in the sender_sockets list
+
+    public static String delimiter = "/";
 
 
     // We keep the objects around to be able to close it cleanly
-    private UDPServerThread udp_rcv_server;
+    private final UDPServerThread udp_rcv_server;
     private TCPServerThread tcp_rcv_server;
 
     // When we send a message we have a name
@@ -49,9 +52,9 @@ public class CommunicationSystem {
     private Hashtable<Integer, Socket> sender_sockets;
 
 
-    private ChatSystemController controller;
+    private final ChatSystemController controller;
 
-    private int local_id;
+    private final int local_id;
     private String local_name;
 
 
@@ -93,7 +96,7 @@ public class CommunicationSystem {
     	UDPMessage(m, "255.255.255.255");
     }
 
-    // Converts objects.Message to String with format "src_user/dest_user/time/content"
+    // Converts Message to String with format "src_user/dest_user/time/content"
     // So it can be sent via UDP or TCP
     public String createRawMessage(Message m) {
     	return m.getSrcId() + CommunicationSystem.delimiter +
@@ -160,9 +163,9 @@ public class CommunicationSystem {
 		// The server will verify if the socket is open before closing it
     	this.udp_rcv_server.stop_server();
     }
-	// TODO: needs to know which sessions are ongoing
-	// Use socket.getInetAddress().isReachable(int timeout) to get every remaining session
-	// Or remove ended sessions from the list and use the list to close remaining ones
+
+	// We remove ended sessions from the list
+	// So we can use the list to close the remaining ones
 
 	public void closeTCPServer() {
 		this.tcp_rcv_server.stop_server();
@@ -188,7 +191,7 @@ public class CommunicationSystem {
     	try {
     		InetAddress dest_addr = InetAddress.getByName(dest_str);
 
-			DatagramSocket dgramSocket = new DatagramSocket(UDP_SND_PORT);
+			DatagramSocket dgramSocket = new DatagramSocket(this.UDP_SND_PORT);
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
 	    			dest_addr, UDP_RCV_PORT);
 	    	dgramSocket.send(outPacket);
@@ -208,10 +211,7 @@ public class CommunicationSystem {
      * We send messages when the GUI asks us to.
      * There is no dedicated thread, we connect, keep the proof of connection (socket)
      * in a table (sender_sockets) and use it whenever we send a message
-     * TODO: If we start a session with host1 and host2 messages first?
-     * --> host2 doesn't have the sender_socket
      * --> host2 shouldn't call the TCPConnect method since connection exists already
-     * ==> TCPServerThread needs to update the sender_sockets  when it gets a connection
      */
     
     public Socket TCPConnect(InetAddress distant_host) throws IOException {
@@ -240,6 +240,18 @@ public class CommunicationSystem {
 		}
 		
     }
+
+	// Adds socket to sender_sockets, so we can message first even if remote host establishes connection
+	// Tells GUI that a new session has started
+	public void handleConnection(Socket socket) {
+		InetAddress address = socket.getInetAddress();
+		// Tell the GUI a session has started
+		int id = this.controller.startSessionFromRemote(address);
+		// id = -1 if address doesn't match any connected user
+		if (id >= 0) {
+			this.addSenderSocket(id, socket);
+		}
+	}
 
 	//************** SOCKET SHUT DOWN HANDLERS **************
 

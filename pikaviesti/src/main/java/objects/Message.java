@@ -4,8 +4,7 @@ import java.time.*;
 
 
 public class Message {
-	
-	//TODO: For internal testing, add a port number?
+
 	private final String content;
 	private final LocalTime timestamp;
 	private final int src_user;

@@ -48,10 +48,16 @@ public class ChatSystemGUI {
         return "";
     }
 
+    // When we start a session
     private void startSession(String name) {
-        this.cs_controller.startSession(name);
+        this.cs_controller.startSessionFromLocal(name);
     }
 
+    // When remote user starts a session
+    // Must update user list, so we can't start the same session twice
+    public void remoteSessionStarted(String username) {
+        //
+    }
 
     private void endSession(String name) {
         this.cs_controller.endSession(name);

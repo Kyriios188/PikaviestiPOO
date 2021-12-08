@@ -51,7 +51,7 @@ public class ChatSystemController {
     
     // Starts a session and gives the corresponding socket
     // GUI shouldn't call it if the connection is already on
-    public void startSession(String target_username) {
+    public void startSessionFromLocal(String target_username) {
     	InetAddress host_addr = this.cs_model.getAddressFromName(target_username);
     	Socket sock = null;
     	try {
@@ -62,6 +62,17 @@ public class ChatSystemController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int startSessionFromRemote(InetAddress address) {
+		if (this.cs_model.checkAddressExistence(address)) {
+			try {
+				int id = this.cs_model.getIdFromAddress(address);
+				this.GUI.remoteSessionStarted(this.cs_model.getNameFromId(id));
+				return id;
+			} catch (Exception e) {/* cannot happen */}
+		}
+		return -1;
 	}
 
 	public void endSession(String target_username) {
@@ -127,19 +138,14 @@ public class ChatSystemController {
     	this.cs_model.updateAddressTable(user_id, addr);
     }
 
-	// TODO: implement
+	// TODO call it with GUI and test if it gives an error
     public void closeApp() {
-		// Close TCPSessions
-		// Close TCPServer
-		// Close UDPServer
+		this.com_sys.closeTCPServer();
+		this.com_sys.closeUDPServer();
     }
 
 
     //public void updateGUI(message new_message) {
-    //}
-
-
-    //public void updateChatHistory(message new_message) {
     //}
 
 

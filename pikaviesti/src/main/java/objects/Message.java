@@ -45,6 +45,18 @@ public class Message {
 		this.timestamp = time;
 		this.message_code = m_code;
 	}
+
+	public String getMessageType(int code) {
+		String message_type;
+		switch (code) {
+			case 0 -> message_type = "TCP message";
+			case 1 -> message_type = "What's your name question";
+			case 2 -> message_type = "What's your name answer";
+			case 3 -> message_type = "Name change notification";
+			default -> message_type = "Unidentified message";
+		}
+		return message_type;
+	}
 	
 	public String toString() {
 		return "From : " + this.src_user + "\nTo : " + this.dest_user + "\nAt : " + this.timestamp + "\nType : "+this.message_code + "\nContent : " + this.content;

@@ -55,10 +55,10 @@ public class CommunicationSystem {
     private String local_name;
 
 
-    public CommunicationSystem(ChatSystemController controller) {
+    public CommunicationSystem(ChatSystemController controller, int local_user_id) {
 
     	this.controller = controller;
-		this.local_id = this.controller.getLocalUser().getId();
+		this.local_id = local_user_id;
 
 
     	// Launch UDP server listening on specific port
@@ -88,7 +88,7 @@ public class CommunicationSystem {
 
     public void nameChangeNotificationBroadcast(String new_name) {
     	// It's broadcast so we put 0 in the dest_user field
-    	Message whatsyourname = new Message(this.local_id, 0, 1, new_name);
+    	Message whatsyourname = new Message(this.local_id, 0, 2, new_name);
     	String m = createRawMessage(whatsyourname);
     	UDPMessage(m, "255.255.255.255");
     }
@@ -106,14 +106,16 @@ public class CommunicationSystem {
     public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
 
     	Message m = parseMessage(raw_message);
-		// Ignore self-messaging and ignore every message before the local_user is defined
+		String m_type = m.getMessageType(m.getMessageCode());
+		System.out.println("Received " + m_type);
+		// Ignore self-messaging
 		if (m.getSrcId() == local_id) {
-			System.out.println("Ignore self_messaging");
+			System.out.println("Ignored");
 			return;
 		}
     	this.controller.updateModelAddressTable(m.getSrcId(), src_addr);
 
-    	System.out.println("Message code : " + m.getMessageCode());
+
     	switch (m.getMessageCode()) {
 
     	case 0:
@@ -121,20 +123,22 @@ public class CommunicationSystem {
     		break;
 
     	case 1:
-    		// We received "whatsYourName?". Can only answer if wa have a name
+    		// We received "whatsYourName?"
+			// Can only answer if we have a name
 			if (!this.controller.isLocalUserDefined()) {return;}
-    		System.out.println("Received 'whatsYourName?' question");
+
     		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.local_name);
     		System.out.println("Answered :\n"+answer);
-    		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string with the /
+    		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string without the /
     		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1));
     		break;
 
+		// Both cases are treated the same, update the Model
     	case 2:
-			// Both cases are treated the same, update the Model
+			// We received an answer to the question "whatsYourName?"
 			case 3:
 				// We received notification that distant user changed their name
-				// We received an answer to the question "whatsYourName?"
+
     		User u1 = new User(m.getContent(), m.getSrcId());
     		this.controller.updateCSModel(u1);
     		break;
@@ -142,6 +146,9 @@ public class CommunicationSystem {
 
     }
 
+	public void startTCPServer() {
+		this.tcp_rcv_server = new TCPServerThread(this, this.TCP_RCV_PORT);
+	}
 
 	// Every TCP session has its socket recorded
     public void addSenderSocket(Integer id, Socket sock) {
@@ -191,6 +198,10 @@ public class CommunicationSystem {
 			e.printStackTrace();
 		}
 	}
+
+	public Socket getSocketFromId(int id) {
+		return this.sender_sockets.get(id);
+	}
     
     /*
      * TCP receives messages with the TCPServerThread and TCPSessionThread
@@ -212,6 +223,10 @@ public class CommunicationSystem {
     	Socket sock = sender_sockets.get(m.getSrcId());
     	TCPMessage(raw_message, sock);
     }
+
+	public void endTCPSession(Socket sock) {
+		this.tcp_rcv_server.closeSession(sock);
+	}
     
     public void TCPMessage(String raw_message, Socket sock) {
 
@@ -227,6 +242,8 @@ public class CommunicationSystem {
     }
 
 	//************** SOCKET SHUT DOWN HANDLERS **************
+
+	// If app has a problem, the socket won't be hogged
 
 	// For Socket
 	public void addShutDownHook(Socket socket) {

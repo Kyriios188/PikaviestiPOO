@@ -9,6 +9,7 @@ import java.time.*;
 public class ChatSystemGUI {
 
     ChatSystemController cs_controller;
+    InputLogin login_window;
 
     private ChooseUsername username_window;
     private UserList userlist_window;
@@ -24,11 +25,11 @@ public class ChatSystemGUI {
     //************** Windows **************
 
     public void openLoginWindow() {
-        InputLogin NptLgn = new InputLogin(this, this.cs_controller);
+        this.login_window = new InputLogin(this, this.cs_controller);
     }
 
     public void openUsernameWindow(boolean state) {
-        this.username_window=  new ChooseUsername(this, this.cs_controller, state);
+        this.username_window =  new ChooseUsername(this, this.cs_controller, state);
     }
 
     public void openHistoryMessage() {

@@ -28,8 +28,28 @@ public class TCPServerThread extends Thread {
 		this.session_list = new ArrayList<>();
 		this.isOpen = true;
 	}
-	
-	// TODO: is this method even called during accept?
+
+	// Remote user has ended the session, we update the list of active sessions
+	public void removeSession(TCPSessionThread session) {
+		this.session_list.remove(session);
+	}
+
+	// Local user wants to end the session
+	public void closeSession(Socket sock) {
+		int index = -1;
+		for (int i = 0; i < this.session_list.size(); i++) {
+			if (this.session_list.get(i).getSocket() == sock) {
+				index = i;
+				this.session_list.get(i).closeSession();
+			}
+		}
+		if (index == -1) {
+			System.out.println("ERROR : TRIED TO CLOSE SESSION NOT IN SESSION_LIST");
+			return;
+		}
+		this.session_list.remove(index);
+	}
+
 	public void stop_server() {
 		try {
 			// Close the server socket
@@ -63,7 +83,7 @@ public class TCPServerThread extends Thread {
 				this.com_sys.addShutDownHook(link);
 				
 				// Dispatch a TCPSessionThread to handle sending and receiving messages
-				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys);
+				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys, this);
 				// Add the session to the list
 				this.session_list.add(new_session);
 

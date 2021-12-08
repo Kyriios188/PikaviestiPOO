@@ -95,7 +95,7 @@ public class ChatSystemModel {
 
     public int getIdFromName(String name) throws Exception {
 		for (User u : this.user_list) {
-			if (u.getName() == name) {
+			if (Objects.equals(u.getName(), name)) {
 				return u.getId();
 			}
 		}

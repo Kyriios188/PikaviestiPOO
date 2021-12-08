@@ -65,7 +65,14 @@ public class ChatSystemController {
 	}
 
 	public void endSession(String target_username) {
-		// TODO implement endSession
+		try {
+			int target_id = this.cs_model.getIdFromName(target_username);
+			this.com_sys.endTCPSession(this.com_sys.getSocketFromId(target_id));
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			System.out.println("Failure in endSession.");
+		}
 	}
     
     public void sendChatMessage(String target_username, String content) {
@@ -75,14 +82,22 @@ public class ChatSystemController {
 			this.com_sys.sendChatMessage(m);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Failure in sendMessage.");
 		}
     }
-    
+
+	public void initCommunicationSystem(int id) {
+		this.com_sys = new CommunicationSystem(this, id);
+	}
+
+	public void enableTCPMessaging() {
+		this.com_sys.startTCPServer();
+	}
+
     
     // We instantiate the CommunicationSystem when we check if the name is unique
     public boolean checkNameUnique(String name) {
 
-    	this.com_sys = new CommunicationSystem(this);
     	this.com_sys.whatsYourNameBroadcast();
 
     	try {
@@ -93,14 +108,15 @@ public class ChatSystemController {
 
     	// If you find the name in this list, your name isn't unique
     	if (this.cs_model.checkNameExistence(name)) {
+			System.out.println("Username isn't unique");
     		return false;
     	}
     	
     	// Your name is unique, notify users of name change
     	else {
+			System.out.println("Username is valid");
     		this.setLocalUsername(name);
 			this.local_user_defined = true;
-			//this.startTCPServer(); // TODO: this is when TCP server starts
     		this.com_sys.nameChangeNotificationBroadcast(name);
         	return true;
     	}
@@ -159,9 +175,10 @@ public class ChatSystemController {
 
 	// Uses the DB to get the user_id associated with the login
 	// TODO: add user to DB if not present already
-	public void setLocalId(String correct_login) {
+	public int setLocalId(String correct_login) {
 		int id = new Random().nextInt(1000);
 		this.local_user.setId(id);
+		return id;
 	}
 
     public void setLocalUsername(String local_name) {

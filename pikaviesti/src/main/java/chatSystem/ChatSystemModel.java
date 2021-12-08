@@ -3,6 +3,7 @@ package chatSystem;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Objects;
 
 import objects.User;
 
@@ -34,22 +35,20 @@ public class ChatSystemModel {
     public boolean checkUserExistence(User target_user) {
     	
     	int target_id = target_user.getId();
-    	for (int i = 0; i < this.user_list.size(); i++) {
-    		User u = this.user_list.get(i);
-    		if (u.getId() == target_id) {
-    			return true;
-    		}
-    	}
+		for (User u : this.user_list) {
+			if (u.getId() == target_id) {
+				return true;
+			}
+		}
     	return false;
     }
     
     public boolean checkNameExistence(String name) {
-    	for (int i = 0; i < this.user_list.size(); i++) {
-    		User u = this.user_list.get(i);
-    		if (u.getName() == name) {
-    			return true;
-    		}
-    	}
+		for (User u : this.user_list) {
+			if (Objects.equals(u.getName(), name)) {
+				return true;
+			}
+		}
     	return false;
     }
     
@@ -86,32 +85,29 @@ public class ChatSystemModel {
     }
     
     public String getUserFromName(String name) throws Exception {
-    	for (int i = 0; i < this.user_list.size(); i++) {
-    		User u = this.user_list.get(i);
-    		if (u.getName() == name) {
-    			return u.getName();
-    		}
-    	}
+		for (User u : this.user_list) {
+			if (Objects.equals(u.getName(), name)) {
+				return u.getName();
+			}
+		}
     	throw new Exception("Couldn't find user " + name);
     }
 
     public int getIdFromName(String name) throws Exception {
-    	for (int i = 0; i < this.user_list.size(); i++) {
-    		User u = this.user_list.get(i);
-    		if (u.getName() == name) {
-    			return u.getId();
-    		}
-    	}
+		for (User u : this.user_list) {
+			if (u.getName() == name) {
+				return u.getId();
+			}
+		}
     	throw new Exception("Couldn't find user " + name);
     }
     
     public String getNameFromId(int id) throws Exception {
-    	for (int i = 0; i < this.user_list.size(); i++) {
-    		User u = this.user_list.get(i);
-    		if (u.getId() == id) {
-    			return u.getName();
-    		}
-    	}
+		for (User u : this.user_list) {
+			if (u.getId() == id) {
+				return u.getName();
+			}
+		}
     	throw new Exception("Couldn't find user " + id);
     }
 

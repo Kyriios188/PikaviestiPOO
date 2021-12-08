@@ -11,9 +11,9 @@ import java.net.Socket;
 // To send messages, the GUI calls the controller who calls the com_sys
 public class TCPSessionThread extends Thread {
 	
-	private Socket sock;
-	private CommunicationSystem com_sys;
-	private InetAddress distant_addr;
+	private final Socket sock;
+	private final CommunicationSystem com_sys;
+	private final InetAddress distant_addr;
 	
 	// Will call the receiveMessage method so it needs the com_sys
 	public TCPSessionThread(Socket sock, CommunicationSystem com_sys) {
@@ -32,18 +32,20 @@ public class TCPSessionThread extends Thread {
 	}
 	
 	public void run() {
-		
+		String raw_message;
 		try {
 	        
 			// We accepted a connection
 			// We read what the other session says
 	        BufferedReader input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-	        String raw_message = input.readLine();
-	        //TODO: wait for the distant host to send messages?
-	        System.out.println("TCPSessionThread received message : " + raw_message);
-	        this.com_sys.receiveMessage(raw_message, this.distant_addr);
-	        
-	        //TODO: loop
+
+			// Wait for the message?
+	        while((raw_message = input.readLine()) != null) {
+				System.out.println("TCPSessionThread received message : " + raw_message);
+				this.com_sys.receiveMessage(raw_message, this.distant_addr);
+			}
+
+
 	        input.close();
 	        
 		} catch (IOException e) {

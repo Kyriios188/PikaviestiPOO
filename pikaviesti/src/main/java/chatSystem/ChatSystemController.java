@@ -13,21 +13,27 @@ import java.util.Random;
 
 public class ChatSystemController {
 
-    private User local_user;
+    private final User local_user;
 
 
-    private ChatSystemGUI GUI;
+    private final ChatSystemGUI GUI;
 
     private CommunicationSystem com_sys;
 
+	// We can't answer to some messages until the local_user is set
+	private boolean local_user_defined;
 
-    private ChatSystemModel cs_model;
+
+    private final ChatSystemModel cs_model;
     
     // We need the GUI here so when a distant user changes we can tell the GUI
     public ChatSystemController(ChatSystemGUI gui) {
     	this.GUI = gui;
     	this.cs_model = new ChatSystemModel();
-    }
+		this.local_user = new User();
+		this.local_user_defined = false;
+
+	}
 
     //public chat_history getChatHistory(user target_user) {
     //}
@@ -37,9 +43,9 @@ public class ChatSystemController {
     public ArrayList<String> getStrUserList() {
     	ArrayList<User> user_list = this.cs_model.getUserList();
     	ArrayList<String> str_user_list = new ArrayList<>();
-    	for (int i=0; i<user_list.size(); i++) {
-    		str_user_list.add(user_list.get(i).getName());
-    	}
+		for (User user : user_list) {
+			str_user_list.add(user.getName());
+		}
     	return str_user_list;
     }
     
@@ -53,12 +59,10 @@ public class ChatSystemController {
 			sock = this.com_sys.TCPConnect(host_addr);
 			// Store the socket created to send messages later on
 			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
+	}
     
     public void sendChatMessage(String target_username, String content) {
     	try {
@@ -90,7 +94,9 @@ public class ChatSystemController {
     	
     	// Your name is unique, notify users of name change
     	else {
-    		setLocalUser(name);
+    		this.setLocalUsername(name);
+			this.local_user_defined = true;
+			//this.startTCPServer(); // TODO: this is when TCP server starts
     		this.com_sys.nameChangeNotificationBroadcast(name);
         	return true;
     	}
@@ -100,9 +106,12 @@ public class ChatSystemController {
     public void updateModelAddressTable(int user_id, InetAddress addr) {
     	this.cs_model.updateAddressTable(user_id, addr);
     }
-    
+
+	// TODO: implement
     public void closeApp() {
-    	this.com_sys.closePorts();
+		// Close TCPSessions
+		// Close TCPServer
+		// Close UDPServer
     }
 
 
@@ -142,19 +151,23 @@ public class ChatSystemController {
     }
     
     // Gives the local user a unique id (unless we're really unlucky)
-	// First time: call it to give an id to the local user
-	// Second time: call it to give the username to the user
 	// Ignore messages before local_user is set
 
-    public void setLocalUser(String local_name) {
-    	int id = new Random().nextInt(1000);
-    	System.out.println(local_name + " : " + id);
-    	this.local_user = new User(local_name, id);
+
+	// Uses the DB to get the user_id associated with the login
+	// TODO: add user to DB if not present already
+	public void setLocalId(String correct_login) {
+		int id = new Random().nextInt(1000);
+		this.local_user.setId(id);
+	}
+
+    public void setLocalUsername(String local_name) {
+    	this.local_user.setName(local_name);
     }
 
-
-    public void showUserList() {
-    }
+	public boolean isLocalUserDefined() {
+		return this.local_user_defined;
+	}
 
     // If it exists, it uses message_code too
     //public void createMessage(String input, String username) {

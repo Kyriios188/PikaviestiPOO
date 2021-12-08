@@ -56,7 +56,7 @@ public class InputLogin extends JDialog {
         dispose();
 
         // if correct
-        this.controller.setLocalUser(this.login);
+        this.controller.setLocalId(this.login);
         this.GUI.openUsernameWindow(true);
     }
 

@@ -12,9 +12,11 @@ public class TCPServerThread extends Thread {
 	private int RCV_PORT;
 	private ServerSocket socket;
 	private CommunicationSystem com_sys;
+
+	private boolean isOpen;
 	
 	// Needed to close sockets only
-	//TODO: Delete it, add socket to sender_socket and close all sockets from com_sys
+	// TODO: update when session ends
 	private ArrayList<TCPSessionThread> session_list;
 	
 	
@@ -24,17 +26,18 @@ public class TCPServerThread extends Thread {
 		this.RCV_PORT = RCV_PORT;
 		this.com_sys = com_sys;
 		this.session_list = new ArrayList<>();
+		this.isOpen = true;
 	}
 	
-	
+	// TODO: is this method even called during accept?
 	public void stop_server() {
 		try {
 			// Close the server socket
 			this.socket.close();
 			
 			// Close every session
-			for (int i=0; i<this.session_list.size(); i++) {
-				this.session_list.get(i).closeSession();
+			for (TCPSessionThread tcpSessionThread : this.session_list) {
+				tcpSessionThread.closeSession();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -45,24 +48,25 @@ public class TCPServerThread extends Thread {
 		
 		try {
 			this.socket = new ServerSocket(this.RCV_PORT);
-		} catch (SocketException e1) {
+			this.com_sys.addShutDownHookServer(this.socket);
+		} catch (IOException e1) {
 			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		
+
 		// To accept multiple connections in a row
-		// The receive() method blocks the thread
-		while (true) {
+		// accept() blocks the thread
+		while (this.isOpen) {
 			try {
 				
 				// Accept incoming connection attempts
 				Socket link = this.socket.accept();
+				this.com_sys.addShutDownHook(link);
 				
 				// Dispatch a TCPSessionThread to handle sending and receiving messages
 				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys);
 				// Add the session to the list
 				this.session_list.add(new_session);
+
 
 				
 				

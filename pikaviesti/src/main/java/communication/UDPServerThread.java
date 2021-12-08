@@ -7,9 +7,9 @@ import java.net.SocketException;
 
 public class UDPServerThread extends Thread {
 
-	private int UDP_PORT;
+	private final int UDP_PORT;
 	private DatagramSocket socket;
-	private CommunicationSystem com_sys;
+	private final CommunicationSystem com_sys;
 	
 	public UDPServerThread(CommunicationSystem com_sys, int UDP_PORT) {
 		super();
@@ -17,15 +17,17 @@ public class UDPServerThread extends Thread {
 		this.com_sys = com_sys;
 	}
 	
-	
+	// We'd rather have the sockets close gracefully on our terms
 	public void stop_server() {
-		this.socket.close();
+		if (!this.socket.isClosed()) {this.socket.close();
+		}
 	}
 	
 	public void run() {
 		
 		try {
 			this.socket = new DatagramSocket(UDP_PORT);
+			this.com_sys.addShutDownHookDatagram(this.socket);
 		} catch (SocketException e1) {
 			e1.printStackTrace();
 		}
@@ -45,9 +47,6 @@ public class UDPServerThread extends Thread {
 				this.com_sys.receiveMessage(raw_message, inPacket.getAddress()); //inPacket.getPort()
 				
 				
-			} catch (SocketException e) {
-				e.printStackTrace();
-				System.exit(-1);
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.exit(-1);

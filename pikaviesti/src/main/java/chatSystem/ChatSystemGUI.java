@@ -71,7 +71,7 @@ public class ChatSystemGUI {
     }
 
 
-    private void updateGUImessageReceived(String message_content, String sender_name, LocalTime time) {
+    public void updateGUIMessageReceived(String message_content, String sender_name, String time) {
     }
 
 

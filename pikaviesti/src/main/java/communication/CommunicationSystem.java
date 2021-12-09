@@ -55,8 +55,6 @@ public class CommunicationSystem {
     private final ChatSystemController controller;
 
     private final int local_id;
-    private String local_name;
-
 
     public CommunicationSystem(ChatSystemController controller, int local_user_id) {
 
@@ -83,6 +81,7 @@ public class CommunicationSystem {
     }
 
     public void whatsYourNameBroadcast() {
+		System.out.println("Sending what's your name question broadcast");
     	// It's broadcast so we put 0 in the dest_user field
     	Message whatsyourname = new Message(this.local_id, 0, 1, "fill");
     	String m = createRawMessage(whatsyourname);
@@ -90,6 +89,7 @@ public class CommunicationSystem {
     }
 
     public void nameChangeNotificationBroadcast(String new_name) {
+    	System.out.println("Sending name change notification broadcast");
     	// It's broadcast so we put 0 in the dest_user field
     	Message whatsyourname = new Message(this.local_id, 0, 2, new_name);
     	String m = createRawMessage(whatsyourname);
@@ -123,6 +123,8 @@ public class CommunicationSystem {
 
     	case 0:
     		// We received a chat message
+			this.controller.updateGUI(m);
+
     		break;
 
     	case 1:
@@ -130,7 +132,7 @@ public class CommunicationSystem {
 			// Can only answer if we have a name
 			if (!this.controller.isLocalUserDefined()) {return;}
 
-    		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.local_name);
+    		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.controller.getLocalUser().getName());
     		System.out.println("Answered :\n"+answer);
     		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string without the /
     		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1));

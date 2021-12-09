@@ -6,8 +6,10 @@ import objects.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -138,15 +140,26 @@ public class ChatSystemController {
     	this.cs_model.updateAddressTable(user_id, addr);
     }
 
-	// TODO call it with GUI and test if it gives an error
+	// TODO change into close before name change and after name change
+	// TODO send disconnect broadcast
     public void closeApp() {
 		this.com_sys.closeTCPServer();
 		this.com_sys.closeUDPServer();
     }
 
 
-    //public void updateGUI(message new_message) {
-    //}
+    public void updateGUI(Message received_message) {
+		try {
+			String source_name = this.cs_model.getNameFromId(received_message.getSrcId());
+			String content = received_message.getContent();
+			LocalTime time = received_message.getTimeStamp();
+			DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
+			String formatted_time = time.format(formatter);
+			this.GUI.updateGUIMessageReceived(content, source_name, formatted_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
     // Updates the CSModel by either changing the name or adding a user

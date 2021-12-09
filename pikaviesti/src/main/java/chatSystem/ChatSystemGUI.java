@@ -3,6 +3,7 @@ package chatSystem;
 import windows.InputLogin;
 import windows.ChooseUsername;
 import windows.HistoryMessage;
+import windows.HistoryMessageUserList;
 import windows.UserList;
 import java.time.*;
 
@@ -13,6 +14,7 @@ public class ChatSystemGUI {
 
     private ChooseUsername username_window;
     private UserList userlist_window;
+    private HistoryMessageUserList HstrMssgSrLst;
 
     public ChatSystemGUI() {
 
@@ -33,7 +35,7 @@ public class ChatSystemGUI {
     }
 
     public void openHistoryMessage() {
-        HistoryMessage HstrMssg = new HistoryMessage(this, this.cs_controller);
+        this.HstrMssgSrLst = new HistoryMessageUserList(this, this.cs_controller);
     }
 
     public void openUserList(String name_array) {
@@ -64,7 +66,7 @@ public class ChatSystemGUI {
     }
 
     public void addUserToUserlist(String name) {
-        this.userlist_window.addUser(name);
+        this.HstrMssgSrLst.addUser(name);
     }
     
     public void changeDistantUsername(String old_name, String new_name) {

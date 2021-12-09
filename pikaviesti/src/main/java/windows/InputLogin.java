@@ -28,6 +28,7 @@ public class InputLogin extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        this.setTitle("Input Login");
 
         buttonOK.addActionListener(e -> onOK());
 

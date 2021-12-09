@@ -30,6 +30,7 @@ public class ChooseUsername extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        this.setTitle("Choose Username");
 
         if (state) {
             buttonOK.addActionListener(e -> onOK());

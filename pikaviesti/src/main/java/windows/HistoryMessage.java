@@ -59,7 +59,7 @@ public class HistoryMessage extends JDialog {
 
     private void onSEND() {
         this.messageText = textField1.getText();
-        this.controller.sendChatMessage("username", this.messageText);
+        this.controller.sendChatMessage("username", this.messageText); //Obtenir l'username
         System.out.println("Message : " + this.messageText);
         add(this.messageText);
         textField1.setText("");

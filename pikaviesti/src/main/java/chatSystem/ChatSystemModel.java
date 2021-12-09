@@ -24,6 +24,7 @@ public class ChatSystemModel {
 		
 	public ChatSystemModel() {
 		this.user_list = new ArrayList<>();
+		this.user_list.add(new User("e",2));
 	}
 	
 	

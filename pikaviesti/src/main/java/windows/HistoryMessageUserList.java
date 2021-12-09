@@ -77,7 +77,7 @@ public class HistoryMessageUserList extends JDialog {
         System.out.println("Message : " + this.messageText);
         this.controller.sendChatMessage(this.selected, this.messageText);
         addMessage(this.messageText);
-        textField1.setText("");
+        textField1.setText(""); //test
     }
 
     private void onChangeUsername() {

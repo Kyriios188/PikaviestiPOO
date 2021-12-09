@@ -37,7 +37,7 @@ public class ChatSystemGUI {
     }
 
     public void openUserList(String name_array) {
-        this.userlist_window = new UserList(this.cs_controller);
+        this.userlist_window = new UserList(this, this.cs_controller);
     }
 
 
@@ -49,7 +49,7 @@ public class ChatSystemGUI {
     }
 
     // When we start a session
-    private void startSession(String name) {
+    public void startSession(String name) {
         this.cs_controller.startSessionFromLocal(name);
     }
 

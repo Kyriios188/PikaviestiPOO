@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import chatSystem.ChatSystemController;
+import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -16,9 +17,11 @@ public class UserList extends JDialog {
     private JList userList;
     private String selected;
     private ChatSystemController controller;
+    private final ChatSystemGUI GUI;
 
-    public UserList(ChatSystemController cs_controller) {
+    public UserList(ChatSystemGUI GUI, ChatSystemController cs_controller) {
         this.controller = cs_controller;
+        this.GUI = GUI;
 
         setContentPane(contentPane);
         setModal(true);
@@ -56,6 +59,7 @@ public class UserList extends JDialog {
     }
 
     private void onOK() {
+        this.GUI.startSession(this.selected);
         System.out.println("Start Session with " + selected);
         dispose();
     }

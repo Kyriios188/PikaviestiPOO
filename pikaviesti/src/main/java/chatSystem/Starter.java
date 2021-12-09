@@ -15,7 +15,7 @@ package chatSystem;
  * _Quand tu veux envoyer un message, appelle sendChatMessage du controller (je garantit pas que ça marche mais elle existe) - OK
  * _Utiliser ça : getStrUserList pour mettre à jour la liste la première fois
  *
- * 
+ *
  */
 
 /* TODO list for back-end:

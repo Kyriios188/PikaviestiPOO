@@ -1,5 +1,7 @@
 package chatSystem;
 
+//function
+
 /* 
  * TODO list for GUI:
  * _j'ai besoin d'une méthode pour que quand je trouve un nouvel utilisateur, je puisse dire de l'ajouter à la liste des utilisateurs qui sont montrés dans UserList

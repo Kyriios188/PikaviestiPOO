@@ -12,8 +12,10 @@ package chatSystem;
  * pas commencer la même session deux fois. ça devrait aussi ouvrir une fenêtre pour envoyer des messages
  * _Si on ouvre plusieurs sessions yaura le bouton username pour chaque session (et user list), je pense qu'il faudrait une fenêtre d'où on établie la connection et on change de
  * nom et ensuite une fenêtre pas ession de chat.
- * _Quand tu veux envoyer un message, appelle sendChatMessage du controller (je garantit pas que ça marche mais elle existe)
+ * _Quand tu veux envoyer un message, appelle sendChatMessage du controller (je garantit pas que ça marche mais elle existe) - OK
  * _Utiliser ça : getStrUserList pour mettre à jour la liste la première fois
+ *
+ * 
  */
 
 /* TODO list for back-end:

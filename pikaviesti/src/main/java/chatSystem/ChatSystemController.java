@@ -194,10 +194,8 @@ public class ChatSystemController {
 
 	// Uses the DB to get the user_id associated with the login
 	// TODO: add user to DB if not present already
-	public int setLocalId(String correct_login) {
-		int id = new Random().nextInt(1000);
+	public void setLocalId(int id) {
 		this.local_user.setId(id);
-		return id;
 	}
 
     public void setLocalUsername(String local_name) {

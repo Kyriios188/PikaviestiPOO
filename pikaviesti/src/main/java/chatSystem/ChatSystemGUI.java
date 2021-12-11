@@ -5,6 +5,11 @@ import windows.ChooseUsername;
 import windows.HistoryMessage;
 import windows.HistoryMessageUserList;
 import windows.UserList;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.*;
 
 public class ChatSystemGUI {
@@ -15,11 +20,13 @@ public class ChatSystemGUI {
     private ChooseUsername username_window;
     private UserList userlist_window;
     private HistoryMessageUserList HstrMssgSrLst;
+    private Connection con;
 
-    public ChatSystemGUI() {
+    public ChatSystemGUI(Connection con) {
 
         // Launches the controller
         this.cs_controller = new ChatSystemController(this);
+        this.con = con;
 
     }
 
@@ -29,6 +36,34 @@ public class ChatSystemGUI {
     public void openLoginWindow() {
         this.login_window = new InputLogin(this, this.cs_controller);
     }
+
+    // Returns the account id or -1 if no account is found/if there's an error
+    public int findAccount(String login, String password) {
+        int account_id;
+        try {
+            Statement statement = this.con.createStatement();
+            String query1 = "SELECT COUNT(id) AS n FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
+            ResultSet rs_number = statement.executeQuery(query1);
+            // If we find a matching row in the database
+            rs_number.next();
+            if (rs_number.getInt("n") == 1) {
+                String query2 = "SELECT id AS acc_id FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
+                ResultSet rs_id = statement.executeQuery(query2);
+                rs_id.next();
+                account_id = rs_id.getInt("acc_id");
+                System.out.println("Found account : "+account_id);
+            }
+            else {
+                account_id = -1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQLException detected, returning false");
+            account_id = -1;
+        }
+        return account_id;
+    }
+
 
     public void openUsernameWindow(boolean state) {
         this.username_window =  new ChooseUsername(this, this.cs_controller, state);

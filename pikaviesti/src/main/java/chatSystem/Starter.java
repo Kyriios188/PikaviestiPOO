@@ -27,9 +27,27 @@ package chatSystem;
  *
  */
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Starter {
+
+	public static Connection con = null; // We test if we can connect to the database from the get go
+
 	public static void main(String[] args) {
-		ChatSystemGUI GUI = new ChatSystemGUI();
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/tp_servlet_005",
+					"tp_servlet_005", "aoh8Naij");
+			System.out.println("Success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+
+		ChatSystemGUI GUI = new ChatSystemGUI(con);
 		// Launch GUI
 		GUI.openLoginWindow();
 	}

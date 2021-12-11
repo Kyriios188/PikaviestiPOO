@@ -11,6 +11,8 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class InputLogin extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -51,16 +53,30 @@ public class InputLogin extends JDialog {
 
     private void onOK() {
         this.login = textField1.getText();
-        this.psswrd = Arrays.toString(passwordField1.getPassword());
-        System.out.println("Login : " + this.login);
-        System.out.println("Password : " + Arrays.toString(passwordField1.getPassword()));
-        dispose();
+        char[] psswrd_list =  passwordField1.getPassword();
 
-        // if correct (db)
-        int id = this.controller.setLocalId(this.login);
-        // can only start the communication system once we have the local id
-        this.controller.initCommunicationSystem(id);
-        this.GUI.openUsernameWindow(true);
+        // Convert Array to string
+        StringBuilder stringb = new StringBuilder();
+        for (char c : psswrd_list) {
+            stringb.append(c);
+        }
+        this.psswrd = stringb.toString();
+
+        // Check if it marches with an account
+        int id;
+        dispose();
+        // Login is incorrect
+        if ((id = this.GUI.findAccount(this.login, this.psswrd)) == -1) {
+            showMessageDialog(null, "Mauvais identifiant / mot de passe.");
+            this.GUI.openLoginWindow();
+        }
+        // Login is correct, id is account number
+        else {
+            this.controller.setLocalId(id);
+            // can only start the communication system once we have the local id
+            this.controller.initCommunicationSystem(id);
+            this.GUI.openUsernameWindow(true);
+        }
     }
 
     private void onCancel() {

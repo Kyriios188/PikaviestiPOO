@@ -57,9 +57,10 @@ public class ChooseUsername extends JDialog {
 
     private void onOK() {
         this.username = textField1.getText();
+        dispose();
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("Username : " + this.username);
-            dispose();
+
             // if the name is valid, we are open to communications
             // TODO loop if it returns false
             if (this.controller.checkNameUnique(this.username)) {
@@ -68,8 +69,7 @@ public class ChooseUsername extends JDialog {
             }
 
         } else {
-            dispose();
-            showMessageDialog(null, "Your username must not contains any character from this list: !", "Error", JOptionPane.ERROR_MESSAGE);
+            showMessageDialog(null, "Your username must not contains any character from this list: [\\, "+CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(true);
         }
     }

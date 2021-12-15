@@ -201,7 +201,7 @@ public class CommunicationSystem {
 
 			DatagramSocket dgramSocket = new DatagramSocket(this.UDP_SND_PORT + this.controller.getLocalUser().getId());
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
-	    			dest_addr, UDP_RCV_PORT+user_offset);
+	    			dest_addr, UDP_RCV_PORT+target_user_offset);
 	    	dgramSocket.send(outPacket);
 	    	dgramSocket.close();
 			

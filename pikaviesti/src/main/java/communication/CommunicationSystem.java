@@ -63,7 +63,8 @@ public class CommunicationSystem {
 
 
     	// Launch UDP server listening on specific port
-    	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
+		int udp_rcv =  UDP_RCV_PORT + this.controller.getLocalUser().getId();
+    	this.udp_rcv_server = new UDPServerThread(this, udp_rcv);
     	this.udp_rcv_server.start();
 
     }
@@ -135,7 +136,7 @@ public class CommunicationSystem {
     		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.controller.getLocalUser().getName());
     		System.out.println("Answered :\n"+answer);
     		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string without the /
-    		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1));
+    		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1), );
     		break;
 
 		// Both cases are treated the same, update the Model
@@ -193,14 +194,14 @@ public class CommunicationSystem {
      */
 
 
-    public void UDPMessage(String raw_message, String dest_str) {
+    public void UDPMessage(String raw_message, String dest_str, int target_user_offset) {
 
     	try {
     		InetAddress dest_addr = InetAddress.getByName(dest_str);
 
-			DatagramSocket dgramSocket = new DatagramSocket(this.UDP_SND_PORT);
+			DatagramSocket dgramSocket = new DatagramSocket(this.UDP_SND_PORT + this.controller.getLocalUser().getId());
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
-	    			dest_addr, UDP_RCV_PORT);
+	    			dest_addr, UDP_RCV_PORT+user_offset);
 	    	dgramSocket.send(outPacket);
 	    	dgramSocket.close();
 			

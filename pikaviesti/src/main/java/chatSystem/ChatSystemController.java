@@ -163,7 +163,7 @@ public class ChatSystemController {
 
 
     // Updates the CSModel by either changing the name or adding a user
-    public void updateCSModel(User new_user) {
+    public void updateCSModel(User new_user, boolean update_gui) {
     	if (this.cs_model.checkUserExistence(new_user)) {
     		
         	String new_name = new_user.getName();
@@ -179,9 +179,10 @@ public class ChatSystemController {
     	}
     	else {
     		this.cs_model.addUser(new_user);
-    		this.GUI.addUserToUserlist(new_user.getName());
+			if (update_gui) {
+				this.GUI.addUserToUserlist(new_user.getName());
+			}
     	}
-    	
     }
     
     public User getLocalUser() {

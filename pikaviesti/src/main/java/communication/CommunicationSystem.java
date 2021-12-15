@@ -141,18 +141,23 @@ public class CommunicationSystem {
 		// Both cases are treated the same, update the Model
     	case 2:
 			// We received an answer to the question "whatsYourName?"
-			case 3:
-				// We received notification that distant user changed their name
+			// We don't update the GUI here, it doesn't exist yet
+			User u1 = new User(m.getContent(), m.getSrcId());
+			this.controller.updateCSModel(u1, false);
+			break;
 
-    		User u1 = new User(m.getContent(), m.getSrcId());
-    		this.controller.updateCSModel(u1);
-    		break;
+		case 3:
+			// We received notification that distant user changed their name
+			User u2 = new User(m.getContent(), m.getSrcId());
+			this.controller.updateCSModel(u2, true);
+			break;
 		}
 
     }
 
 	public void startTCPServer() {
-		this.tcp_rcv_server = new TCPServerThread(this, this.TCP_RCV_PORT);
+		int tcp_rcv_port = this.TCP_RCV_PORT + this.controller.getLocalUser().getId();
+		this.tcp_rcv_server = new TCPServerThread(this, tcp_rcv_port);
 	}
 
 	// Every TCP session has its socket recorded

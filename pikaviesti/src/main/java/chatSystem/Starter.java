@@ -17,7 +17,7 @@ package chatSystem;
  * _tester messages TCP
  * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
  * _BDD Historique Messages
- * 
+ *
  *
  *
  */

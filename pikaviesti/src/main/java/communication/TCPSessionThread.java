@@ -45,10 +45,10 @@ public class TCPSessionThread extends Thread {
 	         	input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
 				// Wait for the message?
-				while((raw_message = input.readLine()) != null) {
-					System.out.println("TCPSessionThread received message : " + raw_message);
-					this.com_sys.receiveMessage(raw_message, this.distant_addr);
-				}
+				System.out.println("Waiting for message");
+				raw_message = input.readLine();
+				System.out.println("TCPSessionThread received message : " + raw_message);
+				this.com_sys.receiveMessage(raw_message, this.distant_addr);
 
 
 			} catch (IOException e) {

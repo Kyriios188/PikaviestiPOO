@@ -69,7 +69,7 @@ public class ChooseUsername extends JDialog {
             }
 
         } else {
-            showMessageDialog(null, "Your username must not contains any character from this list: [\\, "+CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
+            showMessageDialog(null, "Your username must not contains any character from this list: [\\, " + CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(true);
         }
     }

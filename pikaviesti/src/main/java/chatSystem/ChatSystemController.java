@@ -58,12 +58,15 @@ public class ChatSystemController {
     	Socket sock = null;
     	try {
     		// Connect to foreign host
-			sock = this.com_sys.TCPConnect(host_addr);
+			sock = this.com_sys.TCPConnect(host_addr, this.cs_model.getIdFromName(target_username));
 			// Store the socket created to send messages later on
 			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			System.out.println("Failure to connect to distant host at address " + host_addr);
+			System.out.println(ioe);
 		}
+		catch (Exception e) {/**/}
+
 	}
 
 	public int startSessionFromRemote(InetAddress address) {

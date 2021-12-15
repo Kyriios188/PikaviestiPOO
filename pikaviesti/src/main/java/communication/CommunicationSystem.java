@@ -61,6 +61,7 @@ public class CommunicationSystem {
     	this.controller = controller;
 		this.local_id = local_user_id;
 
+		this.sender_sockets = new Hashtable<>();
 
     	// Launch UDP server listening on specific port
     	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
@@ -156,8 +157,8 @@ public class CommunicationSystem {
     }
 
 	public void startTCPServer() {
-		int tcp_rcv_port = this.TCP_RCV_PORT + this.local_id;
-		this.tcp_rcv_server = new TCPServerThread(this, tcp_rcv_port);
+
+		this.tcp_rcv_server = new TCPServerThread(this, this.TCP_RCV_PORT + this.local_id);
 		this.tcp_rcv_server.start();
 	}
 
@@ -221,14 +222,16 @@ public class CommunicationSystem {
      * in a table (sender_sockets) and use it whenever we send a message
      * --> host2 shouldn't call the TCPConnect method since connection exists already
      */
-    
-    public Socket TCPConnect(InetAddress distant_host) throws IOException {
-		return new Socket(distant_host, this.TCP_SND_PORT);
+
+	// Need the id of the user we're trying to connect to
+	// He set up his listener on the TCP_RCV_PORT + local_id, so we try to connect to that
+    public Socket TCPConnect(InetAddress distant_host, int distant_id) throws IOException {
+		return new Socket(distant_host, this.TCP_RCV_PORT + distant_id);
     }
     
     public void sendChatMessage(Message m) {
     	String raw_message = createRawMessage(m);
-    	Socket sock = sender_sockets.get(m.getSrcId());
+    	Socket sock = sender_sockets.get(m.getDestId());
     	TCPMessage(raw_message, sock);
     }
 
@@ -246,7 +249,6 @@ public class CommunicationSystem {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
     }
 
 	// Adds socket to sender_sockets, so we can message first even if remote host establishes connection

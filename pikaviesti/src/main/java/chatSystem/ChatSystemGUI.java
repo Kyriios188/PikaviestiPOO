@@ -80,11 +80,6 @@ public class ChatSystemGUI {
 
     //**************         **************
 
-
-    private String getUserMessage() {
-        return "";
-    }
-
     // When we start a session
     public void startSession(String name) {
         this.cs_controller.startSessionFromLocal(name);

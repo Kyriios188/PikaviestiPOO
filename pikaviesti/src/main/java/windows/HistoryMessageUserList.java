@@ -57,15 +57,17 @@ public class HistoryMessageUserList extends JDialog {
             }
         });
 
+        this.refreshUserList();
+
         this.pack();
         this.setVisible(true);
     }
 
-    //private void actualizeUserList() {
-    //    for (String name controller.getStrUserList()) {
-    //        this.addUser(name);
-    //    }
-    //}
+    private void refreshUserList() {
+        for (String name : controller.getStrUserList()) {
+            this.addUser(name);
+        }
+    }
 
     // Adds name to users in the user list
     public void addUser(String name) {

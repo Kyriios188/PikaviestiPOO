@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class HistoryMessageUserList extends JDialog {
+    private JFrame frameLogin = new JFrame();
     private JPanel contentPane;
     private JButton buttonSend;
     private JTextField textField1;
@@ -27,9 +28,9 @@ public class HistoryMessageUserList extends JDialog {
         this.GUI = GUI;
         this.controller = cs_controller;
 
-        setContentPane(contentPane);
+        this.frameLogin.setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonSend);
+        this.frameLogin.getRootPane().setDefaultButton(buttonSend);
         this.setTitle("Chat History");
 
 
@@ -37,8 +38,8 @@ public class HistoryMessageUserList extends JDialog {
         changeUsernameButton.addActionListener(e -> onChangeUsername());
 
         // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
+        this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.frameLogin.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -46,6 +47,9 @@ public class HistoryMessageUserList extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        // call onSEND() on ENTER
+        contentPane.registerKeyboardAction(e -> onSEND(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         userList.addMouseListener(new MouseAdapter() {
             @Override
@@ -59,8 +63,8 @@ public class HistoryMessageUserList extends JDialog {
 
         this.refreshUserList();
 
-        this.pack();
-        this.setVisible(true);
+        this.frameLogin.pack();
+        this.frameLogin.setVisible(true);
     }
 
     private void refreshUserList() {
@@ -95,7 +99,7 @@ public class HistoryMessageUserList extends JDialog {
 
     private void onCancel() {
         System.out.println("Dead");
-        dispose();
+        this.frameLogin.dispose();
     }
 
     {

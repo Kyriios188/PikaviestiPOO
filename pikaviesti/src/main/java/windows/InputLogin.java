@@ -3,7 +3,6 @@ package windows;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
 
 import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
@@ -14,6 +13,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class InputLogin extends JDialog {
+    private JFrame frameLogin = new JFrame();
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -27,18 +27,18 @@ public class InputLogin extends JDialog {
     public InputLogin(ChatSystemGUI GUI, ChatSystemController controller) {
         this.GUI = GUI;
         this.controller = controller;
-        setContentPane(contentPane);
+        this.frameLogin.setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        this.setTitle("Input Login");
+        this.frameLogin.getRootPane().setDefaultButton(buttonOK);
+        this.frameLogin.setTitle("Input Login");
 
         buttonOK.addActionListener(e -> onOK());
 
         buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
+        this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.frameLogin.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -47,8 +47,11 @@ public class InputLogin extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        this.pack();
-        this.setVisible(true);
+        // call onOK() on ENTER
+        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        this.frameLogin.pack();
+        this.frameLogin.setVisible(true);
     }
 
     private void onOK() {
@@ -64,7 +67,7 @@ public class InputLogin extends JDialog {
 
         // Check if it marches with an account
         int id;
-        dispose();
+        this.frameLogin.dispose();
         // Login is incorrect
         if ((id = this.GUI.findAccount(this.login, this.psswrd)) == -1) {
             showMessageDialog(null, "Mauvais identifiant / mot de passe.");
@@ -81,7 +84,7 @@ public class InputLogin extends JDialog {
 
     private void onCancel() {
         System.out.println("Dead");
-        dispose();
+        this.frameLogin.dispose();
     }
 
     //************** GETTERS **************

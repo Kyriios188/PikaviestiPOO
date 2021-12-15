@@ -12,6 +12,7 @@ import chatSystem.ChatSystemController;
 import static javax.swing.JOptionPane.*;
 
 public class ChooseUsername extends JDialog {
+    private JFrame frameLogin = new JFrame();
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -27,22 +28,26 @@ public class ChooseUsername extends JDialog {
         this.state = state;
 
 
-        setContentPane(contentPane);
+        this.frameLogin.setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        this.setTitle("Choose Username");
+        this.frameLogin.getRootPane().setDefaultButton(buttonOK);
+        this.frameLogin.setTitle("Choose Username");
 
         if (state) {
             buttonOK.addActionListener(e -> onOK());
+            // call onOK() on ENTER
+            contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         } else {
             buttonOK.addActionListener(e -> onOKNew());
+            // call onOKNew() on ENTER
+            contentPane.registerKeyboardAction(e -> onOKNew(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         }
 
         buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
+        this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.frameLogin.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -51,21 +56,24 @@ public class ChooseUsername extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        this.pack();
-        this.setVisible(true);
+
+        this.frameLogin.pack();
+        this.frameLogin.setVisible(true);
     }
 
     private void onOK() {
         this.username = textField1.getText();
-        dispose();
+        this.frameLogin.dispose();
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("Username : " + this.username);
 
             // if the name is valid, we are open to communications
-            // TODO loop if it returns false
             if (this.controller.checkNameUnique(this.username)) {
                 this.controller.enableTCPMessaging();
                 this.GUI.openHistoryMessage();
+            } else {
+                showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
+                this.GUI.openUsernameWindow(true);
             }
 
         } else {
@@ -78,13 +86,15 @@ public class ChooseUsername extends JDialog {
         this.username = textField1.getText();
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("New Username : " + this.username);
-            dispose();
+            this.frameLogin.dispose();
+
             if (!this.controller.checkNameUnique(this.username)) {
-                // TODO loop
+                showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
+                this.GUI.openUsernameWindow(false);
             }
 
         } else {
-            dispose();
+            this.frameLogin.dispose();
             showMessageDialog(null, "The username must not contains any character from this list : !", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(false);
         }
@@ -92,7 +102,7 @@ public class ChooseUsername extends JDialog {
 
     private void onCancel() {
         System.out.println("Dead");
-        dispose();
+        this.frameLogin.dispose();
     }
 
     //************** GETTERS **************

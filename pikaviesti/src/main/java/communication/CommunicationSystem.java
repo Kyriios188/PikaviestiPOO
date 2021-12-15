@@ -158,6 +158,7 @@ public class CommunicationSystem {
 	public void startTCPServer() {
 		int tcp_rcv_port = this.TCP_RCV_PORT + this.local_id;
 		this.tcp_rcv_server = new TCPServerThread(this, tcp_rcv_port);
+		this.tcp_rcv_server.start();
 	}
 
 	// Every TCP session has its socket recorded

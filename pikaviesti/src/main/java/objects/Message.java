@@ -1,6 +1,7 @@
 package objects;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 
 public class Message {
@@ -36,7 +37,8 @@ public class Message {
 		this.message_code = m_code;
 		this.timestamp = LocalTime.now();
 	}
-	
+
+	// Used when we fetch the chat history
 	public Message(int src, int dest, LocalTime time,  int m_code, String content) {
 		this.content = content;
 		this.src_user = src;
@@ -62,6 +64,11 @@ public class Message {
 	}
 	
 	//**************  GETTERS  **************
+
+	public String getFormattedTime() {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
+		return this.timestamp.format(formatter);
+	}
 	
 	public int getSrcId() {
 		return this.src_user;

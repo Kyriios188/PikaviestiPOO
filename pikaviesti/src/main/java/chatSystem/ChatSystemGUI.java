@@ -25,7 +25,7 @@ public class ChatSystemGUI {
     public ChatSystemGUI(Connection con) {
 
         // Launches the controller
-        this.cs_controller = new ChatSystemController(this);
+        this.cs_controller = new ChatSystemController(this, this.con);
         this.con = con;
 
     }

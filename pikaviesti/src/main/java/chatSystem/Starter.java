@@ -9,16 +9,15 @@ package chatSystem;
  * nom et ensuite une fenêtre pas session de chat.
  * _Permettre de finir une session
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut qu'une fenêtre s'affiche pour montrer qu'une nouvelle session a commencé)
- *
+ * _Alignement messages selon l'envoyeur/l'envoyé (pour bien voir qui a envoyé quoi)
+ * _Utiliser controller.getChatHistory, controller.getNameFromId et message.getFormattedTime pour afficher l'historique des messages
  */
 
 /* TODO list for back-end:
  * _faire fonctionner closeApp
- * _tester messages TCP
  * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
- * _BDD Historique Messages
  * _failure log dans target
- * _click on user should only startSession once, after it only shows the history
+ * _click on user should only startSession once, after it only shows the history -> menfou ?
  *
  */
 

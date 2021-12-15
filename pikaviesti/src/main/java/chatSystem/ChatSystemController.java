@@ -6,9 +6,12 @@ import objects.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Random;
 import java.time.format.DateTimeFormatter;
 
 
@@ -22,6 +25,8 @@ public class ChatSystemController {
 
     private CommunicationSystem com_sys;
 
+	private final Connection con;
+
 	// We can't answer to some messages until the local_user is set
 	private boolean local_user_defined;
 
@@ -29,16 +34,46 @@ public class ChatSystemController {
     private final ChatSystemModel cs_model;
     
     // We need the GUI here so when a distant user changes we can tell the GUI
-    public ChatSystemController(ChatSystemGUI gui) {
+    public ChatSystemController(ChatSystemGUI gui, Connection con) {
     	this.GUI = gui;
     	this.cs_model = new ChatSystemModel();
 		this.local_user = new User();
 		this.local_user_defined = false;
+		this.con = con;
 
 	}
 
-    //public chat_history getChatHistory(user target_user) {
-    //}
+
+    public ArrayList<Message> getChatHistory(int target_id) {
+		ArrayList<Message> chat_history = new ArrayList<>();
+		int local_id = this.local_user.getId();
+
+		try {
+			Statement statement = this.con.createStatement();
+			String query = "SELECT (src_user, dest_user, time, content) FROM message_history " +
+					"WHERE (src_user='"+local_id+"' AND user2='"+target_id+"') " +
+					"OR (src_user='"+target_id+"' AND user2='"+local_id+"')" +
+					"ORDER BY time DESC";
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				chat_history.add(new Message(local_id, target_id,
+						rs.getTime("time").toLocalTime(),
+						0,
+						rs.getString("content"))
+				);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return chat_history;
+    }
+
+	// The GUI gets an array of messages, so it needs a method to translate it
+	public String getNameFromId(int id) throws Exception {
+		return this.cs_model.getNameFromId(id);
+	}
+
     
     // Called by GUI to see the active users
     // GUI only needs the string objects
@@ -155,9 +190,7 @@ public class ChatSystemController {
 		try {
 			String source_name = this.cs_model.getNameFromId(received_message.getSrcId());
 			String content = received_message.getContent();
-			LocalTime time = received_message.getTimeStamp();
-			DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
-			String formatted_time = time.format(formatter);
+			String formatted_time = received_message.getFormattedTime();
 			this.GUI.updateGUIMessageReceived(content, source_name, formatted_time);
 		} catch (Exception e) {
 			e.printStackTrace();

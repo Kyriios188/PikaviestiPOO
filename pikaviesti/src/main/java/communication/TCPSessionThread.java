@@ -57,6 +57,7 @@ public class TCPSessionThread extends Thread {
 				assert input != null;
 				try {
 					input.close();
+					return;
 				} catch (IOException ex) {/* cannot happen */}
 			}
 		}

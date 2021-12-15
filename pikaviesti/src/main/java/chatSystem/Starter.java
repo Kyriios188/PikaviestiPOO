@@ -11,6 +11,9 @@ package chatSystem;
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut qu'une fenêtre s'affiche pour montrer qu'une nouvelle session a commencé)
  * _Alignement messages selon l'envoyeur/l'envoyé (pour bien voir qui a envoyé quoi)
  * _Utiliser controller.getChatHistory, controller.getNameFromId et message.getFormattedTime pour afficher l'historique des messages
+ * _Supprimer user quand fermer fenêtre
+ *
+ *
  */
 
 /* TODO list for back-end:

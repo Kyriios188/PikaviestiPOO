@@ -164,14 +164,19 @@ public class ChatSystemController {
 
     // Updates the CSModel by either changing the name or adding a user
     public void updateCSModel(User new_user, boolean update_gui) {
-    	if (this.cs_model.checkUserExistence(new_user)) {
+
+		System.out.println("User is present in the Model : " + this.cs_model.checkUserExistence(new_user));
+		int r;
+		// User existence returns -1 if user doesn't exist, index otherwise
+    	if ((r = this.cs_model.checkUserExistence(new_user)) != -1) {
     		
         	String new_name = new_user.getName();
     		
     		try {
     			// the new_user kept their id when changing their name
     			String old_name = this.cs_model.getNameFromId(new_user.getId());
-				this.cs_model.changeUserName(new_user);
+				System.out.println("Name change from " + old_name + " to " + new_name);
+				this.cs_model.changeUserName(new_user, r);
 				this.GUI.changeDistantUsername(old_name, new_name);
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen

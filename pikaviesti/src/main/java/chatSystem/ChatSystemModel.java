@@ -37,15 +37,17 @@ public class ChatSystemModel {
     }
     
     // Checks if the user's id is in the list
-    public boolean checkUserExistence(User target_user) {
+    public int checkUserExistence(User target_user) {
     	
     	int target_id = target_user.getId();
+		int i = 0;
 		for (User u : this.user_list) {
 			if (u.getId() == target_id) {
-				return true;
+				return i;
 			}
+			i += 1;
 		}
-    	return false;
+    	return -1;
     }
     
     public boolean checkNameExistence(String name) {
@@ -93,15 +95,9 @@ public class ChatSystemModel {
     	this.addresses.put(user_id, address);
     }
 
-
-    public void changeUserName(User u) throws Exception {
-    	if (this.user_list.contains(u)) {
-    		int user_index = this.user_list.indexOf(u);
-        	this.user_list.set(user_index, u);
-    	}
-    	else {
-    		throw new Exception("Couldn't find user " + u.getName());
-    	}
+	// it's called when we know it exists
+    public void changeUserName(User u, int i) {
+		this.user_list.set(i, u);
     }
 
     public int getIdFromName(String name) throws Exception {

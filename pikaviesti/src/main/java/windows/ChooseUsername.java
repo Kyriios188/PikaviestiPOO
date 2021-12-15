@@ -71,6 +71,7 @@ public class ChooseUsername extends JDialog {
             if (this.controller.checkNameUnique(this.username)) {
                 this.controller.enableTCPMessaging();
                 this.GUI.openHistoryMessage();
+                this.GUI.changeOwnUsername(this.username);
             } else {
                 showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
                 this.GUI.openUsernameWindow(true);
@@ -86,6 +87,7 @@ public class ChooseUsername extends JDialog {
         this.username = textField1.getText();
         if (!this.username.contains(CommunicationSystem.delimiter)) {
             System.out.println("New Username : " + this.username);
+            this.GUI.changeOwnUsername(this.username);
             this.frameLogin.dispose();
 
             if (!this.controller.checkNameUnique(this.username)) {

@@ -32,6 +32,8 @@ public class HistoryMessageUserList extends JDialog {
         setModal(true);
         this.frameLogin.getRootPane().setDefaultButton(buttonSend);
         this.setTitle("Chat History");
+        this.listMessage.setModel(listMessageModel);
+        this.userList.setModel(listUserModel);
 
 
         buttonSend.addActionListener(e -> onSEND());
@@ -75,12 +77,22 @@ public class HistoryMessageUserList extends JDialog {
 
     // Adds name to users in the user list
     public void addUser(String name) {
-        userList.setModel(listUserModel);
         listUserModel.addElement(name);
     }
 
+    // Modify name of user in the user list
+    public void modifyUser(String old_name, String new_name) {
+        int index = listUserModel.indexOf(old_name);
+        listUserModel.remove(index);
+        listUserModel.setElementAt(new_name, index);
+    }
+
+    public void setUsername(String new_name) {
+        this.frameLogin.setTitle(new_name);
+        this.changeUsernameButton.setText(new_name);
+    }
+
     private void addMessage(String message) {
-        listMessage.setModel(listMessageModel);
         listMessageModel.addElement(message);
     }
 

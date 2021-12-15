@@ -83,7 +83,6 @@ public class HistoryMessageUserList extends JDialog {
     // Modify name of user in the user list
     public void modifyUser(String old_name, String new_name) {
         int index = listUserModel.indexOf(old_name);
-        listUserModel.remove(index);
         listUserModel.setElementAt(new_name, index);
     }
 

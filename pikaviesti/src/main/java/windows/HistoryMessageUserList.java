@@ -66,6 +66,7 @@ public class HistoryMessageUserList extends JDialog {
         this.refreshUserList();
 
         this.frameLogin.pack();
+        this.frameLogin.setLocationRelativeTo(null);
         this.frameLogin.setVisible(true);
     }
 

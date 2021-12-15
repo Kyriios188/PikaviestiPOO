@@ -7,7 +7,8 @@ package chatSystem;
  * _Quand ya un utilisateur distant qui initie une conenction j'appel "remoteSessionStarted" dans ChatSystemGUI, faut que ça enlève le nom envoyé de USerList pour qu'on puisse
  * pas commencer la même session deux fois. ça devrait aussi ouvrir une fenêtre pour envoyer des messages
  * _Si on ouvre plusieurs sessions yaura le bouton username pour chaque session (et user list), je pense qu'il faudrait une fenêtre d'où on établie la connection et on change de
- * nom et ensuite une fenêtre pas ession de chat.
+ * nom et ensuite une fenêtre pas session de chat.
+ * _Rendre le startSession fonctionnel
  *
  */
 
@@ -15,7 +16,8 @@ package chatSystem;
  * _faire fonctionner closeApp
  * _tester messages TCP
  * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
- * _BDD pour comptes utilisateurs et historique des messages
+ * _BDD Historique Messages
+ * 
  *
  *
  */

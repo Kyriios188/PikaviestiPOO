@@ -50,7 +50,8 @@ public class InputLogin extends JDialog {
         // call onOK() on ENTER
         contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        this.frameLogin.pack();
+        this.frameLogin.setSize(300, 200);
+        this.frameLogin.setLocationRelativeTo(null);
         this.frameLogin.setVisible(true);
     }
 

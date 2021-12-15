@@ -1,10 +1,7 @@
 package communication;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 
 public class TCPServerThread extends Thread {
@@ -64,11 +61,18 @@ public class TCPServerThread extends Thread {
 	}
 	
 	public void run() {
-		
+		System.out.println("Running TCP server");
+
 		try {
-			this.socket = new ServerSocket(this.RCV_PORT);
+			this.socket = new ServerSocket();
+			this.socket.setOption(StandardSocketOptions.SO_REUSEADDR, true);
+			System.out.println("Reuse address: " + this.socket.getReuseAddress());
+			this.socket.bind(new InetSocketAddress(this.RCV_PORT));
 			this.com_sys.addShutDownHookServer(this.socket);
+			System.out.println("Successful bind of ServerSocket");
+
 		} catch (IOException e1) {
+			// Socket couldn't be bound
 			e1.printStackTrace();
 		}
 
@@ -76,11 +80,11 @@ public class TCPServerThread extends Thread {
 		// accept() blocks the thread
 		while (this.isOpen) {
 			try {
-				
+				System.out.println("Waiting for connection");
 				// Accept incoming connection attempts
 				Socket link = this.socket.accept();
 				this.com_sys.addShutDownHook(link);
-				
+				System.out.println("Accepted session");
 				// Dispatch a TCPSessionThread to handle sending and receiving messages
 				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys, this);
 				// Add the session to the list
@@ -92,7 +96,8 @@ public class TCPServerThread extends Thread {
 				
 				
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println(e);
+				return;
 			}
 		}
 	}

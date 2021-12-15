@@ -55,15 +55,19 @@ public class ChatSystemController {
     // GUI shouldn't call it if the connection is already on
     public void startSessionFromLocal(String target_username) {
     	InetAddress host_addr = this.cs_model.getAddressFromName(target_username);
+		System.out.println(target_username+"'s address is " + host_addr);
     	Socket sock = null;
     	try {
     		// Connect to foreign host
 			sock = this.com_sys.TCPConnect(host_addr);
 			// Store the socket created to send messages later on
 			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			System.out.println("Failure to connect to distant host at address " + host_addr);
+			System.out.println(ioe);
 		}
+		catch (Exception e) {/**/}
+
 	}
 
 	public int startSessionFromRemote(InetAddress address) {

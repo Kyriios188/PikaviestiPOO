@@ -17,8 +17,11 @@ package chatSystem;
  * _tester messages TCP
  * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
  * _BDD Historique Messages
- * 
- *
+ * _UDP back to unicast answers?
+ * _failure log dans target
+ * _Make accept work for multiple or set unique ports (no broadcast this time)
+ * https://hea-www.harvard.edu/~fine/Tech/addrinuse.html hors-sujet ?
+ * _socket.connect(new InetSocketAddress(m_host, m_port)); ???
  *
  */
 

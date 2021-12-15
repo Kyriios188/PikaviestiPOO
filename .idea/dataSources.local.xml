@@ -3,6 +3,8 @@
   <component name="dataSourceStorageLocal" created-in="IU-213.5744.223">
     <data-source name="tp_servlet_005@srv-bdens.insa-toulouse.fr" uuid="59f44647-545e-4aae-b729-b29ead313e68">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>tp_servlet_005</user-name>
       <schema-mapping />
     </data-source>
   </component>

@@ -63,8 +63,7 @@ public class CommunicationSystem {
 
 
     	// Launch UDP server listening on specific port
-		int udp_rcv =  UDP_RCV_PORT + this.controller.getLocalUser().getId();
-    	this.udp_rcv_server = new UDPServerThread(this, udp_rcv);
+    	this.udp_rcv_server = new UDPServerThread(this, UDP_RCV_PORT);
     	this.udp_rcv_server.start();
 
     }
@@ -92,7 +91,7 @@ public class CommunicationSystem {
     public void nameChangeNotificationBroadcast(String new_name) {
     	System.out.println("Sending name change notification broadcast");
     	// It's broadcast so we put 0 in the dest_user field
-    	Message whatsyourname = new Message(this.local_id, 0, 2, new_name);
+    	Message whatsyourname = new Message(this.local_id, 0, 3, new_name);
     	String m = createRawMessage(whatsyourname);
     	UDPMessage(m, "255.255.255.255");
     }
@@ -114,7 +113,7 @@ public class CommunicationSystem {
 		System.out.println("Received " + m_type);
 		// Ignore self-messaging
 		if (m.getSrcId() == local_id) {
-			System.out.println("Ignored");
+			System.out.println("Ignored, comes from "+local_id);
 			return;
 		}
     	this.controller.updateModelAddressTable(m.getSrcId(), src_addr);
@@ -136,10 +135,10 @@ public class CommunicationSystem {
     		Message answer = new Message(this.local_id, m.getSrcId(), 2, this.controller.getLocalUser().getName());
     		System.out.println("Answered :\n"+answer);
     		// src_addr.toString() returns /10.10.40.246 -> substring(1) gives a string without the /
-    		UDPMessage(createRawMessage(answer), src_addr.toString().substring(1), );
+			// Used to be src_addr.toString().substring(1) but the machine doesn't see self UDP
+    		UDPMessage(createRawMessage(answer), "255.255.255.255");
     		break;
 
-		// Both cases are treated the same, update the Model
     	case 2:
 			// We received an answer to the question "whatsYourName?"
 			// We don't update the GUI here, it doesn't exist yet
@@ -157,7 +156,7 @@ public class CommunicationSystem {
     }
 
 	public void startTCPServer() {
-		int tcp_rcv_port = this.TCP_RCV_PORT + this.controller.getLocalUser().getId();
+		int tcp_rcv_port = this.TCP_RCV_PORT + this.local_id;
 		this.tcp_rcv_server = new TCPServerThread(this, tcp_rcv_port);
 	}
 
@@ -194,14 +193,14 @@ public class CommunicationSystem {
      */
 
 
-    public void UDPMessage(String raw_message, String dest_str, int target_user_offset) {
+    public void UDPMessage(String raw_message, String dest_str) {
 
     	try {
     		InetAddress dest_addr = InetAddress.getByName(dest_str);
 
-			DatagramSocket dgramSocket = new DatagramSocket(this.UDP_SND_PORT + this.controller.getLocalUser().getId());
+			DatagramSocket dgramSocket = new DatagramSocket();
 	    	DatagramPacket outPacket = new DatagramPacket(raw_message.getBytes(), 0, raw_message.length(),
-	    			dest_addr, UDP_RCV_PORT+target_user_offset);
+	    			dest_addr, UDP_RCV_PORT);
 	    	dgramSocket.send(outPacket);
 	    	dgramSocket.close();
 			

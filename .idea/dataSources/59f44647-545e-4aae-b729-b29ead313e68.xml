@@ -740,25 +740,5 @@ tp_servlet_005|schema||tp_servlet_005||UPDATE|G</Grants>
       <Current>1</Current>
     </schema>
     <user id="226" parent="1" name="tp_servlet_005"/>
-    <table id="227" parent="225" name="accounts"/>
-    <column id="228" parent="227" name="id">
-      <DataType>smallint(6)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="229" parent="227" name="login">
-      <DataType>varchar(50)|0s</DataType>
-      <Position>2</Position>
-    </column>
-    <column id="230" parent="227" name="password">
-      <DataType>varchar(50)|0s</DataType>
-      <Position>3</Position>
-    </column>
-    <key id="231" parent="227" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-    </key>
   </database-model>
 </dataSource>

@@ -1,9 +1,7 @@
 package communication;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.*;
 
 public class UDPServerThread extends Thread {
 
@@ -26,25 +24,26 @@ public class UDPServerThread extends Thread {
 	public void run() {
 		
 		try {
-			this.socket = new DatagramSocket(UDP_PORT);
+			this.socket = new DatagramSocket(null);
+			this.socket.setOption(StandardSocketOptions.SO_REUSEADDR, true);
+			this.socket.bind(new InetSocketAddress(UDP_PORT));
 			this.com_sys.addShutDownHookDatagram(this.socket);
-		} catch (SocketException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
+
 		// To receive multiple messages in a row
 		// The DatagramSocket.receive() method blocks the thread
 		while (true) {
 			try {
-				
-				
+
 				byte[] buffer = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buffer, buffer.length);
 		    	this.socket.receive(inPacket); // Blocks thread
 		    	
 		    	// Have the communication.CommunicationSystem handle the message
 				String raw_message = new String(inPacket.getData(), inPacket.getOffset(), inPacket.getLength());
-				this.com_sys.receiveMessage(raw_message, inPacket.getAddress()); //inPacket.getPort()
+				this.com_sys.receiveMessage(raw_message, inPacket.getAddress());
 				
 				
 			} catch (IOException e) {

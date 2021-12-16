@@ -4,10 +4,12 @@ import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import objects.Message;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalTime;
 
 public class HistoryMessageUserList extends JDialog {
     private JFrame frameLogin = new JFrame();
@@ -97,14 +99,14 @@ public class HistoryMessageUserList extends JDialog {
     }
 
     public void addFormattedMessage(String message_content, String sender_name, String time) {
-        this.addMessage(time.substring(0, 8) + " " + "<" + sender_name + ">" + " " + message_content);
+        this.addMessage("[" + time + "] <" + sender_name + "> " + message_content);
     }
 
     private void onSEND() {
         this.messageText = textField1.getText();
         System.out.println("Message : " + this.messageText);
         this.controller.sendChatMessage(this.selected, this.messageText);
-        addMessage(this.messageText);
+        addFormattedMessage(this.messageText, this.controller.getLocalUser().getName(), LocalTime.now);
         textField1.setText("");
     }
 

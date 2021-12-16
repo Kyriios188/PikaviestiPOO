@@ -62,7 +62,7 @@ public class ChatSystemController {
 					"ORDER BY time DESC";
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				chat_history.add(new Message(local_id, target_id,
+				chat_history.add(new Message(rs.getInt("src_user"), rs.getInt("dest_user"),
 						rs.getTime("time").toLocalTime(),
 						0,
 						rs.getString("content"))
@@ -222,9 +222,9 @@ public class ChatSystemController {
 				System.out.println("Name change from " + old_name + " to " + new_name);
 				this.cs_model.changeUserName(new_user, r);
 				this.GUI.changeDistantUsername(old_name, new_name);
-				if (Objects.equals(this.GUI.getSelected(), old_name)) {
+				if (Objects.equals(this.GUI.getGUISelected(), old_name)) {
 					// Tell the GUI the name of the session target user has changed
-					this.GUI.setSelected(new_name);
+					this.GUI.setGUISelected(new_name);
 				}
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen

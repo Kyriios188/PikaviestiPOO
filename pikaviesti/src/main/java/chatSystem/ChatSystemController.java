@@ -190,7 +190,7 @@ public class ChatSystemController {
 		try {
 			String source_name = this.cs_model.getNameFromId(received_message.getSrcId());
 			String content = received_message.getContent();
-			String formatted_time = received_message.getFormattedTime();
+			String formatted_time = Message.getFormattedTime(received_message.getTimeStamp());
 			this.GUI.updateGUIMessageReceived(content, source_name, formatted_time);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -43,7 +43,6 @@ public class Starter {
 		}
 
 
-
 		ChatSystemGUI GUI = new ChatSystemGUI(con);
 		// Launch GUI
 		GUI.openLoginWindow();

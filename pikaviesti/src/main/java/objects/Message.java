@@ -65,9 +65,9 @@ public class Message {
 	
 	//**************  GETTERS  **************
 
-	public String getFormattedTime() {
+	public static String getFormattedTime(LocalTime timestamp) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
-		return this.timestamp.format(formatter);
+		return timestamp.format(formatter).substring(0, 8);
 	}
 	
 	public int getSrcId() {

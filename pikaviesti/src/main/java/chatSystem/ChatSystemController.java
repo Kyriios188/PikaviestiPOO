@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Objects;
 
 
 public class ChatSystemController {
@@ -221,6 +221,10 @@ public class ChatSystemController {
 				System.out.println("Name change from " + old_name + " to " + new_name);
 				this.cs_model.changeUserName(new_user, r);
 				this.GUI.changeDistantUsername(old_name, new_name);
+				if (Objects.equals(this.GUI.getSelected(), old_name)) {
+					// Tell the GUI the name of the session target user has changed
+					this.GUI.setSelected(new_name);
+				}
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen
 			}

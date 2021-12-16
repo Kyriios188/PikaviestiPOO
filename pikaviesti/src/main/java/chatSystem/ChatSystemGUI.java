@@ -25,7 +25,7 @@ public class ChatSystemGUI {
     public ChatSystemGUI(Connection con) {
 
         // Launches the controller
-        this.cs_controller = new ChatSystemController(this, this.con);
+        this.cs_controller = new ChatSystemController(this, con);
         this.con = con;
 
     }
@@ -108,9 +108,11 @@ public class ChatSystemGUI {
         this.HstrMssgSrLst.addFormattedMessage(message_content, sender_name, time);
     }
 
-    public void setSelected(String selected) {HstrMssgSrLst.setSelected(selected);}
+    public void setGUISelected(String selected) {HstrMssgSrLst.setSelected(selected);}
 
-    public String getSelected() {return HstrMssgSrLst.getSelected();}
+    public String getGUISelected() {return HstrMssgSrLst.getSelected();}
+
+    public void delGUIUser(String name) {HstrMssgSrLst.delUser(name);}
 
 
     private void showFailureToast() {

@@ -106,7 +106,7 @@ public class HistoryMessageUserList extends JDialog {
     public void refreshMessageHistory(String target_user) {
         listMessageModel.removeAllElements();
         for (Message message : controller.getChatHistory(target_user)) {
-            this.addFormattedMessage(message.getContent(), target_user, message.);
+            this.addFormattedMessage(message.getContent(), target_user, Message.getFormattedTime(message.getTimeStamp()));
         }
     }
 

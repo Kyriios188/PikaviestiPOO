@@ -89,8 +89,10 @@ public class ChatSystemController {
     // Starts a session and gives the corresponding socket
     // GUI shouldn't call it if the connection is already on
     public void startSessionFromLocal(String target_username) {
+		if (target_username == null) {return;}
+
     	InetAddress host_addr = this.cs_model.getAddressFromName(target_username);
-    	Socket sock = null;
+    	Socket sock;
     	try {
     		// Connect to foreign host
 			sock = this.com_sys.TCPConnect(host_addr, this.cs_model.getIdFromName(target_username));
@@ -101,7 +103,6 @@ public class ChatSystemController {
 			System.out.println(ioe);
 		}
 		catch (Exception e) {/**/}
-
 	}
 
 	public int startSessionFromRemote(InetAddress address) {

@@ -152,6 +152,11 @@ public class CommunicationSystem {
 			User u2 = new User(m.getContent(), m.getSrcId());
 			this.controller.updateCSModel(u2, true);
 			break;
+
+		case 4:
+			// We received notification that someone died
+			int dead_user = m.getSrcId();
+
 		}
 
     }

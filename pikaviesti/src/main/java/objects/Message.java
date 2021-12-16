@@ -15,6 +15,7 @@ public class Message {
 	// represents the type of message so it's dealt with appropriately
 	/*
      *  Types of objects.Message :
+     *  _4 : Notification of death
      *  _3 : Notification of a user who changed their name by themselves
      *  _2 : Answer to the question "whatsYourName?" (same treatment -> update Model)
      *  _1 : Question "whatsYourName?"
@@ -54,6 +55,7 @@ public class Message {
 			case 1 -> message_type = "What's your name question";
 			case 2 -> message_type = "What's your name answer";
 			case 3 -> message_type = "Name change notification";
+			case 4 -> message_type = "Notification of death";
 			default -> message_type = "Unidentified message";
 		}
 		return message_type;

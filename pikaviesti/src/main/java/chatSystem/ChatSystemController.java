@@ -174,6 +174,7 @@ public class ChatSystemController {
     	else {
 			System.out.println("Username is valid");
     		this.setLocalUsername(name);
+			this.cs_model.addUser(new User(name, this.local_user.getId()));
 			this.local_user_defined = true;
     		this.com_sys.nameChangeNotificationBroadcast(name);
         	return true;

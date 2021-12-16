@@ -9,8 +9,8 @@ package chatSystem;
  * nom et ensuite une fenêtre pas session de chat.
  * _Permettre de finir une session
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut qu'une fenêtre s'affiche pour montrer qu'une nouvelle session a commencé)
- * _Utiliser controller.getChatHistory, controller.getNameFromId et message.getFormattedTime pour afficher l'historique des messages
- * _Supprimer user quand fermer fenêtre
+ * _Utiliser controller.getChatHistory, controller.getNameFromId et message.getFormattedTime pour afficher l'historique des messages - OK
+ * _Supprimer user quand fermer fenêtre - OK
  *
  *
  */

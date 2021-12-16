@@ -108,6 +108,10 @@ public class ChatSystemGUI {
         this.HstrMssgSrLst.addFormattedMessage(message_content, sender_name, time);
     }
 
+    public void setSelected(String selected) {HstrMssgSrLst.setSelected(selected);}
+
+    public String getSelected() {return HstrMssgSrLst.getSelected();}
+
 
     private void showFailureToast() {
     }

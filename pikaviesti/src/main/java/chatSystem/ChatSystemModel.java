@@ -32,7 +32,7 @@ public class ChatSystemModel {
 	
     public ArrayList<User> getUserListWithoutSelf() {
 
-		ArrayList<User> list_without_self = this.user_list; // Marche pas
+		ArrayList<User> list_without_self = new ArrayList<>(this.user_list);
 		try {
 			System.out.println("////////////////////////");
 			System.out.println(this.user_list.size());

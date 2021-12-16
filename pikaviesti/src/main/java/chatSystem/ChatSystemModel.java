@@ -28,13 +28,37 @@ public class ChatSystemModel {
 	
 	
     public ArrayList<User> getUserList() {
-    	return this.user_list;
+
+		ArrayList<User> list_without_self = this.user_list;
+		list_without_self.remove(0);
+		return list_without_self;
     }
 
 
     public void addUser(User new_user) {
-    	this.user_list.add(new_user);
+		this.user_list.add(new_user);
     }
+
+	public int getIndexFromId(int id) throws Exception {
+		int index;
+		for (index = 0; index < this.user_list.size(); index++) {
+			if (this.user_list.get(index).getId() == id) {
+				return id;
+			}
+		}
+		throw new Exception("Couldn't find user with id " + id);
+	}
+
+	public void delUser(int id) {
+		try {
+			int i = getIndexFromId(id);
+			this.user_list.remove(i);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Didn't do anything lol");
+		}
+
+	}
     
     // Checks if the user's id is in the list
     public int checkUserExistence(User target_user) {

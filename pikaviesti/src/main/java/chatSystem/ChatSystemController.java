@@ -186,13 +186,16 @@ public class ChatSystemController {
     	this.cs_model.updateAddressTable(user_id, addr);
     }
 
-	// TODO change into close before name change and after name change
-	// TODO send disconnect broadcast
-    public void closeApp() {
-		this.com_sys.closeTCPServer();
+	public void postLoginClose() {
+		this.com_sys.deathNotificationBroadcast();
 		this.com_sys.closeUDPServer();
-    }
+	}
 
+	public void postNameClose() {
+		this.com_sys.deathNotificationBroadcast();
+		this.com_sys.closeUDPServer();
+		this.com_sys.closeTCPServer();
+	}
 
     public void updateGUI(Message received_message) {
 		try {
@@ -205,11 +208,23 @@ public class ChatSystemController {
 		}
 	}
 
+	public void removeUser(int dead_user_id) {
+		String name = null;
+		try {
+			name = this.cs_model.getNameFromId(dead_user_id);
+		} catch (Exception e) {/**/}
+
+		// remove from gui (not shown anymore)
+		this.GUI.delGUIUser(name);
+
+		// Remove from model
+		this.cs_model.delUser(dead_user_id);
+	}
+
 
     // Updates the CSModel by either changing the name or adding a user
     public void updateCSModel(User new_user, boolean update_gui) {
 
-		System.out.println("User is present in the Model : " + this.cs_model.checkUserExistence(new_user));
 		int r;
 		// User existence returns -1 if user doesn't exist, index otherwise
     	if ((r = this.cs_model.checkUserExistence(new_user)) != -1) {

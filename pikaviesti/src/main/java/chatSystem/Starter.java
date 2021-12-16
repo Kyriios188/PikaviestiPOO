@@ -20,6 +20,9 @@ package chatSystem;
  * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
  * _failure log dans target
  * _click on user should only startSession once, after it only shows the history -> menfou ?
+ * _send message to bdd
+ * _ping of death
+ * _not show self
  *
  */
 

@@ -81,6 +81,12 @@ public class CommunicationSystem {
         return new Message(src_id, dest_id, t, m_code, content);
     }
 
+	public void deathNotificationBroadcast() {
+		Message imdead = new Message(this.local_id, 0, 4, "fill");
+		String m = createRawMessage(imdead);
+		UDPMessage(m, "255.255.255.255");
+	}
+
     public void whatsYourNameBroadcast() {
 		System.out.println("Sending what's your name question broadcast");
     	// It's broadcast so we put 0 in the dest_user field
@@ -125,7 +131,6 @@ public class CommunicationSystem {
     	case 0:
     		// We received a chat message
 			this.controller.updateGUI(m);
-
     		break;
 
     	case 1:
@@ -156,6 +161,7 @@ public class CommunicationSystem {
 		case 4:
 			// We received notification that someone died
 			int dead_user = m.getSrcId();
+			this.controller.removeUser(dead_user);
 
 		}
 

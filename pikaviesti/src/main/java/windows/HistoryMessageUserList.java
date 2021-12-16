@@ -85,7 +85,7 @@ public class HistoryMessageUserList extends JDialog {
         listUserModel.addElement(name);
     }
 
-    public void delUser(String name){
+    public void delUser(String name) {
         int index = listUserModel.indexOf(name);
         listUserModel.remove(index);
     }
@@ -113,7 +113,6 @@ public class HistoryMessageUserList extends JDialog {
         listMessageModel.removeAllElements();
         for (Message message : controller.getChatHistory(target_user)) {
             try {
-                if (message.getSrcId() == )
                 this.addFormattedMessage(message.getContent(), this.controller.getControllerNameFromId(message.getSrcId()), Message.getFormattedTime(message.getTimeStamp()));
             } catch (Exception e) {
                 e.printStackTrace();

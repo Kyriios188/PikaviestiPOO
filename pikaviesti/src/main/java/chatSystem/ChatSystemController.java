@@ -188,13 +188,13 @@ public class ChatSystemController {
 
 	public void postLoginClose() {
 		this.com_sys.deathNotificationBroadcast();
-		this.com_sys.closeUDPServer();
+		//this.com_sys.closeUDPServer();
 	}
 
 	public void postNameClose() {
 		this.com_sys.deathNotificationBroadcast();
-		this.com_sys.closeUDPServer();
-		this.com_sys.closeTCPServer();
+		//this.com_sys.closeUDPServer();
+		//this.com_sys.closeTCPServer();
 	}
 
     public void updateGUI(Message received_message) {

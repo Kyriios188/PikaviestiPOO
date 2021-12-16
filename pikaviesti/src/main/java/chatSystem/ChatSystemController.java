@@ -56,9 +56,9 @@ public class ChatSystemController {
 
 		try {
 			Statement statement = this.con.createStatement();
-			String query = "SELECT (src_user, dest_user, time, content) FROM message_history " +
-					"WHERE (src_user='"+local_id+"' AND user2='"+target_id+"') " +
-					"OR (src_user='"+target_id+"' AND user2='"+local_id+"')" +
+			String query = "SELECT src_user, dest_user, time, content FROM message_history " +
+					"WHERE (src_user='"+local_id+"' AND dest_user='"+target_id+"') " +
+					"OR (src_user='"+target_id+"' AND dest_user='"+local_id+"')" +
 					"ORDER BY time DESC";
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
@@ -76,7 +76,7 @@ public class ChatSystemController {
     }
 
 	// The GUI gets an array of messages, so it needs a method to translate it
-	public String getNameFromId(int id) throws Exception {
+	public String getControllerNameFromId(int id) throws Exception {
 		return this.cs_model.getNameFromId(id);
 	}
 

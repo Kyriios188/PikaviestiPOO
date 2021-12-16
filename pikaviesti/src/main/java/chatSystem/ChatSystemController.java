@@ -6,10 +6,7 @@ import objects.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
@@ -59,7 +56,7 @@ public class ChatSystemController {
 			String query = "SELECT src_user, dest_user, time, content FROM message_history " +
 					"WHERE (src_user='"+local_id+"' AND dest_user='"+target_id+"') " +
 					"OR (src_user='"+target_id+"' AND dest_user='"+local_id+"')" +
-					"ORDER BY time DESC";
+					"ORDER BY time ASC";
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				chat_history.add(new Message(rs.getInt("src_user"), rs.getInt("dest_user"),
@@ -138,11 +135,35 @@ public class ChatSystemController {
 			int target_id = this.cs_model.getIdFromName(target_username);
 			Message m = new Message(this.local_user.getId(), target_id, 0, content); //TODO: Parse the content for safety
 			this.com_sys.sendChatMessage(m);
+			this.updateChatHistory(m);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Failure in sendMessage.");
 		}
     }
+
+	public void updateChatHistory(Message m) {
+
+
+
+		try {
+
+			String query = "INSERT INTO message_history (src_user, dest_user, time, content) " +
+					"VALUES (?, ?, ?, ?)";
+			PreparedStatement preparedStatement = con.prepareStatement(query);
+						preparedStatement.setInt(1, m.getSrcId());
+			preparedStatement.setInt(2, m.getDestId());
+			preparedStatement.setTime(3, Time.valueOf(m.getTimeStamp()));
+			preparedStatement.setString(4, m.getContent());
+
+			preparedStatement.executeUpdate();
+
+			preparedStatement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void initCommunicationSystem(int id) {
 		this.com_sys = new CommunicationSystem(this, id);
@@ -188,11 +209,21 @@ public class ChatSystemController {
 
 	public void postLoginClose() {
 		this.com_sys.deathNotificationBroadcast();
+		try {
+			this.con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		//this.com_sys.closeUDPServer();
 	}
 
 	public void postNameClose() {
 		this.com_sys.deathNotificationBroadcast();
+		try {
+			this.con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		//this.com_sys.closeUDPServer();
 		//this.com_sys.closeTCPServer();
 	}

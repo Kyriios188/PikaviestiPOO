@@ -105,6 +105,7 @@ public class ChatSystemGUI {
     public void changeOwnUsername(String new_name) {this.HstrMssgSrLst.setUsername(new_name);}
 
     public void updateGUIMessageReceived(String message_content, String sender_name, String time) {
+        this.HstrMssgSrLst.addFormattedMessage(message_content, sender_name, time);
     }
 
 

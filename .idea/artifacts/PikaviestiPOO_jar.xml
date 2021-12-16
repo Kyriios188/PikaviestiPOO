@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PikaviestiPOO:jar">
+    <output-path>$PROJECT_DIR$/pikaviesti/target/classes/artifacts/PikaviestiPOO_jar</output-path>
+    <root id="archive" name="PikaviestiPOO.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/pikaviesti/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

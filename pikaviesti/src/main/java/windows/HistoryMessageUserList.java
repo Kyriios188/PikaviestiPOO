@@ -96,6 +96,10 @@ public class HistoryMessageUserList extends JDialog {
         listMessageModel.addElement(message);
     }
 
+    public void addFormattedMessage(String message_content, String sender_name, String time) {
+        this.addMessage(time.substring(0, 8) + " " + "<" + sender_name + ">" + " " + message_content);
+    }
+
     private void onSEND() {
         this.messageText = textField1.getText();
         System.out.println("Message : " + this.messageText);

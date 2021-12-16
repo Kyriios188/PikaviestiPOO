@@ -75,7 +75,7 @@ public class HistoryMessageUserList extends JDialog {
     }
 
     private void refreshUserList() {
-        for (String name : controller.getStrUserList()) {
+        for (String name : controller.getStrUserListWithoutSelf()) {
             this.addUser(name);
         }
     }
@@ -135,6 +135,7 @@ public class HistoryMessageUserList extends JDialog {
 
     private void onCancel() {
         System.out.println("Dead");
+        this.controller.postNameClose();
         this.frameLogin.dispose();
     }
 

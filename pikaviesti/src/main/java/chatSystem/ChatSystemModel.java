@@ -19,20 +19,32 @@ public class ChatSystemModel {
 	to which host a socket belongs.
 	 */
 
+	private final ChatSystemController controller;
+
 	private final Hashtable<Integer, InetAddress> addresses = new Hashtable<>();
 
 		
-	public ChatSystemModel() {
+	public ChatSystemModel(ChatSystemController controller) {
 		this.user_list = new ArrayList<>();
+		this.controller = controller;
 	}
 	
 	
-    public ArrayList<User> getUserList() {
+    public ArrayList<User> getUserListWithoutSelf() {
 
-		ArrayList<User> list_without_self = this.user_list;
-		list_without_self.remove(0);
+		ArrayList<User> list_without_self = this.user_list; // Marche pas
+		try {
+			System.out.println("////////////////////////");
+			System.out.println(this.user_list.size());
+			list_without_self.remove(this.getIndexFromId(this.controller.getLocalUser().getId()));
+			System.out.println(this.user_list.size());
+		} catch (Exception e) {/**/}
 		return list_without_self;
     }
+
+	public ArrayList<User> getUserList() {
+		return this.user_list;
+	}
 
 
     public void addUser(User new_user) {

@@ -37,24 +37,39 @@ public class ChooseUsername extends JDialog {
             buttonOK.addActionListener(e -> onOK());
             // call onOK() on ENTER
             contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+            buttonCancel.addActionListener(e -> onCancel());
+
+            // call onCancel() when cross is clicked
+            this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+            this.frameLogin.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    onCancel();
+                }
+            });
+
+            // call onCancel() on ESCAPE
+            contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
         } else {
             buttonOK.addActionListener(e -> onOKNew());
             // call onOKNew() on ENTER
             contentPane.registerKeyboardAction(e -> onOKNew(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+            buttonCancel.addActionListener(e -> onCancelNew());
+
+            // call onCancel() when cross is clicked
+            this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+            this.frameLogin.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    onCancelNew();
+                }
+            });
+
+            // call onCancel() on ESCAPE
+            contentPane.registerKeyboardAction(e -> onCancelNew(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
         }
 
-        buttonCancel.addActionListener(e -> onCancel());
 
-        // call onCancel() when cross is clicked
-        this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        this.frameLogin.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
         this.frameLogin.setSize(300, 150);
@@ -104,6 +119,12 @@ public class ChooseUsername extends JDialog {
     }
 
     private void onCancel() {
+        System.out.println("Dead");
+        this.controller.postLoginClose();
+        this.frameLogin.dispose();
+    }
+
+    private void onCancelNew() {
         System.out.println("Dead");
         this.frameLogin.dispose();
     }

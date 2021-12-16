@@ -36,7 +36,7 @@ public class ChatSystemController {
     // We need the GUI here so when a distant user changes we can tell the GUI
     public ChatSystemController(ChatSystemGUI gui, Connection con) {
     	this.GUI = gui;
-    	this.cs_model = new ChatSystemModel();
+    	this.cs_model = new ChatSystemModel(this);
 		this.local_user = new User();
 		this.local_user_defined = false;
 		this.con = con;
@@ -83,8 +83,8 @@ public class ChatSystemController {
     
     // Called by GUI to see the active users
     // GUI only needs the string objects
-    public ArrayList<String> getStrUserList() {
-    	ArrayList<User> user_list = this.cs_model.getUserList();
+    public ArrayList<String> getStrUserListWithoutSelf() {
+    	ArrayList<User> user_list = this.cs_model.getUserListWithoutSelf();
     	ArrayList<String> str_user_list = new ArrayList<>();
 		for (User user : user_list) {
 			str_user_list.add(user.getName());

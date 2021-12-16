@@ -44,8 +44,14 @@ public class ChatSystemController {
 	}
 
 
-    public ArrayList<Message> getChatHistory(int target_id) {
+    public ArrayList<Message> getChatHistory(String target_str) {
 		ArrayList<Message> chat_history = new ArrayList<>();
+		int target_id = -1;
+		try {
+			target_id = this.cs_model.getIdFromName(target_str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		int local_id = this.local_user.getId();
 
 		try {

@@ -62,7 +62,6 @@ public class HistoryMessageUserList extends JDialog {
                 System.out.println("You have selected : " + selected);
                 GUI.startSession(selected);
                 System.out.println("Start Session with " + selected);
-                //addMessage("Start Session with " + selected);
                 refreshMessageHistory(selected);
             }
         });

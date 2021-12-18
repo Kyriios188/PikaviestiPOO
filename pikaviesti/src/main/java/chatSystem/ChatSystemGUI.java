@@ -113,14 +113,4 @@ public class ChatSystemGUI {
     public String getGUISelected() {return HstrMssgSrLst.getSelected();}
 
     public void delGUIUser(String name) {HstrMssgSrLst.delUser(name);}
-
-
-    private void showFailureToast() {
-    }
-
-
-    private void showSuccessToast() {
-    }
-
-
 }

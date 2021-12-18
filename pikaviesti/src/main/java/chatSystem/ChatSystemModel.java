@@ -33,14 +33,11 @@ public class ChatSystemModel {
     public ArrayList<User> getUserListWithoutSelf() {
 
 		ArrayList<User> list_without_self = new ArrayList<>(this.user_list);
-		System.out.println("De base j'ai cette taille " + list_without_self.size());
 		try {
 			list_without_self.remove(this.getIndexFromId(this.controller.getLocalUser().getId()));
-			System.out.println("Le numéro "+this.getIndexFromId(this.controller.getLocalUser().getId()) + " dégage.");
 
 		} catch (Exception e) {e.printStackTrace();}
 
-		System.out.println("J'envoie cette taille " + list_without_self.size());
 		return list_without_self;
     }
 

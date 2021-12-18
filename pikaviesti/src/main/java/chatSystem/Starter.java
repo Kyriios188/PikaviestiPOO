@@ -12,7 +12,6 @@ package chatSystem;
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut qu'une fenêtre s'affiche pour montrer qu'une nouvelle session a commencé)
  *
  * _Quand je rechange le nom pour remettre le premier ça me met qu'il est déjà pris
- * _Problème quand je me connecte avec 3 personnes "java.net.BindException: Address already in use: bind"
  *
  */
 

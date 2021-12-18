@@ -4,12 +4,17 @@ import chatSystem.ChatSystemController;
 import objects.Message;
 import objects.User;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.*;
+import java.nio.ByteBuffer;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.Scanner;
 
 public class CommunicationSystem {
 
@@ -18,10 +23,8 @@ public class CommunicationSystem {
 	// Socket is created in UDPServerThread.run()
 	// Has a handler to close the socket and stopServer()
     private final int UDP_RCV_PORT = 6071;
-	// Send broadcast and answers to broadcast
-	// Used only in UDPMessage
-	// Corresponding socket is closed immediately, does not need a handler
-    private final int UDP_SND_PORT = 6070;
+
+
 
 	// Receives connection attempts
 	// Used in TCPServerThread only
@@ -49,7 +52,7 @@ public class CommunicationSystem {
     // Integer is distant user id
     // Updated when we create a new session
 	// They close if there's a problem
-    private Hashtable<Integer, Socket> sender_sockets;
+    private final Hashtable<Integer, Socket> sender_sockets;
 
 
     private final ChatSystemController controller;
@@ -165,11 +168,42 @@ public class CommunicationSystem {
 
 		case 5:
 			// We received warning that an image is coming
-			int length = Integer.parseInt(m.getContent());
-			session.receiveImage(length);
+			session.receiveImage();
 		}
 
     }
+
+	public void sendImage(BufferedImage image, int rcv_id) {
+
+		Socket sock = this.sender_sockets.get(rcv_id);
+
+		try {
+			OutputStream outputStream = sock.getOutputStream();
+			PrintWriter output = new PrintWriter(outputStream);
+			String raw_prepare_message = this.createRawMessage(new Message(this.local_id, rcv_id, 5, "fill"));
+			output.println(raw_prepare_message);
+			output.flush();
+
+			// Wait that server processed gets ready
+			Thread.sleep(500); // TODO check if this is needed
+
+
+
+
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ImageIO.write(image, "jpg", byteArrayOutputStream);
+
+			byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+			outputStream.write(size); // Send size first
+			outputStream.write(byteArrayOutputStream.toByteArray()); // Then send image
+			outputStream.flush();
+
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+
+
+	}
 
 	public void startTCPServer() {
 

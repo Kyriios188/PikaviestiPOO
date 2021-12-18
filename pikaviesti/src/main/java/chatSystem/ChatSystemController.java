@@ -3,13 +3,15 @@ import communication.CommunicationSystem;
 import objects.Message;
 import objects.User;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.sql.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 
@@ -251,6 +253,14 @@ public class ChatSystemController {
 			String content = received_message.getContent();
 			String formatted_time = Message.getFormattedTime(received_message.getTimeStamp());
 			this.GUI.updateGUIMessageReceived(content, source_name, formatted_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void sendImage(BufferedImage image) {
+		try {
+			this.com_sys.sendImage(image, this.cs_model.getIdFromName(this.GUI.getGUISelected()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

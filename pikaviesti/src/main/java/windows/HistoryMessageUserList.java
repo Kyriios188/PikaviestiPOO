@@ -6,9 +6,15 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import objects.Message;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.time.LocalTime;
 
 public class HistoryMessageUserList extends JDialog {
@@ -38,7 +44,13 @@ public class HistoryMessageUserList extends JDialog {
         this.listMessage.setModel(listMessageModel);
         this.userList.setModel(listUserModel);
 
-        uploadImagesButton.addActionListener(e -> onUPLOAD());
+        uploadImagesButton.addActionListener(e -> {
+            try {
+                onUPLOAD();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
 
@@ -74,8 +86,10 @@ public class HistoryMessageUserList extends JDialog {
         this.frameLogin.setVisible(true);
     }
 
-    private void onUPLOAD() {
-        //TODO: L'upload des images
+    private void onUPLOAD() throws IOException {
+        System.out.println("L'image doit être à " + System.getProperty("user.dir") + "\\sent.jpg");
+        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir")+ "\\sent.jpg"));
+        this.controller.sendImage(image);
     }
 
     private void refreshUserList() {

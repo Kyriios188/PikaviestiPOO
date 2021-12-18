@@ -35,13 +35,23 @@ public class TCPSessionThread extends Thread {
 	}
 
 	// Called after the receiveMessage, goes back to the loop once it's over
-	public void receiveImage(int length) {
+	public void receiveImage() {
+
 		try {
 
-			byte[] imageAr = new byte[length];
+			InputStream inputStream = sock.getInputStream();
+
+			byte[] sizeAr = new byte[4];
+			System.out.println("Waiting for image");
+			if (inputStream.read(sizeAr) == -1) {
+				System.out.println("End of stream 'error?'");
+			}
+			int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+			byte[] imageAr = new byte[size];
+			inputStream.read(imageAr);
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-			String path = System.getProperty("user.dir");
-			ImageIO.write(image, "jpg", new File("C:\\Users\\punis\\Desktop\\received.jpg"));
+			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
+			ImageIO.write(image, "jpg", new File(System.getProperty("user.dir") + "\\received.jpg"));
 
 		} catch (IOException e) {
 			e.printStackTrace();

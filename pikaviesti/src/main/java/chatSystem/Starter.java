@@ -8,8 +8,8 @@ package chatSystem;
  * _Si on ouvre plusieurs sessions yaura le bouton username pour chaque session (et user list), je pense qu'il faudrait une fenêtre d'où on établie la connection et on change de
  * nom et ensuite une fenêtre pas session de chat.
  * _Permettre de finir une session
+ * _Faut pas qu'on voit un message d'un mec qui est pas dans ta session, faut séparer les sessions
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut qu'une fenêtre s'affiche pour montrer qu'une nouvelle session a commencé)
- * _Utiliser controller.getChatHistory, controller.getNameFromId et message.getFormattedTime pour afficher l'historique des messages - OK
  *
  * _Quand je rechange le nom pour remettre le premier ça me met qu'il est déjà pris
  * _Problème quand je me connecte avec 3 personnes "java.net.BindException: Address already in use: bind"
@@ -17,14 +17,7 @@ package chatSystem;
  */
 
 /* TODO list for back-end:
- * _faire fonctionner closeApp
- * _parcourir les messages avant de les envoyer pour pas qu'ils pêtent le système en arrivant
  * _failure log dans target
- * _click on user should only startSession once, after it only shows the history -> menfou ?
- * _send message to bdd
- * _ping of death
- * _not show self
- *
  */
 
 import java.sql.Connection;

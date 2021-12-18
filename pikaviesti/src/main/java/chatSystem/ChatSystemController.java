@@ -129,11 +129,12 @@ public class ChatSystemController {
 			System.out.println("Failure in endSession.");
 		}
 	}
+
     
     public void sendChatMessage(String target_username, String content) {
     	try {
 			int target_id = this.cs_model.getIdFromName(target_username);
-			Message m = new Message(this.local_user.getId(), target_id, 0, content); //TODO: Parse the content for safety
+			Message m = new Message(this.local_user.getId(), target_id, 0, content);
 			this.com_sys.sendChatMessage(m);
 			this.updateChatHistory(m);
 
@@ -178,6 +179,14 @@ public class ChatSystemController {
     public boolean checkNameUnique(String name) {
 
     	this.com_sys.whatsYourNameBroadcast();
+
+		// We add him to the list of users so the old names count too
+		// We have to clean the old names
+		// There is no old name if it's the first time we choose it
+		if (this.local_user_defined) {
+			this.cs_model.delUser(this.local_user.getId());
+		}
+		
 
     	try {
 			Thread.sleep(500); // Wait for the UDP answers to come
@@ -293,7 +302,6 @@ public class ChatSystemController {
 
 
 	// Uses the DB to get the user_id associated with the login
-	// TODO: add user to DB if not present already
 	public void setLocalId(int id) {
 		this.local_user.setId(id);
 	}

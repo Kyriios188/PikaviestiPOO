@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JAR application" type="JarApplication" singleton="false">
+    <option name="JAR_PATH" value="$USER_HOME$/OneDrive/Documents/GitHub/PikaviestiPOO/pikaviesti/out/artifacts/pikaviesti_jar/pikaviesti.jar" />
+    <option name="WORKING_DIRECTORY" value="C:\Users\punis\IdeaProjects\PikaviestiPOO" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="PikaviestiPOO:jar" />
+      </option>
+    </method>
+  </configuration>
+</component>

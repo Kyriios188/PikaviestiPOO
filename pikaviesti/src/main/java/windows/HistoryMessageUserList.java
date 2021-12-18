@@ -22,6 +22,7 @@ public class HistoryMessageUserList extends JDialog {
     private JList<String> userList;
     private String selected;
     private JButton changeUsernameButton;
+    private JButton uploadImagesButton;
     private String messageText;
     private ChatSystemGUI GUI;
     private ChatSystemController controller;
@@ -37,7 +38,7 @@ public class HistoryMessageUserList extends JDialog {
         this.listMessage.setModel(listMessageModel);
         this.userList.setModel(listUserModel);
 
-
+        uploadImagesButton.addActionListener(e -> onUPLOAD());
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
 
@@ -71,6 +72,10 @@ public class HistoryMessageUserList extends JDialog {
         this.frameLogin.pack();
         this.frameLogin.setLocationRelativeTo(null);
         this.frameLogin.setVisible(true);
+    }
+
+    private void onUPLOAD() {
+        //TODO: L'upload des images
     }
 
     private void refreshUserList() {

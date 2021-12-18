@@ -238,6 +238,14 @@ public class ChatSystemController {
 	}
 
     public void updateGUI(Message received_message) {
+
+		// We only update the GUI if the person who received is the one currently selected
+		try {
+			if (this.cs_model.getIdFromName(this.GUI.getGUISelected()) != received_message.getDestId()) { return; }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		try {
 			String source_name = this.cs_model.getNameFromId(received_message.getSrcId());
 			String content = received_message.getContent();

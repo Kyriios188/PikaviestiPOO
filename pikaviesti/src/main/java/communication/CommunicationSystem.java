@@ -113,7 +113,7 @@ public class CommunicationSystem {
     			m.getContent();
     }
 
-    public void receiveMessage(String raw_message, InetAddress src_addr) throws UnknownHostException {
+    public void receiveMessage(String raw_message, InetAddress src_addr, TCPSessionThread session) throws UnknownHostException {
 
     	Message m = parseMessage(raw_message);
 		String m_type = m.getMessageType(m.getMessageCode());
@@ -163,6 +163,10 @@ public class CommunicationSystem {
 			int dead_user = m.getSrcId();
 			this.controller.removeUser(dead_user);
 
+		case 5:
+			// We received warning that an image is coming
+			int length = Integer.parseInt(m.getContent());
+			session.receiveImage(length);
 		}
 
     }

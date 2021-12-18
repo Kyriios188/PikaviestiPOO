@@ -15,6 +15,7 @@ public class Message {
 	// represents the type of message so it's dealt with appropriately
 	/*
      *  Types of objects.Message :
+     *  _5 : Warning that the next line is an image
      *  _4 : Notification of death
      *  _3 : Notification of a user who changed their name by themselves
      *  _2 : Answer to the question "whatsYourName?" (same treatment -> update Model)

@@ -1,10 +1,11 @@
 package communication;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 
 // TCPSessionThreads only wait for messages and receive them
@@ -32,6 +33,21 @@ public class TCPSessionThread extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+	// Called after the receiveMessage, goes back to the loop once it's over
+	public void receiveImage(int length) {
+		try {
+
+			byte[] imageAr = new byte[length];
+			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+			String path = System.getProperty("user.dir");
+			ImageIO.write(image, "jpg", new File("C:\\Users\\punis\\Desktop\\received.jpg"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	public void run() {
 		String raw_message;
@@ -48,7 +64,7 @@ public class TCPSessionThread extends Thread {
 				System.out.println("Waiting for message");
 				raw_message = input.readLine();
 				System.out.println("TCPSessionThread received message : " + raw_message);
-				this.com_sys.receiveMessage(raw_message, this.distant_addr);
+				this.com_sys.receiveMessage(raw_message, this.distant_addr, this);
 
 
 			} catch (IOException e) {

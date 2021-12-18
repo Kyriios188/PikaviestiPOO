@@ -43,7 +43,7 @@ public class UDPServerThread extends Thread {
 		    	
 		    	// Have the communication.CommunicationSystem handle the message
 				String raw_message = new String(inPacket.getData(), inPacket.getOffset(), inPacket.getLength());
-				this.com_sys.receiveMessage(raw_message, inPacket.getAddress());
+				this.com_sys.receiveMessage(raw_message, inPacket.getAddress(), null);
 				
 				
 			} catch (IOException e) {

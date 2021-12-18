@@ -41,7 +41,7 @@ public class TCPSessionThread extends Thread {
 
 			InputStream inputStream = sock.getInputStream();
 
-			byte[] sizeAr = new byte[4];
+			byte[] sizeAr = new byte[100];
 			System.out.println("Waiting for image");
 			if (inputStream.read(sizeAr) == -1) {
 				System.out.println("End of stream 'error?'");
@@ -51,6 +51,7 @@ public class TCPSessionThread extends Thread {
 			inputStream.read(imageAr);
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
+			this.com_sys.receiveImage(image, sock);
 			ImageIO.write(image, "jpg", new File(System.getProperty("user.dir") + "\\received.jpg"));
 
 		} catch (IOException e) {

@@ -266,6 +266,23 @@ public class ChatSystemController {
 		}
 	}
 
+	public void updateGUIImageReceived(BufferedImage image, int id) {
+
+		// We only update the GUI if the person who received is the one currently selected
+		/*
+		try {
+
+			if (this.cs_model.getIdFromName(this.GUI.getGUISelected()) != id) { return; }
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 */
+		//TODO check id before updating
+
+		this.GUI.receiveImage(image);
+	}
+
 	public void removeUser(int dead_user_id) {
 		String name = null;
 		try {

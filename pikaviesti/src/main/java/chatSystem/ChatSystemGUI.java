@@ -6,6 +6,7 @@ import windows.HistoryMessage;
 import windows.HistoryMessageUserList;
 import windows.UserList;
 
+import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,6 +101,10 @@ public class ChatSystemGUI {
     }
     
     public void changeDistantUsername(String old_name, String new_name) {this.HstrMssgSrLst.modifyUser(old_name, new_name);
+    }
+
+    public void receiveImage(BufferedImage image) {
+
     }
 
     public void changeOwnUsername(String new_name) {this.HstrMssgSrLst.setUsername(new_name);}

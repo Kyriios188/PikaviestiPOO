@@ -15,6 +15,7 @@ import java.nio.ByteBuffer;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class CommunicationSystem {
 
@@ -193,7 +194,7 @@ public class CommunicationSystem {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ImageIO.write(image, "jpg", byteArrayOutputStream);
 
-			byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+			byte[] size = ByteBuffer.allocate(100).putInt(byteArrayOutputStream.size()).array();
 			outputStream.write(size); // Send size first
 			outputStream.write(byteArrayOutputStream.toByteArray()); // Then send image
 			outputStream.flush();
@@ -201,8 +202,19 @@ public class CommunicationSystem {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
 
-
+	public void receiveImage(BufferedImage image, Socket sock) {
+		/*
+		Integer key = null;
+		for(Map.Entry entry: sender_sockets.entrySet()){
+			if(sock.equals(entry.getValue())){
+				key = (Integer) entry.getKey();
+				break; //breaking because its one to one map
+			}
+		}
+		*/
+		this.controller.updateGUIImageReceived(image, 0); // TODO put real id
 	}
 
 	public void startTCPServer() {

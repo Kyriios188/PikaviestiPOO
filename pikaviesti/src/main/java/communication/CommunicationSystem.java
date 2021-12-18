@@ -191,9 +191,6 @@ public class CommunicationSystem {
 		this.tcp_rcv_server.stop_server();
 	}
 
-    //public void sendInsertMessage(message m) {
-    //}
-
 
     /*
      *  Broadcast use cases:

@@ -186,7 +186,7 @@ public class ChatSystemController {
 		if (this.local_user_defined) {
 			this.cs_model.delUser(this.local_user.getId());
 		}
-		
+
 
     	try {
 			Thread.sleep(500); // Wait for the UDP answers to come
@@ -313,9 +313,4 @@ public class ChatSystemController {
 	public boolean isLocalUserDefined() {
 		return this.local_user_defined;
 	}
-
-    // If it exists, it uses message_code too
-    //public void createMessage(String input, String username) {
-    //}
-
 }

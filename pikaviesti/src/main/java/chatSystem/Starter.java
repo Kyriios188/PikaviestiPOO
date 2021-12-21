@@ -8,7 +8,7 @@ package chatSystem;
  * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut avertir l'utilisateur
  * _Implémenter GUI.receiveImage
  *
- * _Quand je rechange le nom pour remettre le premier ça me met qu'il est déjà pris <-- réglé
+ * _Mettre message d'erreur quand on arrive pas à se connecter à la BDD
  *
  */
 
@@ -38,6 +38,8 @@ public class Starter {
 			System.out.println("Success");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			//TODO show error message instead
+			System.exit(-1);
 		}
 
 

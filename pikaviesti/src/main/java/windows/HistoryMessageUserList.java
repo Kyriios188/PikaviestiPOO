@@ -88,7 +88,7 @@ public class HistoryMessageUserList extends JDialog {
 
     private void onUPLOAD() throws IOException {
         System.out.println("L'image doit être à " + System.getProperty("user.dir") + "\\sent.jpg");
-        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir")+ "\\sent.jpg"));
+        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + "\\sent.jpg"));
         this.controller.sendImage(image);
     }
 

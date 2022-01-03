@@ -10,6 +10,8 @@ package chatSystem;
  *
  * _Mettre message d'erreur quand on arrive pas à se connecter à la BDD
  *
+ * _J'ai l'impression que les messages ne se mettent plus à jour au niveau du receveur
+ *
  */
 
 /* TODO list for back-end:

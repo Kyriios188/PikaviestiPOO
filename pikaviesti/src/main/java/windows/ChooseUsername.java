@@ -101,15 +101,15 @@ public class ChooseUsername extends JDialog {
 
     private void onOKNew() {
         this.username = textField1.getText();
-        if (!this.username.contains(CommunicationSystem.delimiter)) {
+        if (!this.username.contains(CommunicationSystem.delimiter) & this.controller.checkNameUnique(this.username)) {
             System.out.println("New Username : " + this.username);
             this.GUI.changeOwnUsername(this.username);
             this.frameLogin.dispose();
 
-            if (!this.controller.checkNameUnique(this.username)) {
-                showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
-                this.GUI.openUsernameWindow(false);
-            }
+            //if (!) {
+            //    showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
+            //    this.GUI.openUsernameWindow(false);
+            //}
 
         } else {
             this.frameLogin.dispose();

@@ -24,8 +24,8 @@ public class HistoryMessageUserList extends JDialog {
     private JTextField textField1;
     DefaultListModel listMessageModel = new DefaultListModel();
     DefaultListModel listUserModel = new DefaultListModel();
-    private JList<String> listMessage;
-    private JList<String> userList;
+    private JList listMessage;
+    private JList userList;
     private String selected;
     private JButton changeUsernameButton;
     private JButton uploadImagesButton;
@@ -61,6 +61,8 @@ public class HistoryMessageUserList extends JDialog {
                 onCancel();
             }
         });
+
+
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -140,7 +142,7 @@ public class HistoryMessageUserList extends JDialog {
 
     private void onSEND() {
         this.messageText = textField1.getText();
-        System.out.println("Message : " + this.messageText);
+        System.out.println("Message sent : " + this.messageText);
         this.controller.sendChatMessage(this.selected, this.messageText);
         addFormattedMessage(this.messageText, this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalTime.now()));
         textField1.setText("");

@@ -11,11 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.time.LocalTime;
+import java.awt.Desktop;
 
 public class HistoryMessageUserList extends JDialog {
     private JFrame frameLogin = new JFrame();
@@ -29,6 +28,8 @@ public class HistoryMessageUserList extends JDialog {
     private String selected;
     private JButton changeUsernameButton;
     private JButton uploadImagesButton;
+    private JButton sendImagesButton;
+    private JButton receiveImagesButton;
     private String messageText;
     private ChatSystemGUI GUI;
     private ChatSystemController controller;
@@ -53,6 +54,12 @@ public class HistoryMessageUserList extends JDialog {
         });
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
+        sendImagesButton.addActionListener(e -> {
+            selectFile(0);
+        });
+        receiveImagesButton.addActionListener(e -> {
+            selectFile(1);
+        });
 
         // call onCancel() when cross is clicked
         this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -61,7 +68,6 @@ public class HistoryMessageUserList extends JDialog {
                 onCancel();
             }
         });
-
 
 
         // call onCancel() on ESCAPE
@@ -159,6 +165,55 @@ public class HistoryMessageUserList extends JDialog {
         this.frameLogin.dispose();
     }
 
+    public void selectFile(int type) {
+        JFileChooser chooser = new JFileChooser();
+        // Optionally set chooser options ...
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            System.out.println("File Selected: " + f.getName());
+            switch (type) {
+                case 0:
+                    // We want to send an image
+                    try {
+                        if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
+                        {
+                            System.out.println("not supported");
+                            return;
+                        }
+                        Desktop desktop = Desktop.getDesktop();
+                        if (f.exists())     // Checks file exists or not
+                            desktop.open(f);// Opens the specified file
+                        System.out.println(f.getName() + "sent");
+                        // Send the file here
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case 1:
+                    // We want to receive an image
+                    try {
+                        if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
+                        {
+                            System.out.println("not supported");
+                            return;
+                        }
+                        Desktop desktop = Desktop.getDesktop();
+                        if (f.exists())     // Checks file exists or not
+                            desktop.open(f);// Opens the specified file
+                        System.out.println(f.getName() + "received");
+                        // Receive the file here
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+
+        } else {
+            System.out.println("Open command canceled");
+        }
+    }
+
     public void setSelected(String selected) {
         this.selected = selected;
     }
@@ -185,7 +240,7 @@ public class HistoryMessageUserList extends JDialog {
         contentPane = new JPanel();
         contentPane.setLayout(new GridLayoutManager(3, 2, new Insets(10, 10, 10, 10), -1, -1));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(1, 4, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setLayout(new GridLayoutManager(1, 6, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, 1, null, null, null, 0, false));
         textField1 = new JTextField();
         textField1.setText("");
@@ -198,7 +253,13 @@ public class HistoryMessageUserList extends JDialog {
         panel1.add(changeUsernameButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         uploadImagesButton = new JButton();
         uploadImagesButton.setText("Upload Images");
-        panel1.add(uploadImagesButton, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(uploadImagesButton, new GridConstraints(0, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        sendImagesButton = new JButton();
+        sendImagesButton.setText("Send Images");
+        panel1.add(sendImagesButton, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        receiveImagesButton = new JButton();
+        receiveImagesButton.setText("Receive Images");
+        panel1.add(receiveImagesButton, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         contentPane.add(scrollPane1, new GridConstraints(0, 0, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         listMessage = new JList();

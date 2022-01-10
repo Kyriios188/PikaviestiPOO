@@ -103,10 +103,6 @@ public class ChatSystemGUI {
     public void changeDistantUsername(String old_name, String new_name) {this.HstrMssgSrLst.modifyUser(old_name, new_name);
     }
 
-    public void receiveImage(BufferedImage image) {
-
-    }
-
     public void changeOwnUsername(String new_name) {this.HstrMssgSrLst.setUsername(new_name);}
 
     public void updateGUIMessageReceived(String message_content, String sender_name, String time) {

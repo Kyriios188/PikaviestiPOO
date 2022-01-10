@@ -48,11 +48,16 @@ public class TCPSessionThread extends Thread {
 			}
 			int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
 			byte[] imageAr = new byte[size];
-			inputStream.read(imageAr);
+			if (inputStream.read(imageAr) == -1) {
+				System.out.println("No image received");
+			}
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
-			this.com_sys.receiveImage(image, sock);
+
+			// TODO create folder to store images for every user (ex : Robin folder)
+			// TODO if can't show image in GUI, use folder. Else, use DB to store.
 			ImageIO.write(image, "jpg", new File(System.getProperty("user.dir") + "\\received.jpg"));
+			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
+			// TODO alert user that he just received an image to his folder
 
 		} catch (IOException e) {
 			e.printStackTrace();

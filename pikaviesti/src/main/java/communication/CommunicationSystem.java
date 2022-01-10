@@ -169,6 +169,7 @@ public class CommunicationSystem {
 
 		case 5:
 			// We received warning that an image is coming
+			System.out.println("Received Image Warning");
 			session.receiveImage();
 		}
 
@@ -181,15 +182,13 @@ public class CommunicationSystem {
 		try {
 			OutputStream outputStream = sock.getOutputStream();
 			PrintWriter output = new PrintWriter(outputStream);
+			// Tell the received an image is coming
 			String raw_prepare_message = this.createRawMessage(new Message(this.local_id, rcv_id, 5, "fill"));
 			output.println(raw_prepare_message);
 			output.flush();
 
 			// Wait that server processed gets ready
-			Thread.sleep(500); // TODO check if this is needed
-
-
-
+			Thread.sleep(500);
 
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ImageIO.write(image, "jpg", byteArrayOutputStream);
@@ -204,18 +203,6 @@ public class CommunicationSystem {
 		}
 	}
 
-	public void receiveImage(BufferedImage image, Socket sock) {
-		/*
-		Integer key = null;
-		for(Map.Entry entry: sender_sockets.entrySet()){
-			if(sock.equals(entry.getValue())){
-				key = (Integer) entry.getKey();
-				break; //breaking because its one to one map
-			}
-		}
-		*/
-		this.controller.updateGUIImageReceived(image, 0); // TODO put real id
-	}
 
 	public void startTCPServer() {
 

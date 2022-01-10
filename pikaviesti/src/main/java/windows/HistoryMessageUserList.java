@@ -55,10 +55,10 @@ public class HistoryMessageUserList extends JDialog {
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
         sendImagesButton.addActionListener(e -> {
-            selectFile(0);
+            this.controller.sendImage(selectFile()); //TODO j'ai changé ici, c'était "selectFile(0);"
         });
         receiveImagesButton.addActionListener(e -> {
-            selectFile(1);
+            selectFile();
         });
 
         // call onCancel() when cross is clicked
@@ -96,8 +96,7 @@ public class HistoryMessageUserList extends JDialog {
 
     private void onUPLOAD() throws IOException {
         System.out.println("L'image doit être à " + System.getProperty("user.dir") + "\\sent.jpg");
-        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + "\\sent.jpg"));
-        this.controller.sendImage(image);
+        this.controller.sendImage(new File(System.getProperty("user.dir") + "\\sent.jpg"));
     }
 
     private void refreshUserList() {
@@ -164,7 +163,7 @@ public class HistoryMessageUserList extends JDialog {
         this.controller.postNameClose();
         this.frameLogin.dispose();
     }
-
+    /*
     public void selectFile(int type) {
         JFileChooser chooser = new JFileChooser();
         // Optionally set chooser options ...
@@ -192,6 +191,8 @@ public class HistoryMessageUserList extends JDialog {
 
                 case 1:
                     // We want to receive an image
+
+                    // "Choose the image you want to receive" ??
                     try {
                         if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
                         {
@@ -212,6 +213,35 @@ public class HistoryMessageUserList extends JDialog {
         } else {
             System.out.println("Open command canceled");
         }
+    }
+    */
+
+    public File selectFile() {
+        JFileChooser chooser = new JFileChooser();
+        // Optionally set chooser options ...
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            System.out.println("File Selected: " + f.getName());
+                    // We want to send an image
+            try {
+                if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
+                {
+                    System.out.println("not supported");
+                    return null;
+                }
+                Desktop desktop = Desktop.getDesktop();
+                if (f.exists())     // Checks file exists or not
+                    return f;// Opens the specified file
+                System.out.println(f.getName() + "sent");
+                // Send the file here
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Open command canceled");
+        }
+        return null;
     }
 
     public void setSelected(String selected) {

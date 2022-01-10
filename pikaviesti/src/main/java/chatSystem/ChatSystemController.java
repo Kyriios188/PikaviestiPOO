@@ -4,15 +4,21 @@ import objects.Message;
 import objects.User;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class ChatSystemController {
@@ -148,8 +154,6 @@ public class ChatSystemController {
 
 	public void updateChatHistory(Message m) {
 
-
-
 		try {
 
 			String query = "INSERT INTO message_history (src_user, dest_user, time, content) " +
@@ -225,7 +229,7 @@ public class ChatSystemController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//this.com_sys.closeUDPServer();
+		this.com_sys.closeUDPServer();
 	}
 
 	public void postNameClose() {
@@ -235,8 +239,8 @@ public class ChatSystemController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//this.com_sys.closeUDPServer();
-		//this.com_sys.closeTCPServer();
+		this.com_sys.closeUDPServer();
+		this.com_sys.closeTCPServer();
 	}
 
     public void updateGUI(Message received_message) {
@@ -259,7 +263,35 @@ public class ChatSystemController {
 		}
 	}
 
-	public void sendImage(BufferedImage image) {
+	// ------------------ Image handling -------------------
+
+
+	// TODO deny images too big
+	public void sendImage(File f) {
+
+		// Check that the file is a jpg file
+		boolean ext_ok = this.checkExtension(f.getName());
+		long size_kb = this.getFileSize(f.toPath().toString());
+
+		if (!ext_ok) {
+			// TODO : alert user that their image has wrong extension
+			System.out.println("Image extension incorrect");
+			return;
+		}
+		//
+		if (size_kb > 125) {
+			// TODO : alert user that their image is too big
+			System.out.println("Image too large to be sent");
+			return;
+		}
+
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		try {
 			this.com_sys.sendImage(image, this.cs_model.getIdFromName(this.GUI.getGUISelected()));
 		} catch (Exception e) {
@@ -267,22 +299,51 @@ public class ChatSystemController {
 		}
 	}
 
-	public void updateGUIImageReceived(BufferedImage image, int id) {
+	public Optional<String> getExtension(String filename) {
+		// ofNullable allows filename to be null
+		// but the return can't be null
+		return Optional.ofNullable(filename)
+				.filter(f -> f.contains("."))
+				.map(f -> f.substring(filename.lastIndexOf(".") + 1));
+	}
 
-		// We only update the GUI if the person who received is the one currently selected
-		/*
+	public boolean checkExtension(String filename) {
+		boolean ok = true;
+		Optional<String> opt_ext = getExtension(filename);
+		if (opt_ext.isPresent()) {
+			String extension = opt_ext.get();
+
+			// Wrong extension
+			if (!(extension.equals("jpg"))) {
+				ok = false;
+			}
+		}
+		// No extension
+		else {
+			ok = false;
+		}
+		return ok;
+	}
+
+	public long getFileSize(String filepath) {
+
+		long length_kb = 0;
+		Path path = Paths.get(filepath);
+
 		try {
 
-			if (this.cs_model.getIdFromName(this.GUI.getGUISelected()) != id) { return; }
+			// size of a file (in bytes)
+			length_kb = Files.size(path)/1024;
 
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 */
-		//TODO check id before updating
 
-		this.GUI.receiveImage(image);
+		return length_kb;
 	}
+
+	// -------------------- End of image handling ------------------------
+
 
 	public void removeUser(int dead_user_id) {
 		String name = null;

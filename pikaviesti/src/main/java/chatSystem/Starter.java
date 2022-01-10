@@ -16,7 +16,6 @@ package chatSystem;
  */
 
 /* TODO list for back-end:
- * _failure log dans target
  * _les images ne sont pas stockées dans la bdd donc si on est pas en train de sélectionner le mec qui l'envoie, l'image se perd.
  * -> on ne charge pas l'image quand on recommence une session -> elles sont perdues
  * -> du coup pour l'instant je les affiche à chaque fois

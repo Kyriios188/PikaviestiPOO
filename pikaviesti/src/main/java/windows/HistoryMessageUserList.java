@@ -13,6 +13,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.awt.Desktop;
 
@@ -149,7 +150,8 @@ public class HistoryMessageUserList extends JDialog {
         this.messageText = textField1.getText();
         System.out.println("Message sent : " + this.messageText);
         this.controller.sendChatMessage(this.selected, this.messageText);
-        addFormattedMessage(this.messageText, this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalTime.now()));
+        addFormattedMessage(this.messageText,
+                this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalDateTime.now()));
         textField1.setText("");
     }
 

@@ -1,5 +1,7 @@
 package communication;
 
+import chatSystem.ChatSystemGUI;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -57,7 +59,7 @@ public class TCPSessionThread extends Thread {
 			// TODO if can't show image in GUI, use folder. Else, use DB to store.
 			ImageIO.write(image, "jpg", new File(System.getProperty("user.dir") + "\\received.jpg"));
 			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
-			// TODO alert user that he just received an image to his folder
+			ChatSystemGUI.showPopup("");
 
 		} catch (IOException e) {
 			e.printStackTrace();

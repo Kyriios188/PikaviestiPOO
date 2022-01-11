@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class Message {
 
 	private final String content;
-	private final LocalTime timestamp;
+	private final LocalDateTime timestamp;
 	private final int src_user;
 	private final int dest_user;
 	
@@ -37,11 +37,11 @@ public class Message {
 		this.src_user = src;
 		this.dest_user = dest;
 		this.message_code = m_code;
-		this.timestamp = LocalTime.now();
+		this.timestamp = LocalDateTime.now();
 	}
 
 	// Used when we fetch the chat history
-	public Message(int src, int dest, LocalTime time,  int m_code, String content) {
+	public Message(int src, int dest, LocalDateTime time,  int m_code, String content) {
 		this.content = content;
 		this.src_user = src;
 		this.dest_user = dest;
@@ -68,7 +68,7 @@ public class Message {
 	
 	//**************  GETTERS  **************
 
-	public static String getFormattedTime(LocalTime timestamp) {
+	public static String getFormattedTime(LocalDateTime timestamp) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
 		return timestamp.format(formatter).substring(0, 8);
 	}
@@ -81,7 +81,7 @@ public class Message {
 		return this.dest_user;
 	}
 	
-	public LocalTime getTimeStamp() {
+	public LocalDateTime getTimeStamp() {
 		return this.timestamp;
 	}
 	

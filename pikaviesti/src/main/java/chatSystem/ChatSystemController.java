@@ -68,7 +68,7 @@ public class ChatSystemController {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				chat_history.add(new Message(rs.getInt("src_user"), rs.getInt("dest_user"),
-						rs.getTime("time").toLocalTime(),
+						rs.getTimestamp("time").toLocalDateTime(),
 						0,
 						rs.getString("content"))
 				);
@@ -161,7 +161,7 @@ public class ChatSystemController {
 			PreparedStatement preparedStatement = con.prepareStatement(query);
 						preparedStatement.setInt(1, m.getSrcId());
 			preparedStatement.setInt(2, m.getDestId());
-			preparedStatement.setTime(3, Time.valueOf(m.getTimeStamp()));
+			preparedStatement.setTimestamp(3, Timestamp.valueOf(m.getTimeStamp()));
 			preparedStatement.setString(4, m.getContent());
 
 			preparedStatement.executeUpdate();
@@ -266,7 +266,6 @@ public class ChatSystemController {
 	// ------------------ Image handling -------------------
 
 
-	// TODO deny images too big
 	public void sendImage(File f) {
 
 		// Check that the file is a jpg file
@@ -274,13 +273,13 @@ public class ChatSystemController {
 		long size_kb = this.getFileSize(f.toPath().toString());
 
 		if (!ext_ok) {
-			// TODO : alert user that their image has wrong extension
+			ChatSystemGUI.showPopup("Veuillez envoyer une image .jpg");
 			System.out.println("Image extension incorrect");
 			return;
 		}
-		//
+
 		if (size_kb > 125) {
-			// TODO : alert user that their image is too big
+			ChatSystemGUI.showPopup("L'image est trop volumineuse");
 			System.out.println("Image too large to be sent");
 			return;
 		}

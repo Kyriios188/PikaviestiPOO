@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.*;
 import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -79,7 +80,7 @@ public class CommunicationSystem {
         String[] fields = raw_message.split(CommunicationSystem.delimiter);
         int src_id = Integer.parseInt(fields[0]);
         int dest_id = Integer.parseInt(fields[1]);
-        LocalTime t = LocalTime.parse(fields[2]);
+        LocalDateTime t = LocalDateTime.parse(fields[2]);
         int m_code = Integer.parseInt(fields[3]);
         String content = fields[4];
         return new Message(src_id, dest_id, t, m_code, content);

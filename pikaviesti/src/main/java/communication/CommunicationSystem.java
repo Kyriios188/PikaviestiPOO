@@ -297,6 +297,10 @@ public class CommunicationSystem {
 		}
     }
 
+	public int getLocalId() {
+		return this.local_id;
+	}
+
 	// Adds socket to sender_sockets, so we can message first even if remote host establishes connection
 	// Tells GUI that a new session has started
 	public void handleConnection(Socket socket) {

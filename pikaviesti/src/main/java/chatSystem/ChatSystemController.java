@@ -85,7 +85,6 @@ public class ChatSystemController {
 		return this.cs_model.getNameFromId(id);
 	}
 
-    
     // Called by GUI to see the active users
     // GUI only needs the string objects
     public ArrayList<String> getStrUserListWithoutSelf() {

@@ -3,11 +3,15 @@ package communication;
 import chatSystem.ChatSystemGUI;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 // TCPSessionThreads only wait for messages and receive them
@@ -55,14 +59,21 @@ public class TCPSessionThread extends Thread {
 			}
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
-			// TODO create folder to store images for every user (ex : Robin folder)
-			// TODO if can't show image in GUI, use folder. Else, use DB to store.
-			ImageIO.write(image, "jpg", new File(System.getProperty("user.dir") + "\\received.jpg"));
-			System.out.println("Envoyé à " + System.getProperty("user.dir") + "\\received.jpg");
-			ChatSystemGUI.showPopup("");
+			// Create directory and get the path
+			String str_path = System.getProperty("user.dir") + "\\"+ this.com_sys.getLocalId();
+			Path path = Paths.get(str_path);
+			Files.createDirectory(path);
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			// Save the image
+			ImageIO.write(image, "jpg", new File(str_path + "\\received.jpg"));
+
+			// Open the file
+			File file = new File(str_path + "\\received.jpg");
+			Desktop desktop = Desktop.getDesktop();
+			if(file.exists())
+				desktop.open(file);
+			} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 
 	}

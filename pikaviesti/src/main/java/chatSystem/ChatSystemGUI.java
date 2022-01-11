@@ -94,7 +94,7 @@ public class ChatSystemGUI {
         //
     }
 
-    private void endSession(String name) {
+    public void endSession(String name) {
         this.cs_controller.endSession(name);
     }
 

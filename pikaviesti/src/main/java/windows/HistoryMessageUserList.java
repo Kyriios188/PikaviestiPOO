@@ -163,58 +163,7 @@ public class HistoryMessageUserList extends JDialog {
         this.controller.postNameClose();
         this.frameLogin.dispose();
     }
-    /*
-    public void selectFile(int type) {
-        JFileChooser chooser = new JFileChooser();
-        // Optionally set chooser options ...
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File f = chooser.getSelectedFile();
-            System.out.println("File Selected: " + f.getName());
-            switch (type) {
-                case 0:
-                    // We want to send an image
-                    try {
-                        if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
-                        {
-                            System.out.println("not supported");
-                            return;
-                        }
-                        Desktop desktop = Desktop.getDesktop();
-                        if (f.exists())     // Checks file exists or not
-                            desktop.open(f);// Opens the specified file
-                        System.out.println(f.getName() + "sent");
-                        // Send the file here
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
 
-                case 1:
-                    // We want to receive an image
-
-                    // "Choose the image you want to receive" ??
-                    try {
-                        if (!Desktop.isDesktopSupported())  // Check if Desktop is supported by Platform or not
-                        {
-                            System.out.println("not supported");
-                            return;
-                        }
-                        Desktop desktop = Desktop.getDesktop();
-                        if (f.exists())     // Checks file exists or not
-                            desktop.open(f);// Opens the specified file
-                        System.out.println(f.getName() + "received");
-                        // Receive the file here
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-
-        } else {
-            System.out.println("Open command canceled");
-        }
-    }
-    */
 
     public File selectFile() {
         JFileChooser chooser = new JFileChooser();

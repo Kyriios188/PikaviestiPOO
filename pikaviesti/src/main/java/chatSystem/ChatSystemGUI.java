@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.*;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class ChatSystemGUI {
 
     ChatSystemController cs_controller;
@@ -114,4 +116,6 @@ public class ChatSystemGUI {
     public String getGUISelected() {return HstrMssgSrLst.getSelected();}
 
     public void delGUIUser(String name) {HstrMssgSrLst.delUser(name);}
+
+    public static void showPopup(String message) {showMessageDialog(null, message);}
 }

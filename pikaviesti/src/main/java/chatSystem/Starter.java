@@ -10,6 +10,8 @@ package chatSystem;
  *
  * _Déploiement ?
  *
+ * _Ajouter fonction affichage
+ *
  * _Mettre message d'erreur quand on arrive pas à se connecter à la BDD - Comment on sait si on arrive à se connecter à la BDD ou non ?
  * _les messages sont rangés dans l'ordre des heures mais pas des dates (genre un message envoyé le 01/01/2022 à 23h45 sera affiché après un message envoyé le 03/01/2022 à 10h01)
  *
@@ -40,12 +42,12 @@ public class Starter {
 			System.out.println("Success");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			//TODO show error message instead
+			ChatSystemGUI.showPopup("Impossible d'atteindre la base de données");
 			System.exit(-1);
 		}
 
 
-		ChatSystemGUI GUI = new ChatSystemGUI(con);
+		ChatSystemGUI GUI = new ChatSystemGUI(con); //A déplacer au dessus
 		// Launch GUI
 		GUI.openLoginWindow();
 	}

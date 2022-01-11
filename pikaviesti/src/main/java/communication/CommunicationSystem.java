@@ -171,12 +171,12 @@ public class CommunicationSystem {
 		case 5:
 			// We received warning that an image is coming
 			System.out.println("Received Image Warning");
-			session.receiveImage();
+			session.receiveImage(m.getContent());
 		}
 
     }
 
-	public void sendImage(BufferedImage image, int rcv_id) {
+	public void sendImage(BufferedImage image, String image_name, int rcv_id) {
 
 		Socket sock = this.sender_sockets.get(rcv_id);
 
@@ -184,7 +184,7 @@ public class CommunicationSystem {
 			OutputStream outputStream = sock.getOutputStream();
 			PrintWriter output = new PrintWriter(outputStream);
 			// Tell the received an image is coming
-			String raw_prepare_message = this.createRawMessage(new Message(this.local_id, rcv_id, 5, "fill"));
+			String raw_prepare_message = this.createRawMessage(new Message(this.local_id, rcv_id, 5, image_name));
 			output.println(raw_prepare_message);
 			output.flush();
 

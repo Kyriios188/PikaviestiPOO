@@ -91,7 +91,7 @@ public class ChatSystemGUI {
     // When remote user starts a session
     // Must update user list, so we can't start the same session twice
     public void remoteSessionStarted(String username) {
-        //
+        ChatSystemGUI.showPopup(username + " veux clavarder");
     }
 
     public void endSession(String name) {

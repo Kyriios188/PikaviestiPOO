@@ -3,25 +3,15 @@ package chatSystem;
 
 /* 
  * TODO list for GUI:
- * _Permettre de finir une session - Comment ça ?
- * _Implémenter remoteSessionStarted (c'est quand qq distant lance la session, il faut avertir l'utilisateur) - T'es sûr de ça ?
- * _Implémenter GUI.receiveImage - Pas sûr d'avoir compris
- * ^Je tente de m'occuper de ça
- *
- * _Déploiement ?
- *
- * _Mettre message d'erreur quand on arrive pas à se connecter à la BDD - Comment on sait si on arrive à se connecter à la BDD ou non ?
- * _les messages sont rangés dans l'ordre des heures mais pas des dates (genre un message envoyé le 01/01/2022 à 23h45 sera affiché après un message envoyé le 03/01/2022 à 10h01)
- *
+ * _UML
+ * _Tests
  */
 
 /* TODO list for back-end:
- * _les images ne sont pas stockées dans la bdd donc si on est pas en train de sélectionner le mec qui l'envoie, l'image se perd.
- * -> on ne charge pas l'image quand on recommence une session -> elles sont perdues
- * -> du coup pour l'instant je les affiche à chaque fois
- * --> stocker dans le dossier et afficher ?
- * _images trop grosses meurent
- * _les images trop grosses s'envoient en plusieurs fois ce qui est pas géré pour l'instant
+ * endSession marche pas
+ * vérifier envoyer image puis message
+ * Ne pas créer d'erreur pour fermer
+ * remoteSessionStarted marche pas
  */
 
 import java.sql.Connection;

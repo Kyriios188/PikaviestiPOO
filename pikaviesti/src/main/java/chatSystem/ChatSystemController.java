@@ -291,7 +291,8 @@ public class ChatSystemController {
 		}
 
 		try {
-			this.com_sys.sendImage(image, this.cs_model.getIdFromName(this.GUI.getGUISelected()));
+			this.com_sys.sendImage(image, f.getName(),
+					this.cs_model.getIdFromName(this.GUI.getGUISelected()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +42,7 @@ public class TCPSessionThread extends Thread {
 	}
 
 	// Called after the receiveMessage, goes back to the loop once it's over
-	public void receiveImage() {
+	public void receiveImage(String img_name) {
 
 		try {
 
@@ -62,13 +63,17 @@ public class TCPSessionThread extends Thread {
 			// Create directory and get the path
 			String str_path = System.getProperty("user.dir") + "\\"+ this.com_sys.getLocalId();
 			Path path = Paths.get(str_path);
-			Files.createDirectory(path);
+			try {
+				Files.createDirectory(path);
+			}
+			// If the folder exists then cool
+			catch (FileAlreadyExistsException e) {/**/}
 
 			// Save the image
-			ImageIO.write(image, "jpg", new File(str_path + "\\received.jpg"));
+			ImageIO.write(image, "jpg", new File(str_path + "\\" + img_name + ".jpg"));
 
 			// Open the file
-			File file = new File(str_path + "\\received.jpg");
+			File file = new File(str_path + "\\" + img_name + ".jpg");
 			Desktop desktop = Desktop.getDesktop();
 			if(file.exists())
 				desktop.open(file);

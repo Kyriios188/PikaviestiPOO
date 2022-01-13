@@ -1,5 +1,6 @@
 package chatSystem;// attributes random id to user
 import communication.CommunicationSystem;
+import communication.TCPSessionThread;
 import objects.Message;
 import objects.User;
 
@@ -106,6 +107,7 @@ public class ChatSystemController {
     	try {
     		// Connect to foreign host
 			sock = this.com_sys.TCPConnect(host_addr, this.cs_model.getIdFromName(target_username));
+
 			// Store the socket created to send messages later on
 			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
 		} catch (IOException ioe) {
@@ -115,15 +117,18 @@ public class ChatSystemController {
 		catch (Exception e) {/**/}
 	}
 
-	public int startSessionFromRemote(InetAddress address) {
+	public void startSessionFromRemote(InetAddress address) {
+
 		if (this.cs_model.checkAddressExistence(address)) {
 			try {
 				int id = this.cs_model.getIdFromAddress(address);
+
 				this.GUI.remoteSessionStarted(this.cs_model.getNameFromId(id));
-				return id;
-			} catch (Exception e) {/* cannot happen */}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return -1;
 	}
 
 	public void endSession(String target_username) {

@@ -27,6 +27,7 @@ public class TCPServerThread extends Thread {
 
 	// Remote user has ended the session, we update the list of active sessions
 	public void removeSession(TCPSessionThread session) {
+		System.out.println("On appelle removeSession");
 		this.session_list.remove(session);
 	}
 
@@ -78,12 +79,13 @@ public class TCPServerThread extends Thread {
 				System.out.println("Accepted session");
 				// Dispatch a TCPSessionThread to handle sending and receiving messages
 				TCPSessionThread new_session = new TCPSessionThread(link, this.com_sys, this);
-				// Add the session to the list
-				this.session_list.add(new_session);
+
 				// Add the socket to the sender_sockets list so this host can message first
 				this.com_sys.handleConnection(link);
 
 				new_session.start();
+				// Add the session to the list
+				this.session_list.add(new_session);
 				
 				
 			} catch (IOException e) {

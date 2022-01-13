@@ -5,13 +5,16 @@ package chatSystem;
  * TODO list for GUI:
  * _UML
  * _Change text color in user list
+ * _Implémenter remoteSessionStarted : si le mec qui veut nous parler c'est pas le
+ * mec sélectionné alors on met son nom en rouge. Sinon on fait rien.
+ * _Remettre la couleur normale du mec quand on lui clique dessus.
+ * _si on entre un nom d'utilisateur déjà utilisé puis un juste ya une erreur
  */
 
 /* TODO list for back-end:
- * endSession marche pas
- * vérifier envoyer image puis message
  * Ne pas créer d'erreur pour fermer
  * remoteSessionStarted marche pas
+ * ajouter extensions
  */
 
 import java.sql.Connection;

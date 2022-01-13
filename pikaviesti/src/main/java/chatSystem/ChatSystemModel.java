@@ -2,6 +2,7 @@ package chatSystem;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Objects;
 
@@ -108,18 +109,61 @@ public class ChatSystemModel {
     }
 
 	public int getIdFromAddress(InetAddress address) throws Exception {
-		int user_id;
-		for (int i = 0; i < this.addresses.size(); i++) {
-			user_id = this.user_list.get(i).getId();
-			if( this.addresses.get(user_id) == address) {
-				return user_id;
+
+		Enumeration<Integer> e = this.addresses.keys();
+
+		while (e.hasMoreElements()) {
+
+			// Getting the key of a particular entry
+			int key = e.nextElement();
+
+			if (this.addresses.get(key).equals(address) && key != this.controller.getLocalUser().getId()) {
+				return key;
 			}
 		}
 		throw new Exception("Couldn't find user with address " + address);
 	}
 
+	// If every session isn't on the same computer, returns whether
+	// an address exists in the model
 	public boolean checkAddressExistence(InetAddress address) {
-		return this.addresses.containsValue(address);
+		Enumeration<Integer> e = this.addresses.keys();
+		boolean trouve = false;
+		// We use the address to identify a user
+		// We get the address of the user who starts a connection remotely
+		// We use this address to alert the local user that a remote user
+		// has started a connection. Problem : locally, every one has the same
+		// address => locally, the feature is disabled.
+		// all_the_same is true if all the addresses are the same i.e. every session
+		// on the same computer
+		boolean all_the_same = false;
+		ArrayList<InetAddress> check_identical = new ArrayList<>();
+
+		// Iterating through the Hashtable
+		while (e.hasMoreElements()) {
+
+			// Getting the key of a particular entry
+			int key = e.nextElement();
+
+			check_identical.add(this.addresses.get(key));
+			if (this.addresses.get(key).equals(address)) {
+				trouve = true;
+			}
+
+		}
+
+		if (check_identical.size() > 1) {
+			if (check_identical.get(0).equals(check_identical.get(1))) {
+				all_the_same = true;
+			}
+		}
+
+		if (!all_the_same) {
+			return trouve;
+		}
+		else {
+			return false;
+		}
 	}
     
     public void updateAddressTable(int user_id, InetAddress address) {
@@ -127,6 +171,7 @@ public class ChatSystemModel {
     	// If there is one and the address is the same, does it and returns the value
     	// If there is one and the address is different, does it and returns previous value
     	// Literally does everything at once, why even hire a developer
+		System.out.println("L'adresse ajoutée : " + address);
     	this.addresses.put(user_id, address);
     }
 

@@ -282,6 +282,7 @@ public class CommunicationSystem {
     }
 
 	public void endTCPSession(Socket sock) {
+		System.out.println("Le socket qu'on veut tuer : " + sock);
 		this.tcp_rcv_server.closeSession(sock);
 	}
     
@@ -301,16 +302,12 @@ public class CommunicationSystem {
 		return this.local_id;
 	}
 
-	// Adds socket to sender_sockets, so we can message first even if remote host establishes connection
 	// Tells GUI that a new session has started
 	public void handleConnection(Socket socket) {
 		InetAddress address = socket.getInetAddress();
 		// Tell the GUI a session has started
-		int id = this.controller.startSessionFromRemote(address);
-		// id = -1 if address doesn't match any connected user
-		if (id >= 0) {
-			this.addSenderSocket(id, socket);
-		}
+		this.controller.startSessionFromRemote(address);
+
 	}
 
 	//************** SOCKET SHUT DOWN HANDLERS **************

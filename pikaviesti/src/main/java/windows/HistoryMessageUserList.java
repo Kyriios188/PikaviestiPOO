@@ -10,12 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.awt.Desktop;
 
 public class HistoryMessageUserList extends JDialog {
-    private JFrame frameLogin = new JFrame();
+    private final JFrame frameLogin = new JFrame();
     private JPanel contentPane;
     private JButton buttonSend;
     private JTextField textField1;
@@ -27,7 +25,6 @@ public class HistoryMessageUserList extends JDialog {
     private JButton changeUsernameButton;
     private JButton sendImagesButton;
     private JButton closeSessionButton;
-    private String messageText;
     private ChatSystemGUI GUI;
     private ChatSystemController controller;
 
@@ -82,10 +79,6 @@ public class HistoryMessageUserList extends JDialog {
         this.frameLogin.setVisible(true);
     }
 
-    private void onUPLOAD() throws IOException {
-        System.out.println("L'image doit être à " + System.getProperty("user.dir") + "\\sent.jpg");
-        this.controller.sendImage(new File(System.getProperty("user.dir") + "\\sent.jpg"));
-    }
 
     private void refreshUserList() {
         for (String name : controller.getStrUserListWithoutSelf()) {
@@ -134,10 +127,10 @@ public class HistoryMessageUserList extends JDialog {
     }
 
     private void onSEND() {
-        this.messageText = textField1.getText();
-        System.out.println("Message sent : " + this.messageText);
-        this.controller.sendChatMessage(this.selected, this.messageText);
-        addFormattedMessage(this.messageText,
+        String messageText = textField1.getText();
+        System.out.println("Message sent : " + messageText);
+        this.controller.sendChatMessage(this.selected, messageText);
+        addFormattedMessage(messageText,
                 this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalDateTime.now()));
         textField1.setText("");
     }

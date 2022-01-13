@@ -4,7 +4,7 @@ package chatSystem;
 /* 
  * TODO list for GUI:
  * _UML
- * _Tests
+ * _Change text color in user list
  */
 
 /* TODO list for back-end:
@@ -33,6 +33,8 @@ public class Starter {
 			ChatSystemGUI.showPopup("Impossible d'atteindre la base de données");
 			System.exit(-1);
 		}
+
+
 
 
 		ChatSystemGUI GUI = new ChatSystemGUI(con); //A déplacer au dessus

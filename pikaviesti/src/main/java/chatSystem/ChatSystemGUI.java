@@ -2,16 +2,12 @@ package chatSystem;
 
 import windows.InputLogin;
 import windows.ChooseUsername;
-import windows.HistoryMessage;
 import windows.HistoryMessageUserList;
-import windows.UserList;
 
-import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -20,10 +16,8 @@ public class ChatSystemGUI {
     ChatSystemController cs_controller;
     InputLogin login_window;
 
-    private ChooseUsername username_window;
-    private UserList userlist_window;
     private HistoryMessageUserList HstrMssgSrLst;
-    private Connection con;
+    private final Connection con;
 
     public ChatSystemGUI(Connection con) {
 
@@ -69,16 +63,13 @@ public class ChatSystemGUI {
 
 
     public void openUsernameWindow(boolean state) {
-        this.username_window =  new ChooseUsername(this, this.cs_controller, state);
+        new ChooseUsername(this, this.cs_controller, state);
     }
 
     public void openHistoryMessage() {
         this.HstrMssgSrLst = new HistoryMessageUserList(this, this.cs_controller);
     }
 
-    public void openUserList(String name_array) {
-        this.userlist_window = new UserList(this, this.cs_controller);
-    }
 
 
     //**************         **************

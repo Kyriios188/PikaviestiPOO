@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>chatSystem.Starter</OriginalElement>
+  <nodes>
+    <node x="327.2840015723266" y="266.0">communication.TCPServerThread</node>
+    <node x="265.7840015723266" y="0.0">communication.TCPSessionThread</node>
+    <node x="492.2215015723266" y="2041.0">windows.InputLogin</node>
+    <node x="467.70420597484195" y="1198.0">chatSystem.ChatSystemController</node>
+    <node x="842.5705581761003" y="660.0">chatSystem.ChatSystemModel</node>
+    <node x="136.5340015723266" y="572.0">communication.CommunicationSystem</node>
+    <node x="489.44555817610035" y="2896.0">chatSystem.Starter</node>
+    <node x="961.5340015723266" y="242.0">objects.User</node>
+    <node x="309.44555817610035" y="2458.0">chatSystem.ChatSystemGUI</node>
+    <node x="49.22150157232659" y="2030.0">windows.ChooseUsername</node>
+    <node x="13.284001572326588" y="288.0">communication.UDPServerThread</node>
+    <node x="640.1590015723266" y="198.0">objects.Message</node>
+    <node x="850.2215015723266" y="1920.0">windows.HistoryMessageUserList</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="windows.ChooseUsername" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="100.75" y="-118.0" />
+      <point x="351.4715015723266" y="1878.0" />
+      <point x="836.3205581761003" y="1878.0" />
+      <point x="836.3205581761003" y="1838.0" />
+      <point x="748.5792059748419" y="1838.0" />
+      <point x="120.375" y="304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemModel" target="objects.User" relationship="TO_MANY">
+      <point x="-72.0" y="-183.0" />
+      <point x="914.5705581761003" y="550.0" />
+      <point x="1029.0340015723266" y="550.0" />
+      <point x="0.0" y="96.0" />
+    </edge>
+    <edge source="communication.TCPServerThread" target="communication.CommunicationSystem" relationship="DEPENDENCY">
+      <point x="0.0" y="72.0" />
+      <point x="472.7840015723266" y="500.0" />
+      <point x="394.5340015723266" y="500.0" />
+      <point x="394.5340015723266" y="550.0" />
+      <point x="321.0340015723266" y="550.0" />
+      <point x="0.0" y="-271.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="objects.User" relationship="CREATE">
+      <point x="123.0" y="-271.0" />
+      <point x="444.0340015723266" y="550.0" />
+      <point x="639.2840015723266" y="550.0" />
+      <point x="639.2840015723266" y="540.0" />
+      <point x="804.0625" y="540.0" />
+      <point x="804.0625" y="520.0" />
+      <point x="984.0340015723266" y="520.0" />
+      <point x="-45.0" y="96.0" />
+    </edge>
+    <edge source="communication.TCPSessionThread" target="communication.CommunicationSystem" relationship="TO_ONE">
+      <point x="0.0" y="73.0" />
+      <point x="472.7840015723266" y="177.0" />
+      <point x="2.784001572326588" y="177.0" />
+      <point x="2.784001572326588" y="510.0" />
+      <point x="76.53400157232659" y="510.0" />
+      <point x="76.53400157232659" y="550.0" />
+      <point x="198.0340015723266" y="550.0" />
+      <point x="-123.0" y="-271.0" />
+    </edge>
+    <edge source="windows.InputLogin" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="79.5" y="-107.0" />
+      <point x="730.7215015723266" y="1878.0" />
+      <point x="836.3205581761003" y="1878.0" />
+      <point x="836.3205581761003" y="1838.0" />
+      <point x="748.5792059748419" y="1838.0" />
+      <point x="120.375" y="304.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.TCPServerThread" relationship="CREATE">
+      <point x="123.0" y="-271.0" />
+      <point x="444.0340015723266" y="550.0" />
+      <point x="639.2840015723266" y="550.0" />
+      <point x="639.2840015723266" y="520.0" />
+      <point x="569.7840015723266" y="520.0" />
+      <point x="97.0" y="72.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="chatSystem.ChatSystemModel" relationship="CREATE">
+      <point x="0.0" y="-304.0" />
+      <point x="628.2042059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1156.0" />
+      <point x="1022.5705581761003" y="1156.0" />
+      <point x="36.0" y="183.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.HistoryMessageUserList" relationship="TO_ONE">
+      <point x="113.33333333333331" y="-194.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1187.9715015723266" y="2407.0" />
+      <point x="144.75" y="228.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="chatSystem.ChatSystemGUI" relationship="TO_ONE">
+      <point x="144.75" y="228.0" />
+      <point x="1187.9715015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="113.33333333333331" y="-194.0" />
+    </edge>
+    <edge source="windows.ChooseUsername" target="chatSystem.ChatSystemGUI" relationship="DEPENDENCY">
+      <point x="50.375" y="118.0" />
+      <point x="301.0965015723266" y="2417.0" />
+      <point x="479.44555817610035" y="2417.0" />
+      <point x="0.0" y="-194.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="113.33333333333331" y="-194.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1382.5965015723266" y="2407.0" />
+      <point x="1382.5965015723266" y="1878.0" />
+      <point x="836.3205581761003" y="1878.0" />
+      <point x="836.3205581761003" y="1838.0" />
+      <point x="748.5792059748419" y="1838.0" />
+      <point x="120.375" y="304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="chatSystem.ChatSystemGUI" relationship="TO_ONE">
+      <point x="120.375" y="304.0" />
+      <point x="748.5792059748419" y="1838.0" />
+      <point x="836.3205581761003" y="1838.0" />
+      <point x="836.3205581761003" y="1878.0" />
+      <point x="1382.5965015723266" y="1878.0" />
+      <point x="1382.5965015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="113.33333333333331" y="-194.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.UDPServerThread" relationship="TO_ONE">
+      <point x="-123.0" y="-271.0" />
+      <point x="198.0340015723266" y="550.0" />
+      <point x="76.53400157232659" y="550.0" />
+      <point x="76.53400157232659" y="510.0" />
+      <point x="62.28400157232659" y="510.0" />
+      <point x="-98.0" y="50.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="objects.Message" relationship="CREATE">
+      <point x="0.0" y="-304.0" />
+      <point x="628.2042059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1156.0" />
+      <point x="710.4090015723266" y="1156.0" />
+      <point x="-70.25" y="140.0" />
+    </edge>
+    <edge source="communication.UDPServerThread" target="communication.CommunicationSystem" relationship="TO_ONE">
+      <point x="-98.0" y="50.0" />
+      <point x="62.28400157232659" y="510.0" />
+      <point x="76.53400157232659" y="510.0" />
+      <point x="76.53400157232659" y="550.0" />
+      <point x="198.0340015723266" y="550.0" />
+      <point x="-123.0" y="-271.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemModel" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="-36.0" y="183.0" />
+      <point x="950.5705581761003" y="1166.0" />
+      <point x="357.1590015723266" y="1166.0" />
+      <point x="357.1590015723266" y="1176.0" />
+      <point x="521.2042059748419" y="1176.0" />
+      <point x="-107.0" y="-304.0" />
+    </edge>
+    <edge source="windows.ChooseUsername" target="windows.ChooseUsername" relationship="DEPENDENCY">
+      <point x="-151.125" y="118.0" />
+      <point x="99.59650157232659" y="2286.0" />
+      <point x="29.221501572326588" y="2286.0" />
+      <point x="29.221501572326588" y="2148.0" />
+      <point x="-201.5" y="-0.0" />
+    </edge>
+    <edge source="windows.ChooseUsername" target="communication.CommunicationSystem" relationship="DEPENDENCY">
+      <point x="-100.75" y="-118.0" />
+      <point x="149.9715015723266" y="1898.0" />
+      <point x="246.29205974842688" y="1898.0" />
+      <point x="246.29205974842688" y="1848.0" />
+      <point x="108.07055817610035" y="1848.0" />
+      <point x="108.07055817610035" y="1146.0" />
+      <point x="274.9090015723266" y="1146.0" />
+      <point x="-46.125" y="271.0" />
+    </edge>
+    <edge source="windows.InputLogin" target="chatSystem.ChatSystemGUI" relationship="DEPENDENCY">
+      <point x="39.75" y="107.0" />
+      <point x="690.9715015723266" y="2417.0" />
+      <point x="479.44555817610035" y="2417.0" />
+      <point x="0.0" y="-194.0" />
+    </edge>
+    <edge source="communication.TCPSessionThread" target="communication.TCPServerThread" relationship="TO_ONE">
+      <point x="0.0" y="73.0" />
+      <point x="0.0" y="-72.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="communication.CommunicationSystem" relationship="CREATE">
+      <point x="0.0" y="-304.0" />
+      <point x="628.2042059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1156.0" />
+      <point x="367.1590015723266" y="1156.0" />
+      <point x="46.125" y="271.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="-96.5" y="-228.0" />
+      <point x="946.7215015723266" y="1878.0" />
+      <point x="836.3205581761003" y="1878.0" />
+      <point x="836.3205581761003" y="1838.0" />
+      <point x="748.5792059748419" y="1838.0" />
+      <point x="120.375" y="304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.ChooseUsername" relationship="CREATE">
+      <point x="-113.33333333333331" y="-194.0" />
+      <point x="366.11222484276703" y="2437.0" />
+      <point x="0.0" y="2437.0" />
+      <point x="0.0" y="2427.0" />
+      <point x="200.3465015723266" y="2427.0" />
+      <point x="-50.375" y="118.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemModel" target="objects.User" relationship="DEPENDENCY">
+      <point x="72.0" y="-183.0" />
+      <point x="1058.5705581761003" y="540.0" />
+      <point x="1328.8465015723266" y="540.0" />
+      <point x="1328.8465015723266" y="520.0" />
+      <point x="1074.0340015723266" y="520.0" />
+      <point x="45.0" y="96.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.CommunicationSystem" relationship="DEPENDENCY">
+      <point x="-138.375" y="271.0" />
+      <point x="182.6590015723266" y="1134.0" />
+      <point x="116.53400157232659" y="1134.0" />
+      <point x="116.53400157232659" y="843.0" />
+      <point x="-184.5" y="-0.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.HistoryMessageUserList" relationship="CREATE">
+      <point x="-113.33333333333331" y="-194.0" />
+      <point x="366.11222484276703" y="2437.0" />
+      <point x="0.0" y="2437.0" />
+      <point x="0.0" y="2427.0" />
+      <point x="994.9715015723266" y="2427.0" />
+      <point x="-48.25" y="228.0" />
+    </edge>
+    <edge source="communication.TCPServerThread" target="communication.TCPSessionThread" relationship="CREATE">
+      <point x="-97.0" y="-72.0" />
+      <point x="375.7840015723266" y="167.0" />
+      <point x="334.7840015723266" y="167.0" />
+      <point x="-138.0" y="73.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="communication.CommunicationSystem" relationship="TO_ONE">
+      <point x="107.0" y="-304.0" />
+      <point x="735.2042059748419" y="1176.0" />
+      <point x="1063.5705581761003" y="1176.0" />
+      <point x="1063.5705581761003" y="1146.0" />
+      <point x="459.4090015723266" y="1146.0" />
+      <point x="138.375" y="271.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="-120.375" y="304.0" />
+      <point x="507.82920597484195" y="1826.0" />
+      <point x="447.70420597484195" y="1826.0" />
+      <point x="447.70420597484195" y="1502.0" />
+      <point x="-160.5" y="-0.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="138.375" y="271.0" />
+      <point x="459.4090015723266" y="1146.0" />
+      <point x="1063.5705581761003" y="1146.0" />
+      <point x="1063.5705581761003" y="1176.0" />
+      <point x="735.2042059748419" y="1176.0" />
+      <point x="107.0" y="-304.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.UDPServerThread" relationship="CREATE">
+      <point x="123.0" y="-271.0" />
+      <point x="444.0340015723266" y="550.0" />
+      <point x="639.2840015723266" y="550.0" />
+      <point x="639.2840015723266" y="520.0" />
+      <point x="258.2840015723266" y="520.0" />
+      <point x="98.0" y="50.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="objects.Message" relationship="DEPENDENCY">
+      <point x="96.5" y="-228.0" />
+      <point x="1139.7215015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1838.0" />
+      <point x="1321.525353773585" y="1838.0" />
+      <point x="1321.525353773585" y="530.0" />
+      <point x="850.9090015723266" y="530.0" />
+      <point x="70.25" y="140.0" />
+    </edge>
+    <edge source="windows.InputLogin" target="windows.InputLogin" relationship="DEPENDENCY">
+      <point x="-119.25" y="107.0" />
+      <point x="531.9715015723266" y="2275.0" />
+      <point x="472.2215015723266" y="2275.0" />
+      <point x="472.2215015723266" y="2148.0" />
+      <point x="-159.0" y="-0.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemModel" target="chatSystem.ChatSystemModel" relationship="DEPENDENCY">
+      <point x="-108.0" y="183.0" />
+      <point x="878.5705581761003" y="1046.0" />
+      <point x="822.5705581761003" y="1046.0" />
+      <point x="822.5705581761003" y="843.0" />
+      <point x="-144.0" y="-0.0" />
+    </edge>
+    <edge source="communication.TCPSessionThread" target="communication.TCPServerThread" relationship="DEPENDENCY">
+      <point x="138.0" y="73.0" />
+      <point x="610.7840015723266" y="167.0" />
+      <point x="512.2840015723266" y="167.0" />
+      <point x="512.2840015723266" y="177.0" />
+      <point x="569.7840015723266" y="177.0" />
+      <point x="97.0" y="-72.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="chatSystem.ChatSystemController" relationship="CREATE">
+      <point x="-113.33333333333331" y="-194.0" />
+      <point x="366.11222484276703" y="2437.0" />
+      <point x="0.0" y="2437.0" />
+      <point x="0.0" y="1868.0" />
+      <point x="588.0792059748419" y="1868.0" />
+      <point x="-40.125" y="304.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.TCPSessionThread" relationship="DEPENDENCY">
+      <point x="0.0" y="-271.0" />
+      <point x="321.0340015723266" y="550.0" />
+      <point x="394.5340015723266" y="550.0" />
+      <point x="394.5340015723266" y="500.0" />
+      <point x="628.7840015723266" y="500.0" />
+      <point x="628.7840015723266" y="177.0" />
+      <point x="512.2840015723266" y="177.0" />
+      <point x="512.2840015723266" y="167.0" />
+      <point x="610.7840015723266" y="167.0" />
+      <point x="138.0" y="73.0" />
+    </edge>
+    <edge source="communication.TCPSessionThread" target="communication.CommunicationSystem" relationship="DEPENDENCY">
+      <point x="138.0" y="73.0" />
+      <point x="610.7840015723266" y="167.0" />
+      <point x="512.2840015723266" y="167.0" />
+      <point x="512.2840015723266" y="177.0" />
+      <point x="628.7840015723266" y="177.0" />
+      <point x="628.7840015723266" y="500.0" />
+      <point x="394.5340015723266" y="500.0" />
+      <point x="394.5340015723266" y="550.0" />
+      <point x="321.0340015723266" y="550.0" />
+      <point x="0.0" y="-271.0" />
+    </edge>
+    <edge source="communication.TCPServerThread" target="communication.CommunicationSystem" relationship="TO_ONE">
+      <point x="-97.0" y="72.0" />
+      <point x="375.7840015723266" y="510.0" />
+      <point x="76.53400157232659" y="510.0" />
+      <point x="76.53400157232659" y="550.0" />
+      <point x="198.0340015723266" y="550.0" />
+      <point x="-123.0" y="-271.0" />
+    </edge>
+    <edge source="windows.InputLogin" target="chatSystem.ChatSystemGUI" relationship="TO_ONE">
+      <point x="119.25" y="107.0" />
+      <point x="770.4715015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="113.33333333333331" y="-194.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.InputLogin" relationship="TO_ONE">
+      <point x="113.33333333333331" y="-194.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="770.4715015723266" y="2407.0" />
+      <point x="119.25" y="107.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="communication.TCPServerThread" relationship="TO_ONE">
+      <point x="-123.0" y="-271.0" />
+      <point x="198.0340015723266" y="550.0" />
+      <point x="76.53400157232659" y="550.0" />
+      <point x="76.53400157232659" y="510.0" />
+      <point x="375.7840015723266" y="510.0" />
+      <point x="-97.0" y="72.0" />
+    </edge>
+    <edge source="windows.ChooseUsername" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="-100.75" y="-118.0" />
+      <point x="149.9715015723266" y="1898.0" />
+      <point x="246.29205974842688" y="1898.0" />
+      <point x="246.29205974842688" y="1858.0" />
+      <point x="502.69555817610035" y="1858.0" />
+      <point x="502.69555817610035" y="1838.0" />
+      <point x="668.3292059748419" y="1838.0" />
+      <point x="40.125" y="304.0" />
+    </edge>
+    <edge source="communication.TCPServerThread" target="communication.TCPSessionThread" relationship="TO_MANY">
+      <point x="0.0" y="-72.0" />
+      <point x="0.0" y="73.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="objects.User" relationship="DEPENDENCY">
+      <point x="96.5" y="-228.0" />
+      <point x="1139.7215015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1838.0" />
+      <point x="1427.900353773585" y="1838.0" />
+      <point x="1427.900353773585" y="540.0" />
+      <point x="1328.8465015723266" y="540.0" />
+      <point x="1328.8465015723266" y="520.0" />
+      <point x="1074.0340015723266" y="520.0" />
+      <point x="45.0" y="96.0" />
+    </edge>
+    <edge source="windows.ChooseUsername" target="chatSystem.ChatSystemGUI" relationship="TO_ONE">
+      <point x="151.125" y="118.0" />
+      <point x="401.8465015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="113.33333333333331" y="-194.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="windows.HistoryMessageUserList" relationship="DEPENDENCY">
+      <point x="-144.75" y="228.0" />
+      <point x="898.4715015723266" y="2396.0" />
+      <point x="830.2215015723266" y="2396.0" />
+      <point x="830.2215015723266" y="2148.0" />
+      <point x="-193.0" y="-0.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.ChooseUsername" relationship="TO_ONE">
+      <point x="113.33333333333331" y="-194.0" />
+      <point x="592.7788915094336" y="2437.0" />
+      <point x="1174.0965015723266" y="2437.0" />
+      <point x="1174.0965015723266" y="2407.0" />
+      <point x="401.8465015723266" y="2407.0" />
+      <point x="151.125" y="118.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="chatSystem.ChatSystemGUI" relationship="DEPENDENCY">
+      <point x="40.125" y="304.0" />
+      <point x="668.3292059748419" y="1838.0" />
+      <point x="502.69555817610035" y="1838.0" />
+      <point x="502.69555817610035" y="1888.0" />
+      <point x="18.721501572326588" y="1888.0" />
+      <point x="18.721501572326588" y="2417.0" />
+      <point x="479.44555817610035" y="2417.0" />
+      <point x="0.0" y="-194.0" />
+    </edge>
+    <edge source="chatSystem.Starter" target="chatSystem.ChatSystemGUI" relationship="CREATE">
+      <point x="0.0" y="-39.0" />
+      <point x="85.0" y="194.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="chatSystem.ChatSystemGUI" relationship="DEPENDENCY">
+      <point x="48.25" y="228.0" />
+      <point x="1091.4715015723266" y="2417.0" />
+      <point x="479.44555817610035" y="2417.0" />
+      <point x="0.0" y="-194.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="objects.User" relationship="CREATE">
+      <point x="0.0" y="-304.0" />
+      <point x="628.2042059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1176.0" />
+      <point x="622.4542059748419" y="1156.0" />
+      <point x="804.0625" y="1156.0" />
+      <point x="804.0625" y="520.0" />
+      <point x="984.0340015723266" y="520.0" />
+      <point x="-45.0" y="96.0" />
+    </edge>
+    <edge source="windows.InputLogin" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="-79.5" y="-107.0" />
+      <point x="571.7215015723266" y="1888.0" />
+      <point x="502.69555817610035" y="1888.0" />
+      <point x="502.69555817610035" y="1838.0" />
+      <point x="668.3292059748419" y="1838.0" />
+      <point x="40.125" y="304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="objects.User" relationship="TO_ONE">
+      <point x="107.0" y="-304.0" />
+      <point x="735.2042059748419" y="1176.0" />
+      <point x="1063.5705581761003" y="1176.0" />
+      <point x="1063.5705581761003" y="1146.0" />
+      <point x="1141.0705581761003" y="1146.0" />
+      <point x="1141.0705581761003" y="550.0" />
+      <point x="1029.0340015723266" y="550.0" />
+      <point x="0.0" y="96.0" />
+    </edge>
+    <edge source="windows.HistoryMessageUserList" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="96.5" y="-228.0" />
+      <point x="1139.7215015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1898.0" />
+      <point x="1323.8465015723266" y="1848.0" />
+      <point x="502.69555817610035" y="1848.0" />
+      <point x="502.69555817610035" y="1838.0" />
+      <point x="668.3292059748419" y="1838.0" />
+      <point x="40.125" y="304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="chatSystem.ChatSystemGUI" relationship="DEPENDENCY">
+      <point x="-85.0" y="194.0" />
+      <point x="394.44555817610035" y="2866.0" />
+      <point x="289.44555817610035" y="2866.0" />
+      <point x="289.44555817610035" y="2652.0" />
+      <point x="-170.0" y="-0.0" />
+    </edge>
+    <edge source="communication.UDPServerThread" target="communication.CommunicationSystem" relationship="DEPENDENCY">
+      <point x="0.0" y="50.0" />
+      <point x="160.2840015723266" y="500.0" />
+      <point x="394.5340015723266" y="500.0" />
+      <point x="394.5340015723266" y="550.0" />
+      <point x="321.0340015723266" y="550.0" />
+      <point x="0.0" y="-271.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="objects.Message" relationship="CREATE">
+      <point x="123.0" y="-271.0" />
+      <point x="444.0340015723266" y="550.0" />
+      <point x="639.2840015723266" y="550.0" />
+      <point x="639.2840015723266" y="530.0" />
+      <point x="710.4090015723266" y="530.0" />
+      <point x="-70.25" y="140.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemModel" target="chatSystem.ChatSystemController" relationship="TO_ONE">
+      <point x="108.0" y="183.0" />
+      <point x="1094.5705581761003" y="1146.0" />
+      <point x="1063.5705581761003" y="1146.0" />
+      <point x="1063.5705581761003" y="1176.0" />
+      <point x="735.2042059748419" y="1176.0" />
+      <point x="107.0" y="-304.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemController" target="chatSystem.ChatSystemModel" relationship="TO_ONE">
+      <point x="107.0" y="-304.0" />
+      <point x="735.2042059748419" y="1176.0" />
+      <point x="1063.5705581761003" y="1176.0" />
+      <point x="1063.5705581761003" y="1146.0" />
+      <point x="1094.5705581761003" y="1146.0" />
+      <point x="108.0" y="183.0" />
+    </edge>
+    <edge source="chatSystem.ChatSystemGUI" target="windows.InputLogin" relationship="CREATE">
+      <point x="-113.33333333333331" y="-194.0" />
+      <point x="366.11222484276703" y="2437.0" />
+      <point x="0.0" y="2437.0" />
+      <point x="0.0" y="2427.0" />
+      <point x="611.4715015723266" y="2427.0" />
+      <point x="-39.75" y="107.0" />
+    </edge>
+    <edge source="communication.CommunicationSystem" target="chatSystem.ChatSystemController" relationship="DEPENDENCY">
+      <point x="-46.125" y="271.0" />
+      <point x="274.9090015723266" y="1146.0" />
+      <point x="108.07055817610035" y="1146.0" />
+      <point x="108.07055817610035" y="1156.0" />
+      <point x="357.1590015723266" y="1156.0" />
+      <point x="357.1590015723266" y="1176.0" />
+      <point x="521.2042059748419" y="1176.0" />
+      <point x="-107.0" y="-304.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6043086172344688" showDependencies="true" x="821.0081047983841" y="368.81832074570946" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

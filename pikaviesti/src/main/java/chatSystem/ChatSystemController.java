@@ -248,7 +248,8 @@ public class ChatSystemController {
 	}
 
     public void updateGUI(Message received_message) {
-
+		System.out.println("Selected : " + this.GUI.getGUISelected());
+		System.out.println("Source id : " + received_message.getSrcId());
 		// We only update the GUI if the person who sent is the one currently selected
 		try {
 			if (this.cs_model.getIdFromName(this.GUI.getGUISelected()) != received_message.getSrcId()) { return; }

@@ -13,7 +13,6 @@ package chatSystem;
 
 /* TODO list for back-end:
  * Ne pas créer d'erreur pour fermer
- * remoteSessionStarted marche pas
  * ajouter extensions
  */
 

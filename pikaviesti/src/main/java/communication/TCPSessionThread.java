@@ -1,5 +1,6 @@
 package communication;
 
+import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 
 import javax.imageio.ImageIO;
@@ -13,6 +14,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 
 // TCPSessionThreads only wait for messages and receive them
@@ -70,10 +72,10 @@ public class TCPSessionThread extends Thread {
 			catch (FileAlreadyExistsException e) {/**/}
 
 			// Save the image
-			ImageIO.write(image, "jpg", new File(str_path + "\\" + img_name + ".jpg"));
+			ImageIO.write(image, "jpg", new File(str_path + "\\" + img_name));
 
 			// Open the file
-			File file = new File(str_path + "\\" + img_name + ".jpg");
+			File file = new File(str_path + "\\" + img_name);
 			Desktop desktop = Desktop.getDesktop();
 			if(file.exists())
 				desktop.open(file);

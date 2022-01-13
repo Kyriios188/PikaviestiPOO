@@ -67,7 +67,7 @@ public class ChatSystemModel {
 			this.user_list.remove(i);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Didn't do anything lol");
+			System.out.println("Didn't do anything");
 		}
 
 	}
@@ -171,7 +171,6 @@ public class ChatSystemModel {
     	// If there is one and the address is the same, does it and returns the value
     	// If there is one and the address is different, does it and returns previous value
     	// Literally does everything at once, why even hire a developer
-		System.out.println("L'adresse ajoutée : " + address);
     	this.addresses.put(user_id, address);
     }
 

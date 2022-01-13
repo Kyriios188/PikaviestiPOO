@@ -303,7 +303,7 @@ public class ChatSystemController {
 		}
 	}
 
-	public Optional<String> getExtension(String filename) {
+	public static Optional<String> getExtension(String filename) {
 		// ofNullable allows filename to be null
 		// but the return can't be null
 		return Optional.ofNullable(filename)
@@ -313,7 +313,7 @@ public class ChatSystemController {
 
 	public boolean checkExtension(String filename) {
 		boolean ok = true;
-		Optional<String> opt_ext = getExtension(filename);
+		Optional<String> opt_ext = ChatSystemController.getExtension(filename);
 		if (opt_ext.isPresent()) {
 			String extension = opt_ext.get();
 

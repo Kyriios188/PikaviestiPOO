@@ -57,6 +57,7 @@ public class Message {
 			case 2 -> message_type = "What's your name answer";
 			case 3 -> message_type = "Name change notification";
 			case 4 -> message_type = "Notification of death";
+			case 5 -> message_type = "Image warning";
 			default -> message_type = "Unidentified message";
 		}
 		return message_type;
@@ -69,8 +70,9 @@ public class Message {
 	//**************  GETTERS  **************
 
 	public static String getFormattedTime(LocalDateTime timestamp) {
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
-		return timestamp.format(formatter).substring(0, 8);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy | H:m");
+
+		return timestamp.format(formatter);
 	}
 	
 	public int getSrcId() {

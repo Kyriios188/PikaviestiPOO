@@ -82,7 +82,6 @@ public class ChatSystemGUI {
     // When remote user starts a session
     public void remoteSessionStarted(String username) {
         System.out.println(username + " souhaite clavarder");
-        //ChatSystemGUI.showPopup(username + " souhaite clavarder");
     }
 
     public void endSession(String name) {

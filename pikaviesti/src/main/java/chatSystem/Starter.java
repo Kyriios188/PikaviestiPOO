@@ -8,7 +8,6 @@ package chatSystem;
  * _Implémenter remoteSessionStarted : si le mec qui veut nous parler c'est pas le
  * mec sélectionné alors on met son nom en rouge. Sinon on fait rien.
  * _Remettre la couleur normale du mec quand on lui clique dessus.
- * _Ajouter jour dans message
  */
 
 /* TODO list for back-end:

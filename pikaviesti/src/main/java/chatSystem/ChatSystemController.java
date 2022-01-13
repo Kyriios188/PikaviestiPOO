@@ -252,7 +252,9 @@ public class ChatSystemController {
 		System.out.println("Source id : " + received_message.getSrcId());
 		// We only update the GUI if the person who sent is the one currently selected
 		try {
-			if (this.cs_model.getIdFromName(this.GUI.getGUISelected()) != received_message.getSrcId()) { return; }
+			if (this.GUI.getGUISelected() == null || this.cs_model.getIdFromName(this.GUI.getGUISelected()) != received_message.getSrcId()) {
+				return;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -261,7 +263,6 @@ public class ChatSystemController {
 			String source_name = this.cs_model.getNameFromId(received_message.getSrcId());
 			String content = received_message.getContent();
 			String formatted_time = Message.getFormattedTime(received_message.getTimeStamp());
-			System.out.println("updateGUIMessageReceived");
 			this.GUI.updateGUIMessageReceived(content, source_name, formatted_time);
 		} catch (Exception e) {
 			e.printStackTrace();

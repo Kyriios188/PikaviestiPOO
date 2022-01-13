@@ -377,10 +377,12 @@ public class ChatSystemController {
     			String old_name = this.cs_model.getNameFromId(new_user.getId());
 				System.out.println("Name change from " + old_name + " to " + new_name);
 				this.cs_model.changeUserName(new_user, r);
-				this.GUI.changeDistantUsername(old_name, new_name);
-				if (Objects.equals(this.GUI.getGUISelected(), old_name)) {
-					// Tell the GUI the name of the session target user has changed
-					this.GUI.setGUISelected(new_name);
+				if (update_gui){
+					this.GUI.changeDistantUsername(old_name, new_name);
+					if (Objects.equals(this.GUI.getGUISelected(), old_name)) {
+						// Tell the GUI the name of the session target user has changed
+						this.GUI.setGUISelected(new_name);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace(); // Cannot happen

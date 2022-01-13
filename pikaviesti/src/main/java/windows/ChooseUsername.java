@@ -78,39 +78,24 @@ public class ChooseUsername extends JDialog {
     private void onOK() {
         this.username = textField1.getText();
         this.frameLogin.dispose();
-        if (!this.username.contains(CommunicationSystem.delimiter)) {
+        if (!this.username.contains(CommunicationSystem.delimiter) & this.controller.checkNameUnique(this.username)) {
             System.out.println("Username : " + this.username);
-
-            // if the name is valid, we are open to communications
-            if (this.controller.checkNameUnique(this.username)) {
-                this.controller.enableTCPMessaging();
-                this.GUI.openHistoryMessage();
-                this.GUI.changeOwnUsername(this.username);
-            } else {
-                showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
-                this.GUI.openUsernameWindow(true);
-            }
-
+            this.controller.enableTCPMessaging();
+            this.GUI.openHistoryMessage();
+            this.GUI.changeOwnUsername(this.username);
         } else {
-            showMessageDialog(null, "Your username must not contains any character from this list: [\\, " + CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
+            showMessageDialog(null, "Your username must be unique and not contains any character from this list: [\\, " + CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(true);
         }
     }
 
     private void onOKNew() {
         this.username = textField1.getText();
+        this.frameLogin.dispose();
         if (!this.username.contains(CommunicationSystem.delimiter) & this.controller.checkNameUnique(this.username)) {
             System.out.println("New Username : " + this.username);
             this.GUI.changeOwnUsername(this.username);
-            this.frameLogin.dispose();
-
-            //if (!) {
-            //    showMessageDialog(null, "Your username must be unique", "Error", JOptionPane.ERROR_MESSAGE);
-            //    this.GUI.openUsernameWindow(false);
-            //}
-
         } else {
-            this.frameLogin.dispose();
             showMessageDialog(null, "Your username must not contains any character from this list: [\\, " + CommunicationSystem.delimiter + "]", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openUsernameWindow(false);
         }

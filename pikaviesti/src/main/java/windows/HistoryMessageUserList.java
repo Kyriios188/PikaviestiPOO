@@ -38,8 +38,6 @@ public class HistoryMessageUserList extends JDialog {
         this.listMessage.setModel(listMessageModel);
         this.userList.setModel(listUserModel);
 
-        //userList.setCellRenderer(new UserListCellRenderer());
-
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
         closeSessionButton.addActionListener(e -> onCloseSession());
@@ -126,6 +124,7 @@ public class HistoryMessageUserList extends JDialog {
     }
 
     private void onSEND() {
+        //userList.setCellRenderer(new UserListCellRenderer());
         String messageText = textField1.getText();
         System.out.println("Message sent : " + messageText);
         this.controller.sendChatMessage(this.selected, messageText);

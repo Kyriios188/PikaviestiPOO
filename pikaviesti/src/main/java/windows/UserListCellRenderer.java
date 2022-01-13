@@ -3,13 +3,10 @@ package windows;
 import javax.swing.*;
 import java.awt.*;
 
-public class UserListCellRenderer extends JPanel implements ListCellRenderer<String> {
-
-    JLabel label;
+public class UserListCellRenderer extends JLabel implements ListCellRenderer<String> {
 
     public UserListCellRenderer() {
-        label = new JLabel();
-        add(label);
+        setOpaque(true);
     }
 
     @Override

@@ -5,7 +5,6 @@ import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import objects.Message;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,16 +16,16 @@ public class HistoryMessageUserList extends JDialog {
     private JPanel contentPane;
     private JButton buttonSend;
     private JTextField textField1;
-    DefaultListModel listMessageModel = new DefaultListModel();
-    DefaultListModel listUserModel = new DefaultListModel();
-    private JList listMessage;
-    private JList userList;
+    DefaultListModel<String> listMessageModel = new DefaultListModel<>();
+    DefaultListModel<String> listUserModel = new DefaultListModel<>();
+    private JList<String> listMessage;
+    private JList<String> userList;
     private String selected;
     private JButton changeUsernameButton;
     private JButton sendImagesButton;
     private JButton closeSessionButton;
-    private ChatSystemGUI GUI;
-    private ChatSystemController controller;
+    private final ChatSystemGUI GUI;
+    private final ChatSystemController controller;
 
     public HistoryMessageUserList(ChatSystemGUI GUI, ChatSystemController cs_controller) {
         this.GUI = GUI;
@@ -39,12 +38,12 @@ public class HistoryMessageUserList extends JDialog {
         this.listMessage.setModel(listMessageModel);
         this.userList.setModel(listUserModel);
 
+        //userList.setCellRenderer(new UserListCellRenderer());
+
         buttonSend.addActionListener(e -> onSEND());
         changeUsernameButton.addActionListener(e -> onChangeUsername());
         closeSessionButton.addActionListener(e -> onCloseSession());
-        sendImagesButton.addActionListener(e -> {
-            this.controller.sendImage(selectFile()); //TODO j'ai changé ici, c'était "selectFile(0);"
-        });
+        sendImagesButton.addActionListener(e -> this.controller.sendImage(selectFile()));
 
         // call onCancel() when cross is clicked
         this.frameLogin.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -64,7 +63,7 @@ public class HistoryMessageUserList extends JDialog {
         userList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                selected = userList.getSelectedValue().toString();
+                selected = userList.getSelectedValue();
                 System.out.println("You have selected : " + selected);
                 GUI.startSession(selected);
                 System.out.println("Start Session with " + selected);
@@ -165,7 +164,6 @@ public class HistoryMessageUserList extends JDialog {
                     System.out.println("not supported");
                     return null;
                 }
-                Desktop desktop = Desktop.getDesktop();
                 if (f.exists())     // Checks file exists or not
                     return f;// Opens the specified file
                 System.out.println(f.getName() + "sent");

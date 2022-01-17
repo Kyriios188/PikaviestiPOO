@@ -3,6 +3,7 @@ package chatSystem;
 import windows.InputLogin;
 import windows.ChooseUsername;
 import windows.HistoryMessageUserList;
+import windows.SignUp;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ public class ChatSystemGUI {
     ChatSystemController cs_controller;
     InputLogin login_window;
 
+    private SignUp SgnP;
     private HistoryMessageUserList HstrMssgSrLst;
     private final Connection con;
 
@@ -32,6 +34,10 @@ public class ChatSystemGUI {
 
     public void openLoginWindow() {
         this.login_window = new InputLogin(this, this.cs_controller);
+    }
+
+    public void openSignUpWindow() {
+        this.SgnP = new SignUp(this, this.cs_controller);
     }
 
     // Returns the account id or -1 if no account is found/if there's an error

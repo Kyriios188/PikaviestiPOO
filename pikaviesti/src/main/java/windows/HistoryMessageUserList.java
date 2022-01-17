@@ -113,7 +113,9 @@ public class HistoryMessageUserList extends JDialog {
     }
 
     public void refreshMessageHistory(String target_user) {
-        if (target_user == null) {return;}
+        if (target_user == null) {
+            return;
+        }
         listMessageModel.removeAllElements();
         for (Message message : controller.getChatHistory(target_user)) {
             try {

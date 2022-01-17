@@ -56,7 +56,19 @@ public class TCPServerThread extends Thread {
 			for (TCPSessionThread tcpSessionThread : this.session_list) {
 				tcpSessionThread.closeSession();
 			}
-		} catch (IOException e) {/*We pretend it died gracefully*/}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void interrupt() {
+		super.interrupt();
+		if (!this.socket.isClosed()) {
+			this.stop_server();
+			System.out.println("Sockets closed by interrupt");
+			System.exit(0);
+		}
 	}
 	
 	public void run() {
@@ -86,12 +98,9 @@ public class TCPServerThread extends Thread {
 				new_session.start();
 				// Add the session to the list
 				this.session_list.add(new_session);
-				
-				
-			} catch (IOException e) {
-				System.out.println(e);
-				return;
-			}
+
+
+			} catch (IOException e) {/* The 'receive' method will trigger this exception upon closing */}
 		}
 	}
 }

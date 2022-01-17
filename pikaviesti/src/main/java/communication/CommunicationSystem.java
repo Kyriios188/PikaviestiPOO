@@ -219,14 +219,14 @@ public class CommunicationSystem {
 
     public void closeUDPServer() {
 		// The server will verify if the socket is open before closing it
-    	this.udp_rcv_server.stop_server();
+		this.udp_rcv_server.interrupt();
     }
 
 	// We remove ended sessions from the list
 	// So we can use the list to close the remaining ones
 
 	public void closeTCPServer() {
-		this.tcp_rcv_server.stop_server();
+		this.tcp_rcv_server.interrupt();
 	}
 
 
@@ -320,7 +320,7 @@ public class CommunicationSystem {
 			try {
 				socket.close();
 			} catch (IOException e) {
-				System.out.println(e);
+				System.out.println("Socket already closed");
 			}
 		}));
 	}
@@ -334,7 +334,7 @@ public class CommunicationSystem {
 			try {
 				socket.close();
 			} catch (IOException e) {
-				System.out.println(e);
+				System.out.println("Server socket is already closed");
 			}
 		}));
 	}

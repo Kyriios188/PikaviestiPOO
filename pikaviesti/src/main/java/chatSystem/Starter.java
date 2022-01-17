@@ -39,8 +39,9 @@ public class Starter {
 
 
 
-		ChatSystemGUI GUI = new ChatSystemGUI(con); //A déplacer au dessus
+		ChatSystemGUI GUI = new ChatSystemGUI(con);
 		// Launch GUI
+
 		GUI.openLoginWindow();
 	}
 }

@@ -1,4 +1,5 @@
 package chatSystem;// attributes random id to user
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import communication.CommunicationSystem;
 import communication.TCPSessionThread;
 import objects.Message;
@@ -112,7 +113,7 @@ public class ChatSystemController {
 			this.com_sys.addSenderSocket(this.cs_model.getIdFromName(target_username), sock);
 		} catch (IOException ioe) {
 			System.out.println("Failure to connect to distant host at address " + host_addr);
-			System.out.println(ioe);
+			ioe.printStackTrace();
 		}
 		catch (Exception e) {/**/}
 	}
@@ -137,7 +138,6 @@ public class ChatSystemController {
 			this.com_sys.endTCPSession(this.com_sys.getSocketFromId(target_id));
 		}
 		catch (Exception e) {
-			System.out.println(e);
 			System.out.println("Failure in endSession.");
 		}
 	}
@@ -155,6 +155,81 @@ public class ChatSystemController {
 			System.out.println("Failure in sendMessage.");
 		}
     }
+
+	// login and password have to be clean
+	// login already taken
+	// login/password too long
+	public boolean createAccount(String login, String password) {
+		boolean created = false;
+
+		try {
+			if (loginExists(login)) {
+				ChatSystemGUI.showPopup("Ce login est déjà utilisé, merci d'en choisir un autre.");
+				return false;
+			}
+
+
+			Statement statement = this.con.createStatement();
+			String query = "INSERT INTO accounts (login, password) VALUES ('"+login+"', '"+password+"')";
+			statement.executeUpdate(query);
+			created = true;
+
+		} catch (MysqlDataTruncation e) {
+			ChatSystemGUI.showPopup("Login ou mot de passe trop long");
+
+		} catch (SQLSyntaxErrorException e) {
+			ChatSystemGUI.showPopup("Merci de ne pas utiliser de charactères spéciaux (', \\, %)");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return created;
+	}
+
+	// Check if a login is in the DB
+	public boolean loginExists(String login) {
+		boolean exists = false;
+		try {
+			Statement statement = this.con.createStatement();
+			String query1 = "SELECT COUNT(id) AS n FROM accounts WHERE login='"+login+"'";
+			ResultSet rs_number = statement.executeQuery(query1);
+			if (rs_number.next() && rs_number.getInt("n") > 0) {
+				exists = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
+
+	// Returns the account id or -1 if no account is found/if there's an error
+	public int findAccount(String login, String password) {
+		int account_id;
+		try {
+			Statement statement = this.con.createStatement();
+			String query1 = "SELECT COUNT(id) AS n FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
+			ResultSet rs_number = statement.executeQuery(query1);
+			// If we find a matching row in the database
+
+			if (rs_number.next() && rs_number.getInt("n") == 1) {
+				String query2 = "SELECT id AS acc_id FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
+				ResultSet rs_id = statement.executeQuery(query2);
+				rs_id.next();
+				account_id = rs_id.getInt("acc_id");
+				System.out.println("Found account : "+account_id);
+			}
+			else {
+				account_id = -1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQLException detected, returning false");
+			account_id = -1;
+		}
+		return account_id;
+	}
 
 	public void updateChatHistory(Message m) {
 
@@ -248,8 +323,6 @@ public class ChatSystemController {
 	}
 
     public void updateGUI(Message received_message) {
-		System.out.println("Selected : " + this.GUI.getGUISelected());
-		System.out.println("Source id : " + received_message.getSrcId());
 		// We only update the GUI if the person who sent is the one currently selected
 		try {
 			if (this.GUI.getGUISelected() == null || this.cs_model.getIdFromName(this.GUI.getGUISelected()) != received_message.getSrcId()) {

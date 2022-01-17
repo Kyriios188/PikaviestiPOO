@@ -14,13 +14,17 @@ public class UDPServerThread extends Thread {
 		this.UDP_PORT = UDP_PORT;
 		this.com_sys = com_sys;
 	}
-	
-	// We'd rather have the sockets close gracefully on our terms
-	public void stop_server() {
-		if (!this.socket.isClosed()) {this.socket.close();
+
+	@Override
+	public void interrupt(){
+		super.interrupt();
+		if (!this.socket.isClosed()) {
+			this.socket.close();
+			System.out.println("Socket closed by interrupt");
+			System.exit(0);
 		}
 	}
-	
+
 	public void run() {
 		
 		try {
@@ -46,10 +50,7 @@ public class UDPServerThread extends Thread {
 				this.com_sys.receiveMessage(raw_message, inPacket.getAddress(), null);
 				
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(-1);
-			}
+			} catch (IOException e) {/* The 'receive' method will trigger this exception upon closing */}
 		}
 		
 		

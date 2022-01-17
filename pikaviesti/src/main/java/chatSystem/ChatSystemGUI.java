@@ -36,29 +36,11 @@ public class ChatSystemGUI {
 
     // Returns the account id or -1 if no account is found/if there's an error
     public int findAccount(String login, String password) {
-        int account_id;
-        try {
-            Statement statement = this.con.createStatement();
-            String query1 = "SELECT COUNT(id) AS n FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
-            ResultSet rs_number = statement.executeQuery(query1);
-            // If we find a matching row in the database
-            rs_number.next();
-            if (rs_number.getInt("n") == 1) {
-                String query2 = "SELECT id AS acc_id FROM accounts WHERE login='"+login+"' AND password='"+password+"'";
-                ResultSet rs_id = statement.executeQuery(query2);
-                rs_id.next();
-                account_id = rs_id.getInt("acc_id");
-                System.out.println("Found account : "+account_id);
-            }
-            else {
-                account_id = -1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("SQLException detected, returning false");
-            account_id = -1;
-        }
-        return account_id;
+        return this.cs_controller.findAccount(login, password);
+    }
+
+    public boolean createAccount(String login, String password) {
+        return this.cs_controller.createAccount(login, password);
     }
 
 

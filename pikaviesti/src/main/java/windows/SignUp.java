@@ -5,10 +5,13 @@ import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import communication.CommunicationSystem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import static javax.swing.JOptionPane.*;
 
 public class SignUp extends JDialog {
     private final JFrame frameSignUp = new JFrame();
@@ -52,7 +55,14 @@ public class SignUp extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        // CI-DESSOUS
+        int a = showConfirmDialog(null, "Test", "Question", JOptionPane.YES_NO_OPTION);
+        if (a == JOptionPane.YES_OPTION) {
+            System.out.println("Yes"); // add code here
+        } else {
+            System.out.println("No"); // add code here
+        }
+        // CI-DESSUS
         this.frameSignUp.dispose();
     }
 

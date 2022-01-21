@@ -70,7 +70,7 @@ public class InputLogin extends JDialog {
         this.frameLogin.dispose();
         // Login is incorrect
         if ((id = this.GUI.findAccount(login, psswrd)) == -1) {
-            showMessageDialog(null, "Mauvais identifiant / mot de passe.");
+            showMessageDialog(null, "Mauvais identifiant / mot de passe.", "Error", JOptionPane.ERROR_MESSAGE);
             this.GUI.openLoginWindow();
         }
         // Login is correct, id is account number

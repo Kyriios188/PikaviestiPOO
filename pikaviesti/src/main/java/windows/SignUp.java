@@ -53,6 +53,7 @@ public class SignUp extends JDialog {
     private void onOK() {
         String login = textField1.getText();
         char[] psswrd_list = passwordField1.getPassword();
+        char[] psswrd_list2 = passwordField2.getPassword();
 
         // Convert Array to string
         StringBuilder stringb = new StringBuilder();
@@ -61,15 +62,29 @@ public class SignUp extends JDialog {
         }
         String psswrd = stringb.toString();
 
+        StringBuilder stringb2 = new StringBuilder();
+        for (char c : psswrd_list2) {
+            stringb2.append(c);
+        }
+        String psswrd2 = stringb2.toString();
+
         this.frameSignUp.dispose();
 
-        if (this.GUI.createAccount(login, psswrd)) {
-            // Success
-            ChatSystemGUI.showPopup("Le compte a été créé");
-            GUI.openLoginWindow();
-        } else {
+        if (psswrd2.equals(psswrd)) {
+            if (this.GUI.createAccount(login, psswrd)) {
+                // Success
+                ChatSystemGUI.showPopup("Le compte a été créé");
+                GUI.openLoginWindow();
+            }
+            else {
+                this.GUI.openSignUpWindow();
+            }
+        }
+        else {
+            ChatSystemGUI.showErrorPopup("La confirmation du mot de passe est incorrecte");
             this.GUI.openSignUpWindow();
         }
+
     }
 
     private void onCancel() {

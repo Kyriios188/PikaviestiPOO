@@ -7,9 +7,6 @@ import windows.SignUp;
 
 import javax.swing.*;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -38,7 +35,7 @@ public class ChatSystemGUI {
     }
 
     public void openSignUpWindow() {
-        this.SgnP = new SignUp(this, this.cs_controller);
+        this.SgnP = new SignUp(this);
     }
 
     // Returns the account id or -1 if no account is found/if there's an error

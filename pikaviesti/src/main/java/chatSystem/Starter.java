@@ -4,10 +4,6 @@ package chatSystem;
 /* 
  * TODO list for GUI:
  * _UML
- * _Change text color in user list
- * _Implémenter remoteSessionStarted : si le mec qui veut nous parler c'est pas le
- * mec sélectionné alors on met son nom en rouge. Sinon on fait rien.
- * _Remettre la couleur normale du mec quand on lui clique dessus.
  */
 
 /* TODO list for back-end:

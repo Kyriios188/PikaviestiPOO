@@ -1,17 +1,15 @@
 package windows;
 
-import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import communication.CommunicationSystem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import static javax.swing.JOptionPane.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SignUp extends JDialog {
     private final JFrame frameSignUp = new JFrame();
@@ -22,11 +20,9 @@ public class SignUp extends JDialog {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private final ChatSystemGUI GUI;
-    private final ChatSystemController controller;
 
-    public SignUp(ChatSystemGUI chatSystemGUI, ChatSystemController cs_controller) {
+    public SignUp(ChatSystemGUI chatSystemGUI) {
         this.GUI = chatSystemGUI;
-        this.controller = cs_controller;
         this.frameSignUp.setContentPane(contentPane);
         setModal(true);
         this.frameSignUp.getRootPane().setDefaultButton(buttonOK);
@@ -49,7 +45,7 @@ public class SignUp extends JDialog {
         // call onOK() on ENTER
         contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        this.frameSignUp.setSize(300, 200);
+        this.frameSignUp.setSize(300, 250);
         this.frameSignUp.setLocationRelativeTo(null);
         this.frameSignUp.setVisible(true);
     }
@@ -71,14 +67,13 @@ public class SignUp extends JDialog {
             // Success
             ChatSystemGUI.showPopup("Le compte a été créé");
             GUI.openLoginWindow();
-        }
-        else {
+        } else {
             this.GUI.openSignUpWindow();
         }
     }
 
     private void onCancel() {
-        System.out.println("Dead");
+        this.GUI.openLoginWindow();
         this.frameSignUp.dispose();
     }
 
@@ -112,20 +107,23 @@ public class SignUp extends JDialog {
         buttonCancel.setText("Cancel");
         panel1.add(buttonCancel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(5, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel2.setLayout(new GridLayoutManager(6, 1, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         textField1 = new JTextField();
         panel2.add(textField1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         passwordField1 = new JPasswordField();
         panel2.add(passwordField1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         passwordField2 = new JPasswordField();
-        panel2.add(passwordField2, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel2.add(passwordField2, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();
         label1.setText("Login");
         panel2.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Password");
         panel2.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label3 = new JLabel();
+        label3.setText("Retype password");
+        panel2.add(label3, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

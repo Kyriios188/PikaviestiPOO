@@ -31,22 +31,6 @@ public class TCPServerThread extends Thread {
 		this.session_list.remove(session);
 	}
 
-	// Local user wants to end the session
-	public void closeSession(Socket sock) {
-		int index = -1;
-		for (int i = 0; i < this.session_list.size(); i++) {
-			if (this.session_list.get(i).getSocket() == sock) {
-				index = i;
-				this.session_list.get(i).closeSession();
-			}
-		}
-		if (index == -1) {
-			System.out.println("ERROR : TRIED TO CLOSE SESSION NOT IN SESSION_LIST");
-			return;
-		}
-		this.session_list.remove(index);
-	}
-
 	public void stop_server() {
 		try {
 			// Close the server socket

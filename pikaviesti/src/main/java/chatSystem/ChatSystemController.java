@@ -133,9 +133,13 @@ public class ChatSystemController {
 	}
 
 	public void endSession(String target_username) {
+
+		if (target_username == null) {return;}
+
 		try {
+			this.GUI.setGUISelected(null);
 			int target_id = this.cs_model.getIdFromName(target_username);
-			this.com_sys.endTCPSession(this.com_sys.getSocketFromId(target_id));
+			this.com_sys.endTCPSession(target_id);
 		}
 		catch (Exception e) {
 			System.out.println("Failure in endSession.");
@@ -144,6 +148,8 @@ public class ChatSystemController {
 
     
     public void sendChatMessage(String target_username, String content) {
+		if (target_username == null) {return;}
+
     	try {
 			int target_id = this.cs_model.getIdFromName(target_username);
 			Message m = new Message(this.local_user.getId(), target_id, 0, content);

@@ -11,8 +11,6 @@ package chatSystem;
  */
 
 /* TODO list for back-end:
- * Ne pas créer d'erreur pour fermer
- * inscrire
  * demander autorisation recevoir image
  */
 
@@ -35,8 +33,6 @@ public class Starter {
 			ChatSystemGUI.showPopup("Impossible d'atteindre la base de données");
 			System.exit(-1);
 		}
-
-
 
 
 		ChatSystemGUI GUI = new ChatSystemGUI(con);

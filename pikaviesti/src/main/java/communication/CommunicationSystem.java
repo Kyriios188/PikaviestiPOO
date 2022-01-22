@@ -1,6 +1,7 @@
 package communication;
 
 import chatSystem.ChatSystemController;
+import chatSystem.ChatSystemGUI;
 import objects.Message;
 import objects.User;
 
@@ -33,12 +34,6 @@ public class CommunicationSystem {
 	// Socket is created in TCPServerThread.run()
 	// Has a handler to close the socket and stopServer() which doesn't work yet
     private final int TCP_RCV_PORT = 5071;
-
-	// Send messages after establishing connection
-	// Used in TCPConnect only
-	// Socket is created in TCPConnect called by startSession, startSession adds it to sender_sockets
-	// Has a handler to close the socket and TODO stopSession
-    private final int TCP_SND_PORT = 5070;
 
 	// Each session also has its own socket in the sender_sockets list
 
@@ -120,6 +115,8 @@ public class CommunicationSystem {
 
     public void receiveMessage(String raw_message, InetAddress src_addr, TCPSessionThread session) throws UnknownHostException {
 
+		if (raw_message == null) {return;}
+
     	Message m = parseMessage(raw_message);
 		String m_type = m.getMessageType(m.getMessageCode());
 		System.out.println("Received " + m_type);
@@ -171,7 +168,11 @@ public class CommunicationSystem {
 		case 5:
 			// We received warning that an image is coming
 			System.out.println("Received Image Warning");
-			session.receiveImage(m.getContent());
+			try {
+				session.receiveImage(m.getContent(), this.controller.getControllerNameFromId(m.getSrcId()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
     }
@@ -281,9 +282,18 @@ public class CommunicationSystem {
     	TCPMessage(raw_message, sock);
     }
 
-	public void endTCPSession(Socket sock) {
-		System.out.println("Le socket qu'on veut tuer : " + sock);
-		this.tcp_rcv_server.closeSession(sock);
+	// The local session is represented by the socket used to send messages
+	// By changing the selected user to null and close the socket, we effectively
+	// Remove the possibility to both send and see received messages, thus emulating
+	// Closing the TCP connection. However, the distant host still has a TCP connection
+	// with the local host in the form of their session object in their session_list.
+	public void endTCPSession(int target_id) {
+		try {
+			this.sender_sockets.get(target_id).close();
+			ChatSystemGUI.showPopup("La session a été fermée");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     
     public void TCPMessage(String raw_message, Socket sock) {

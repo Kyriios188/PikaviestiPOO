@@ -5,11 +5,13 @@ import windows.ChooseUsername;
 import windows.HistoryMessageUserList;
 import windows.SignUp;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ChatSystemGUI {
@@ -19,13 +21,12 @@ public class ChatSystemGUI {
 
     private SignUp SgnP;
     private HistoryMessageUserList HstrMssgSrLst;
-    private final Connection con;
 
     public ChatSystemGUI(Connection con) {
 
         // Launches the controller
         this.cs_controller = new ChatSystemController(this, con);
-        this.con = con;
+        this.SgnP = null;
 
     }
 
@@ -96,4 +97,9 @@ public class ChatSystemGUI {
     public void delGUIUser(String name) {HstrMssgSrLst.delUser(name);}
 
     public static void showPopup(String message) {showMessageDialog(null, message);}
+
+    public static boolean showConfirm(String question) {
+        int a = showConfirmDialog(null, question, "Confirmer", JOptionPane.YES_NO_OPTION);
+        return a == JOptionPane.YES_OPTION;
+    }
 }

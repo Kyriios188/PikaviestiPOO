@@ -1,6 +1,5 @@
 package communication;
 
-import chatSystem.ChatSystemController;
 import chatSystem.ChatSystemGUI;
 
 import javax.imageio.ImageIO;
@@ -14,7 +13,6 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 
 // TCPSessionThreads only wait for messages and receive them
@@ -44,7 +42,7 @@ public class TCPSessionThread extends Thread {
 	}
 
 	// Called after the receiveMessage, goes back to the loop once it's over
-	public void receiveImage(String img_name) {
+	public void receiveImage(String img_name, String distant_username) {
 
 		try {
 
@@ -77,9 +75,14 @@ public class TCPSessionThread extends Thread {
 			// Open the file
 			File file = new File(str_path + "\\" + img_name);
 			Desktop desktop = Desktop.getDesktop();
-			if(file.exists())
-				desktop.open(file);
-			} catch (IOException ex) {
+			if(file.exists()) {
+				boolean decision = ChatSystemGUI.showConfirm(distant_username+" vous a envoyé une image ("+str_path + "\\" + img_name+"). Souhaitez-vous l'ouvrir ?");
+				if (decision) {
+					desktop.open(file);
+				}
+			}
+
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
@@ -99,8 +102,10 @@ public class TCPSessionThread extends Thread {
 				// Wait for the message?
 				System.out.println("Waiting for message");
 				raw_message = input.readLine();
-				System.out.println("TCPSessionThread received message : " + raw_message);
-				this.com_sys.receiveMessage(raw_message, this.distant_addr, this);
+				if (!(raw_message == null)) {
+					System.out.println("TCPSessionThread received message : " + raw_message);
+					this.com_sys.receiveMessage(raw_message, this.distant_addr, this);
+				}
 
 
 			} catch (IOException e) {

@@ -134,10 +134,12 @@ public class HistoryMessageUserList extends JDialog {
         //userList.setCellRenderer(new UserListCellRenderer());
         String messageText = textField1.getText();
         System.out.println("Message sent : " + messageText);
-        this.controller.sendChatMessage(this.selected, messageText);
-        addFormattedMessage(messageText,
-                this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalDateTime.now()));
-        textField1.setText("");
+        if (!(this.selected == null)) {
+            this.controller.sendChatMessage(this.selected, messageText);
+            addFormattedMessage(messageText,
+                    this.controller.getLocalUser().getName(), Message.getFormattedTime(LocalDateTime.now()));
+            textField1.setText("");
+        }
     }
 
     private void onChangeUsername() {

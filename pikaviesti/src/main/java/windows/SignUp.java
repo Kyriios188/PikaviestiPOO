@@ -55,15 +55,26 @@ public class SignUp extends JDialog {
     }
 
     private void onOK() {
-        // CI-DESSOUS
-        int a = showConfirmDialog(null, "Test", "Question", JOptionPane.YES_NO_OPTION);
-        if (a == JOptionPane.YES_OPTION) {
-            System.out.println("Yes"); // add code here
-        } else {
-            System.out.println("No"); // add code here
+        String login = textField1.getText();
+        char[] psswrd_list = passwordField1.getPassword();
+
+        // Convert Array to string
+        StringBuilder stringb = new StringBuilder();
+        for (char c : psswrd_list) {
+            stringb.append(c);
         }
-        // CI-DESSUS
+        String psswrd = stringb.toString();
+
         this.frameSignUp.dispose();
+
+        if (this.GUI.createAccount(login, psswrd)) {
+            // Success
+            ChatSystemGUI.showPopup("Le compte a été créé");
+            GUI.openLoginWindow();
+        }
+        else {
+            this.GUI.openSignUpWindow();
+        }
     }
 
     private void onCancel() {

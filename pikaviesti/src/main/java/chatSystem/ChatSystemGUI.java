@@ -102,4 +102,7 @@ public class ChatSystemGUI {
         int a = showConfirmDialog(null, question, "Confirmer", JOptionPane.YES_NO_OPTION);
         return a == JOptionPane.YES_OPTION;
     }
+    public static void showErrorPopup(String message) {
+        showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

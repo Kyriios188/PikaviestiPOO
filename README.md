@@ -1,2 +1,14 @@
 # PikaviestiPOO
-Pikaviesti = clavardage en Finnois
+
+
+Groupe :
+
+Robin SIMON
+
+Jean VAN INGHELANDT
+
+
+
+Diagrammes :
+
+

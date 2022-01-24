@@ -18,7 +18,7 @@ Diagrammes de cas d'utilisations :
 Diagrammes de séquence :
 
 
-![Diagramme de séquence Clavardage](https://github.com/Kyriios188/PikaviestiPOO/blob/working/pikaviesti/Diagramme%20de%20s%C3%A9quence.png)
+![Diagramme de séquence Clavardage]()
 
 
 Diagramme de classe :

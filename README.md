@@ -1,27 +1,27 @@
-# PikaviestiPOO
+# Pikaviesti : système de clavardage décentralisé
 
 
-Groupe :
-
-Robin SIMON
-
-Jean VAN INGHELANDT
+## Description du projet
 
 
-
-Diagrammes de cas d'utilisations :
-
-
-![Diagramme de cas d'utilisation projetuml](https://github.com/Kyriios188/PikaviestiPOO/blob/working/pikaviesti/Diagramme%20de%20cas%20d'utilisation.png)
+* Pikaviesti (clavardage en finnois) est une application de clavardage décentralisée créée pour un fonctionnement dans un réseau local d'entreprise. Une fois connecté, un utilisateur peut discuter et envoyer des images à tous les autres utilisateurs en ligne. 
+* Le projet a été fait sous Java (17) afin de répondre aux exigences du projet d'étude dans lequel il s'inscrit. Une base de donnée centrale sous MySQL est nécessaire pour que l'application fonctionne.
+* Une description plus complète est trouvable dans le rapport du projet, document pdf situé à la racine du dépôt.
 
 
-Diagrammes de séquence :
+## Installer le projet
 
+  Se référer à la partie "Procédure d'installation et de déploiement" du rapport (pdf dans le dépôt).
+  
+## Utiliser le projet
 
-![Diagramme de séquence Clavardage](https://github.com/Kyriios188/PikaviestiPOO/blob/working/pikaviesti/Diagramme%20de%20s%C3%A9quence%20Pikaviesti.png)
+  Se référer à la partie "Manuel d'utilisation simplifié" du rappord (pdf dans le dépôt).
+  
+## Crédits
 
+Auteurs du projet : 
 
-Diagramme de classe :
+Robin SIMON (backend)
+Jean VAN INGHELANDT (frontend)
 
-
-![Diagramme de classe pikaviesti](https://github.com/Kyriios188/PikaviestiPOO/blob/working/pikaviesti/PikaviestiUML.png)
+Nous remercions aussi les intervenants qui nous ont guidé, que ce soit sur la partie UML ou développement.

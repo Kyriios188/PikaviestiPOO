@@ -9,11 +9,11 @@
 * Une description plus complète est trouvable dans le rapport du projet, document pdf situé à la racine du dépôt.
 
 
-## Installer le projet
+## Installation
 
   Se référer à la partie "Procédure d'installation et de déploiement" du rapport (pdf dans le dépôt).
   
-## Utiliser le projet
+## Guide d'utilisation
 
   Se référer à la partie "Manuel d'utilisation simplifié" du rappord (pdf dans le dépôt).
   
